@@ -11,6 +11,9 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { Header } from "../components/site/Header";
+import { Footer } from "../components/site/Footer";
+import { BackToTop, MobileStickyCTA, ScrollProgress, WhatsAppButton } from "../components/site/Floaters";
 
 function NotFoundComponent() {
   return (
@@ -118,8 +121,16 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <ScrollProgress />
+      <Header />
+      <main className="min-h-screen">
+        <Outlet />
+      </main>
+      <Footer />
+      <BackToTop />
+      <WhatsAppButton />
+      <MobileStickyCTA />
+      <div className="h-16 lg:hidden" />
     </QueryClientProvider>
   );
 }
