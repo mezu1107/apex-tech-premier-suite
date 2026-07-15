@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, type ElementType, type ReactNode } from "react";
 
 type Variant = "up" | "left" | "right" | "zoom";
 
@@ -13,7 +13,7 @@ export function Reveal({
   variant?: Variant;
   delay?: number;
   className?: string;
-  as?: keyof JSX.IntrinsicElements;
+  as?: ElementType;
 }) {
   const ref = useRef<HTMLElement | null>(null);
 
@@ -45,6 +45,5 @@ export function Reveal({
           ? "reveal-zoom"
           : "reveal";
 
-  // @ts-expect-error dynamic tag
-  return <Tag ref={ref} className={`${cls} ${className}`}>{children}</Tag>;
+  return <Tag ref={ref as never} className={`${cls} ${className}`}>{children}</Tag>;
 }
