@@ -14,6 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header } from "../components/site/Header";
 import { Footer } from "../components/site/Footer";
 import { BackToTop, MobileStickyCTA, ScrollProgress, WhatsAppButton } from "../components/site/Floaters";
+import { AIChatbot } from "../components/site/AIChatbot";
 
 function NotFoundComponent() {
   return (
@@ -133,6 +134,7 @@ function RootComponent() {
       <Footer />
       <BackToTop />
       <WhatsAppButton />
+      <AIChatbot />
       <MobileStickyCTA />
       <div className="h-16 lg:hidden" />
     </QueryClientProvider>

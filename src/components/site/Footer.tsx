@@ -78,7 +78,11 @@ export function Footer() {
 
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-white/50 sm:flex-row">
           <p>© {new Date().getFullYear()} Adphira LLC. All rights reserved.</p>
-          <p>Innovate · Build · Elevate · <Link to="/privacy" className="hover:text-copper">Privacy</Link> · <Link to="/terms" className="hover:text-copper">Terms</Link></p>
+          <p className="text-center">
+            Designed & Developed by{" "}
+            <span className="font-display font-bold text-copper">AM Enterprises</span>
+          </p>
+          <p>Innovate · Build · Elevate</p>
         </div>
       </div>
     </footer>
