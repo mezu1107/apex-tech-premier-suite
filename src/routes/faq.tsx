@@ -7,9 +7,9 @@ import { Reveal } from "@/components/site/Reveal";
 export const Route = createFileRoute("/faq")({
   head: () => ({
     meta: [
-      { title: "FAQ — Apex Technologies" },
-      { name: "description", content: "Answers to common questions about working with Apex." },
-      { property: "og:title", content: "FAQ — Apex Technologies" },
+      { title: "FAQ — Adphira LLC" },
+      { name: "description", content: "Answers to common questions about working with Adphira." },
+      { property: "og:title", content: "FAQ — Adphira LLC" },
       { property: "og:url", content: "/faq" },
     ],
     links: [{ rel: "canonical", href: "/faq" }],
@@ -79,7 +79,7 @@ function FAQPage() {
                 >
                   <div className="flex items-center justify-between gap-4 p-5">
                     <span className="font-display font-bold text-espresso">{f.q}</span>
-                    <Plus className={`h-5 w-5 shrink-0 text-copper transition ${open === i ? "rotate-45" : ""}`} />
+                    <Plus className={`h-5 w-5 shrink-0 text-cocoa transition ${open === i ? "rotate-45" : ""}`} />
                   </div>
                   <div className={`grid transition-all duration-500 ${open === i ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
                     <div className="overflow-hidden">

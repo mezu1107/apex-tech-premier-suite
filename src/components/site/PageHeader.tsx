@@ -20,14 +20,14 @@ export function PageHeader({
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <Reveal>
           <nav className="flex items-center gap-2 text-xs uppercase tracking-widest text-foreground/50">
-            <Link to="/" className="hover:text-copper">Home</Link>
+            <Link to="/" className="hover:text-cocoa">Home</Link>
             <ChevronRight className="h-3 w-3" />
             <span className="text-espresso">{breadcrumb ?? title}</span>
           </nav>
         </Reveal>
         <Reveal delay={80}>
           {eyebrow && (
-            <p className="mt-6 text-xs font-semibold uppercase tracking-[0.3em] text-copper">
+            <p className="mt-6 text-xs font-semibold uppercase tracking-[0.3em] text-cocoa">
               {eyebrow}
             </p>
           )}

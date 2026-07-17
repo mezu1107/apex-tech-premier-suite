@@ -7,9 +7,9 @@ import { Reveal } from "@/components/site/Reveal";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Apex Technologies" },
+      { title: "Contact — Adphira LLC" },
       { name: "description", content: "Book a free consultation or send us a message." },
-      { property: "og:title", content: "Contact — Apex Technologies" },
+      { property: "og:title", content: "Contact — Adphira LLC" },
       { property: "og:url", content: "/contact" },
     ],
     links: [{ rel: "canonical", href: "/contact" }],
@@ -39,11 +39,11 @@ function ContactPage() {
                 {[
                   { icon: MapPin, label: "Head office", value: "42 Innovation Blvd, London, UK" },
                   { icon: Phone, label: "Phone", value: "+44 20 7946 0000" },
-                  { icon: Mail, label: "Email", value: "hello@apex.tech" },
+                  { icon: Mail, label: "Email", value: "hello@adphira.com" },
                   { icon: Clock, label: "Business hours", value: "Mon–Fri · 9:00 – 18:00 GMT" },
                 ].map((i) => (
                   <li key={i.label} className="flex items-start gap-3">
-                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-copper/15 text-copper">
+                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-copper/15 text-cocoa">
                       <i.icon className="h-4 w-4" />
                     </span>
                     <div>
@@ -55,7 +55,7 @@ function ContactPage() {
               </ul>
               <div className="mt-8 overflow-hidden rounded-2xl border border-border">
                 <iframe
-                  title="Apex Technologies office"
+                  title="Adphira LLC office"
                   src="https://www.openstreetmap.org/export/embed.html?bbox=-0.146%2C51.505%2C-0.116%2C51.520&layer=mapnik"
                   className="h-56 w-full"
                   loading="lazy"
@@ -108,7 +108,7 @@ function ContactPage() {
 
               {sent && (
                 <div className="slide-in mt-6 flex items-center gap-3 rounded-2xl border border-copper/40 bg-copper/10 p-4 text-sm text-espresso">
-                  <CheckCircle2 className="h-5 w-5 text-copper" />
+                  <CheckCircle2 className="h-5 w-5 text-cocoa" />
                   Thanks! We've received your message and will reply within one business day.
                 </div>
               )}

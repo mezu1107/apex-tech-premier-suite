@@ -10,9 +10,9 @@ import bannerImg from "@/assets/banner-tech.jpg";
 export const Route = createFileRoute("/blog")({
   head: () => ({
     meta: [
-      { title: "Blog — Apex Technologies" },
+      { title: "Blog — Adphira LLC" },
       { name: "description", content: "Insights on software, AI, product and design." },
-      { property: "og:title", content: "Blog — Apex Technologies" },
+      { property: "og:title", content: "Blog — Adphira LLC" },
       { property: "og:url", content: "/blog" },
     ],
     links: [{ rel: "canonical", href: "/blog" }],
@@ -83,7 +83,7 @@ function BlogPage() {
                     </div>
                     <h3 className="mt-4 font-display text-lg font-bold text-espresso">{p.title}</h3>
                     <p className="mt-2 flex-1 text-sm text-foreground/70">{p.excerpt}</p>
-                    <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-copper">
+                    <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-cocoa">
                       Read more <ArrowRight className="h-4 w-4" />
                     </span>
                   </div>

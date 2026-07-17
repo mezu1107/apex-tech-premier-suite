@@ -6,7 +6,7 @@
 
 @theme inline {
   --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", "Manrope", ui-sans-serif, system-ui, sans-serif;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -35,44 +35,53 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
+  /* Legacy token names, remapped to Adphira brand palette so existing
+     classes (bg-cream, text-espresso, bg-copper, text-cocoa, bg-sand)
+     inherit the new theme site-wide. */
   --color-cream: var(--cream);
   --color-sand: var(--sand);
   --color-espresso: var(--espresso);
   --color-copper: var(--copper);
   --color-cocoa: var(--cocoa);
 
-  --shadow-luxury: 0 30px 60px -20px rgba(75, 46, 31, 0.25);
-  --shadow-soft: 0 10px 30px -12px rgba(75, 46, 31, 0.18);
+  --shadow-luxury: 0 30px 60px -20px rgba(10, 75, 79, 0.18);
+  --shadow-soft: 0 10px 30px -12px rgba(10, 75, 79, 0.12);
 }
 
 :root {
   --radius: 1rem;
 
-  --cream: #f6eee6;
-  --sand: #eadbc8;
-  --espresso: #4b2e1f;
-  --copper: #a97142;
-  --cocoa: #5b3623;
+  /* Adphira brand palette
+     cream   = white background
+     sand    = subtle light background
+     espresso= dark teal (headings / dark text on light)
+     cocoa   = primary teal (primary buttons / dark surfaces)
+     copper  = lime accent (highlights, small accents) */
+  --cream: #ffffff;
+  --sand: #f0f7f5;
+  --espresso: #06363a;
+  --cocoa: #0a4b4f;
+  --copper: #b9e52e;
 
-  --background: #f6eee6;
-  --foreground: #2c2c2c;
-  --card: #fdfaf5;
-  --card-foreground: #2c2c2c;
-  --popover: #fdfaf5;
-  --popover-foreground: #2c2c2c;
-  --primary: #5b3623;
-  --primary-foreground: #f6eee6;
-  --secondary: #eadbc8;
-  --secondary-foreground: #4b2e1f;
-  --muted: #eadbc8;
-  --muted-foreground: #6b5748;
-  --accent: #a97142;
-  --accent-foreground: #f6eee6;
-  --destructive: #b3402a;
-  --destructive-foreground: #f6eee6;
-  --border: #e6d7c3;
-  --input: #e6d7c3;
-  --ring: #a97142;
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --primary: #0a4b4f;
+  --primary-foreground: #ffffff;
+  --secondary: #f9fbfb;
+  --secondary-foreground: #06363a;
+  --muted: #f9fbfb;
+  --muted-foreground: #5b6470;
+  --accent: #b9e52e;
+  --accent-foreground: #06363a;
+  --destructive: #d64545;
+  --destructive-foreground: #ffffff;
+  --border: #e7ecec;
+  --input: #e7ecec;
+  --ring: #0a4b4f;
 }
 
 @layer base {
@@ -127,13 +136,13 @@
     position: fixed;
     top: 0; left: 0;
     height: 3px;
-    background: linear-gradient(90deg, var(--copper), var(--espresso));
+    background: linear-gradient(90deg, var(--copper), var(--cocoa));
     z-index: 100;
     transition: width 0.1s linear;
   }
   @keyframes softPulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(169, 113, 66, 0.55); }
-    50% { box-shadow: 0 0 0 14px rgba(169, 113, 66, 0); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(185, 229, 46, 0.55); }
+    50% { box-shadow: 0 0 0 14px rgba(185, 229, 46, 0); }
   }
   .pulse-ring { animation: softPulse 2s infinite; }
   @keyframes marquee {
@@ -147,4 +156,16 @@
   }
   .slide-in { animation: slideInUp 0.5s ease-out; }
   .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
+
+  /* Premium glass surface — used by nav + hero cards */
+  .glass {
+    background: color-mix(in oklab, #ffffff 78%, transparent);
+    backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid color-mix(in oklab, #0a4b4f 8%, transparent);
+  }
+  .glass-dark {
+    background: color-mix(in oklab, #06363a 82%, transparent);
+    backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid color-mix(in oklab, #b9e52e 20%, transparent);
+  }
 }
