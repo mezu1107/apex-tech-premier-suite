@@ -15,13 +15,14 @@ import {
   Check,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import heroImg from "@/assets/hero-tech.png";
 import whyImg from "@/assets/why-choose.png";
 import bannerImg from "@/assets/banner-tech.jpg";
 import avatar1 from "@/assets/avatar1.jpg";
 import avatar2 from "@/assets/avatar2.jpg";
 import avatar3 from "@/assets/avatar3.jpg";
 import { Reveal } from "@/components/site/Reveal";
+import { HeroSlider } from "@/components/site/HeroSlider";
+import { FeaturesGrid } from "@/components/site/FeaturesGrid";
 
 export const Route = createFileRoute("/")({
   head: () => ({
