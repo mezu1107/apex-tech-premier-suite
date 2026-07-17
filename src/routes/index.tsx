@@ -141,70 +141,11 @@ function LiveActivity() {
 function LandingPage() {
   return (
     <div className="bg-background text-foreground">
-      {/* HERO */}
-      <section className="relative overflow-hidden pt-32 pb-20 lg:pt-40 lg:pb-28">
-        <div className="pointer-events-none absolute -right-40 top-20 h-[520px] w-[520px] rounded-full bg-sand/60 blur-3xl" />
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2 lg:gap-16 lg:px-10">
-          <div>
-            <Reveal>
-              <span className="inline-flex items-center gap-2 rounded-full border border-border bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-cocoa backdrop-blur">
-                <span className="h-1.5 w-1.5 rounded-full bg-copper" /> Innovate · Build · Elevate
-              </span>
-            </Reveal>
-            <Reveal delay={100}>
-              <h1 className="mt-6 font-display text-4xl font-extrabold leading-[1.05] text-espresso sm:text-6xl lg:text-7xl">
-                Empowering Businesses Through <span className="text-cocoa">Technology &amp;</span> <span className="relative inline-block bg-copper/90 px-3 py-1 rounded-2xl text-espresso">Digital Innovation</span>
-              </h1>
-            </Reveal>
-            <Reveal delay={200}>
-              <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/70 sm:text-lg">
-                We build scalable websites, powerful mobile apps, AI solutions and cloud platforms that accelerate your business growth.
-              </p>
-            </Reveal>
-            <Reveal delay={300}>
-              <div className="mt-10 flex flex-wrap items-center gap-4">
-                <Link to="/contact" className="inline-flex items-center gap-2 rounded-full bg-cocoa px-7 py-4 text-sm font-semibold text-cream shadow-luxury transition hover:bg-espresso">
-                  Get Started <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link to="/services" className="inline-flex items-center gap-2 rounded-full border border-espresso/20 bg-card px-7 py-4 text-sm font-semibold text-espresso transition hover:border-copper hover:text-cocoa">
-                  Our Services
-                </Link>
-              </div>
-            </Reveal>
-            <Reveal delay={400}>
-              <div className="mt-12 flex items-center gap-8">
-                <div>
-                  <p className="font-display text-3xl font-bold text-espresso">250+</p>
-                  <p className="text-xs uppercase tracking-widest text-foreground/60">Projects Shipped</p>
-                </div>
-                <div className="h-10 w-px bg-espresso/15" />
-                <div>
-                  <p className="font-display text-3xl font-bold text-espresso">98%</p>
-                  <p className="text-xs uppercase tracking-widest text-foreground/60">Client Retention</p>
-                </div>
-              </div>
-            </Reveal>
-          </div>
+      {/* HERO SLIDER */}
+      <HeroSlider />
 
-          <Reveal variant="zoom" delay={200}>
-            <div className="relative">
-              <div className="absolute inset-0 -z-10 rounded-[3rem] bg-gradient-to-br from-sand via-cream to-sand/60" />
-              <div className="rounded-[3rem] p-6 lg:p-10">
-                <img src={heroImg} alt="Adphira LLC digital workspace" width={1024} height={1024} className="mx-auto w-full max-w-lg drop-shadow-2xl" />
-              </div>
-              <div className="absolute -left-2 bottom-6 flex items-center gap-3 rounded-2xl bg-card/90 p-3 shadow-soft backdrop-blur sm:-left-6 sm:bottom-10 sm:p-4">
-                <div className="grid h-10 w-10 place-items-center rounded-xl bg-copper/15 text-cocoa">
-                  <Sparkles className="h-5 w-5" />
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest text-foreground/60">AI Ready</p>
-                  <p className="font-display text-sm font-semibold text-espresso">Deploy in days</p>
-                </div>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      {/* 30+ FEATURES */}
+      <FeaturesGrid />
 
       {/* TRUSTED */}
       <section className="border-y border-border/60 bg-cream/60 py-10">
