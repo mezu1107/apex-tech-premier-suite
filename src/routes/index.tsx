@@ -29,8 +29,8 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: "Adphira LLC — Empowering Businesses Through Smart Technology" },
       { name: "description", content: "Premium software, mobile, AI and cloud solutions that accelerate business growth." },
-      { property: "og:title", content: "Adphira LLC — Smart Software, Elegant Results" },
-      { property: "og:description", content: "Premium software, mobile, AI and cloud solutions." },
+      { property: "og:title", content: "Adphira LLC — Empowering Businesses Through Smart Technology" },
+      { property: "og:description", content: "Premium software, mobile, AI and cloud solutions that accelerate business growth." },
       { property: "og:url", content: "/" },
     ],
     links: [{ rel: "canonical", href: "/" }],
