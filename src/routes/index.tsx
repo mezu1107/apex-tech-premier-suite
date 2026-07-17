@@ -146,13 +146,13 @@ function LandingPage() {
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2 lg:gap-16 lg:px-10">
           <div>
             <Reveal>
-              <span className="inline-flex items-center gap-2 rounded-full border border-espresso/15 bg-card/70 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-espresso backdrop-blur">
-                <span className="h-1.5 w-1.5 rounded-full bg-copper" /> Software · AI · Cloud
+              <span className="inline-flex items-center gap-2 rounded-full border border-border bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-cocoa backdrop-blur">
+                <span className="h-1.5 w-1.5 rounded-full bg-copper" /> Innovate · Build · Elevate
               </span>
             </Reveal>
             <Reveal delay={100}>
               <h1 className="mt-6 font-display text-4xl font-extrabold leading-[1.05] text-espresso sm:text-6xl lg:text-7xl">
-                Empowering Businesses Through <span className="italic text-cocoa">Smart</span> Technology
+                Empowering Businesses Through <span className="text-cocoa">Technology &amp;</span> <span className="relative inline-block bg-copper/90 px-3 py-1 rounded-2xl text-espresso">Digital Innovation</span>
               </h1>
             </Reveal>
             <Reveal delay={200}>
