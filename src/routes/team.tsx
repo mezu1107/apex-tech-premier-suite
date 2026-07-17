@@ -9,9 +9,9 @@ import a3 from "@/assets/avatar3.jpg";
 export const Route = createFileRoute("/team")({
   head: () => ({
     meta: [
-      { title: "Our Team — Apex Technologies" },
-      { name: "description", content: "Meet the engineers, designers and strategists behind Apex Technologies." },
-      { property: "og:title", content: "Our Team — Apex Technologies" },
+      { title: "Our Team — Adphira LLC" },
+      { name: "description", content: "Meet the engineers, designers and strategists behind Adphira LLC." },
+      { property: "og:title", content: "Our Team — Adphira LLC" },
       { property: "og:url", content: "/team" },
     ],
     links: [{ rel: "canonical", href: "/team" }],

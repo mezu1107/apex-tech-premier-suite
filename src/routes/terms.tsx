@@ -5,7 +5,7 @@ import { Reveal } from "@/components/site/Reveal";
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Terms & Conditions — Apex Technologies" },
+      { title: "Terms & Conditions — Adphira LLC" },
       { name: "description", content: "The terms that govern the use of our website and services." },
       { property: "og:url", content: "/terms" },
     ],
@@ -25,10 +25,10 @@ function TermsPage() {
               {[
                 { h: "Acceptance", p: "By accessing this website, you agree to these terms. If you do not agree, please discontinue use of the site." },
                 { h: "Use of services", p: "Our services are provided under the master services agreement signed with each client. This site is informational." },
-                { h: "Intellectual property", p: "All content on this site is owned by Apex Technologies unless otherwise stated. Reproduction requires written permission." },
-                { h: "Liability", p: "Apex Technologies is not liable for indirect or consequential damages arising from use of this website." },
+                { h: "Intellectual property", p: "All content on this site is owned by Adphira LLC unless otherwise stated. Reproduction requires written permission." },
+                { h: "Liability", p: "Adphira LLC is not liable for indirect or consequential damages arising from use of this website." },
                 { h: "Governing law", p: "These terms are governed by the laws of England and Wales." },
-                { h: "Contact", p: "Questions about these terms can be sent to legal@apex.tech." },
+                { h: "Contact", p: "Questions about these terms can be sent to legal@adphira.com." },
               ].map((s) => (
                 <div key={s.h}>
                   <h2 className="font-display text-2xl font-bold text-espresso">{s.h}</h2>

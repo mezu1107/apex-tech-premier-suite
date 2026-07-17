@@ -5,8 +5,8 @@ import { Reveal } from "@/components/site/Reveal";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Privacy Policy — Apex Technologies" },
-      { name: "description", content: "How Apex Technologies collects, uses and protects your data." },
+      { title: "Privacy Policy — Adphira LLC" },
+      { name: "description", content: "How Adphira LLC collects, uses and protects your data." },
       { property: "og:url", content: "/privacy" },
     ],
     links: [{ rel: "canonical", href: "/privacy" }],
@@ -23,12 +23,12 @@ function PrivacyPage() {
           <Reveal>
             <article className="prose-luxury space-y-6 text-foreground/80">
               {[
-                { h: "Overview", p: "Apex Technologies respects your privacy. This policy explains what we collect, why we collect it, and how we handle your data." },
+                { h: "Overview", p: "Adphira LLC respects your privacy. This policy explains what we collect, why we collect it, and how we handle your data." },
                 { h: "Information we collect", p: "Contact information you submit via forms, technical data such as IP address and browser type, and cookies to improve your experience." },
                 { h: "How we use it", p: "To respond to enquiries, deliver services, and improve our website. We never sell your personal data." },
                 { h: "Data retention", p: "We retain data only for as long as necessary to provide services or as required by law." },
-                { h: "Your rights", p: "You may request access, correction or deletion of your personal data at any time by emailing privacy@apex.tech." },
-                { h: "Contact", p: "Questions? Reach us at privacy@apex.tech or write to 42 Innovation Blvd, London, UK." },
+                { h: "Your rights", p: "You may request access, correction or deletion of your personal data at any time by emailing privacy@adphira.com." },
+                { h: "Contact", p: "Questions? Reach us at privacy@adphira.com or write to 42 Innovation Blvd, London, UK." },
               ].map((s) => (
                 <div key={s.h}>
                   <h2 className="font-display text-2xl font-bold text-espresso">{s.h}</h2>

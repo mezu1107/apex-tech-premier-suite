@@ -7,9 +7,9 @@ import { Reveal } from "@/components/site/Reveal";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Apex Technologies" },
+      { title: "Contact — Adphira LLC" },
       { name: "description", content: "Book a free consultation or send us a message." },
-      { property: "og:title", content: "Contact — Apex Technologies" },
+      { property: "og:title", content: "Contact — Adphira LLC" },
       { property: "og:url", content: "/contact" },
     ],
     links: [{ rel: "canonical", href: "/contact" }],
@@ -39,7 +39,7 @@ function ContactPage() {
                 {[
                   { icon: MapPin, label: "Head office", value: "42 Innovation Blvd, London, UK" },
                   { icon: Phone, label: "Phone", value: "+44 20 7946 0000" },
-                  { icon: Mail, label: "Email", value: "hello@apex.tech" },
+                  { icon: Mail, label: "Email", value: "hello@adphira.com" },
                   { icon: Clock, label: "Business hours", value: "Mon–Fri · 9:00 – 18:00 GMT" },
                 ].map((i) => (
                   <li key={i.label} className="flex items-start gap-3">
@@ -55,7 +55,7 @@ function ContactPage() {
               </ul>
               <div className="mt-8 overflow-hidden rounded-2xl border border-border">
                 <iframe
-                  title="Apex Technologies office"
+                  title="Adphira LLC office"
                   src="https://www.openstreetmap.org/export/embed.html?bbox=-0.146%2C51.505%2C-0.116%2C51.520&layer=mapnik"
                   className="h-56 w-full"
                   loading="lazy"

@@ -10,9 +10,9 @@ import bannerImg from "@/assets/banner-tech.jpg";
 export const Route = createFileRoute("/blog")({
   head: () => ({
     meta: [
-      { title: "Blog — Apex Technologies" },
+      { title: "Blog — Adphira LLC" },
       { name: "description", content: "Insights on software, AI, product and design." },
-      { property: "og:title", content: "Blog — Apex Technologies" },
+      { property: "og:title", content: "Blog — Adphira LLC" },
       { property: "og:url", content: "/blog" },
     ],
     links: [{ rel: "canonical", href: "/blog" }],

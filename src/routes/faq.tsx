@@ -7,9 +7,9 @@ import { Reveal } from "@/components/site/Reveal";
 export const Route = createFileRoute("/faq")({
   head: () => ({
     meta: [
-      { title: "FAQ — Apex Technologies" },
+      { title: "FAQ — Adphira LLC" },
       { name: "description", content: "Answers to common questions about working with Apex." },
-      { property: "og:title", content: "FAQ — Apex Technologies" },
+      { property: "og:title", content: "FAQ — Adphira LLC" },
       { property: "og:url", content: "/faq" },
     ],
     links: [{ rel: "canonical", href: "/faq" }],

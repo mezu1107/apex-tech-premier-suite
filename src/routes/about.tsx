@@ -8,9 +8,9 @@ import avatar1 from "@/assets/avatar1.jpg";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About — Apex Technologies" },
-      { name: "description", content: "The story, mission and values behind Apex Technologies." },
-      { property: "og:title", content: "About — Apex Technologies" },
+      { title: "About — Adphira LLC" },
+      { name: "description", content: "The story, mission and values behind Adphira LLC." },
+      { property: "og:title", content: "About — Adphira LLC" },
       { property: "og:url", content: "/about" },
     ],
     links: [{ rel: "canonical", href: "/about" }],
@@ -38,7 +38,7 @@ function AboutPage() {
       <PageHeader
         eyebrow="About us"
         title="A boutique studio, engineered for scale."
-        description="Apex Technologies is a team of senior engineers, designers and strategists building premium software for the world's most ambitious brands."
+        description="Adphira LLC is a team of senior engineers, designers and strategists building premium software for the world's most ambitious brands."
       />
 
       <section className="py-16 lg:py-20">
@@ -117,7 +117,7 @@ function AboutPage() {
                     "Great software is a form of respect — for users, for teams, for the future. That's the standard we bring to every engagement."
                   </blockquote>
                   <p className="mt-6 font-display text-lg font-bold">Amelia Carter</p>
-                  <p className="text-sm text-cream/70">Founder & CEO, Apex Technologies</p>
+                  <p className="text-sm text-cream/70">Founder & CEO, Adphira LLC</p>
                 </div>
               </div>
             </div>

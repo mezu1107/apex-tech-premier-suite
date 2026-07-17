@@ -10,9 +10,9 @@ import whyImg from "@/assets/why-choose.png";
 export const Route = createFileRoute("/portfolio")({
   head: () => ({
     meta: [
-      { title: "Portfolio — Apex Technologies" },
+      { title: "Portfolio — Adphira LLC" },
       { name: "description", content: "Selected work: websites, mobile apps, AI and enterprise platforms." },
-      { property: "og:title", content: "Portfolio — Apex Technologies" },
+      { property: "og:title", content: "Portfolio — Adphira LLC" },
       { property: "og:url", content: "/portfolio" },
     ],
     links: [{ rel: "canonical", href: "/portfolio" }],

@@ -26,9 +26,9 @@ import { Reveal } from "@/components/site/Reveal";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Apex Technologies — Empowering Businesses Through Smart Technology" },
+      { title: "Adphira LLC — Empowering Businesses Through Smart Technology" },
       { name: "description", content: "Premium software, mobile, AI and cloud solutions that accelerate business growth." },
-      { property: "og:title", content: "Apex Technologies — Smart Software, Elegant Results" },
+      { property: "og:title", content: "Adphira LLC — Smart Software, Elegant Results" },
       { property: "og:description", content: "Premium software, mobile, AI and cloud solutions." },
       { property: "og:url", content: "/" },
     ],
@@ -189,7 +189,7 @@ function LandingPage() {
             <div className="relative">
               <div className="absolute inset-0 -z-10 rounded-[3rem] bg-gradient-to-br from-sand via-cream to-sand/60" />
               <div className="rounded-[3rem] p-6 lg:p-10">
-                <img src={heroImg} alt="Apex Technologies digital workspace" width={1024} height={1024} className="mx-auto w-full max-w-lg drop-shadow-2xl" />
+                <img src={heroImg} alt="Adphira LLC digital workspace" width={1024} height={1024} className="mx-auto w-full max-w-lg drop-shadow-2xl" />
               </div>
               <div className="absolute -left-2 bottom-6 flex items-center gap-3 rounded-2xl bg-card/90 p-3 shadow-soft backdrop-blur sm:-left-6 sm:bottom-10 sm:p-4">
                 <div className="grid h-10 w-10 place-items-center rounded-xl bg-copper/15 text-copper">
@@ -259,7 +259,7 @@ function LandingPage() {
                 <div className="p-8 sm:p-12 lg:p-16">
                   <p className="text-xs font-semibold uppercase tracking-[0.3em] text-copper">Why Choose Us</p>
                   <h2 className="mt-4 font-display text-3xl font-bold leading-tight sm:text-5xl">
-                    Why Choose <span className="italic text-copper">Apex Technologies</span>
+                    Why Choose <span className="italic text-copper">Adphira LLC</span>
                   </h2>
                   <p className="mt-5 text-cream/70">A boutique team of engineers, designers and strategists delivering enterprise-grade results with a hand-crafted touch.</p>
                   <ul className="mt-8 space-y-4">
