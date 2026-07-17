@@ -257,15 +257,15 @@ function LandingPage() {
             <div className="overflow-hidden rounded-[2rem] bg-espresso text-cream shadow-luxury lg:rounded-[2.5rem]">
               <div className="grid gap-0 lg:grid-cols-2">
                 <div className="p-8 sm:p-12 lg:p-16">
-                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cocoa">Why Choose Us</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-copper">Why Choose Us</p>
                   <h2 className="mt-4 font-display text-3xl font-bold leading-tight sm:text-5xl">
-                    Why Choose <span className="italic text-cocoa">Adphira LLC</span>
+                    Why Choose <span className="text-copper">Adphira LLC</span>
                   </h2>
                   <p className="mt-5 text-cream/70">A boutique team of engineers, designers and strategists delivering enterprise-grade results with a hand-crafted touch.</p>
                   <ul className="mt-8 space-y-4">
                     {["Modern, future-proof solutions", "Senior, experienced developers", "Rapid, on-time delivery", "24/7 dedicated support"].map((f) => (
                       <li key={f} className="flex items-center gap-3">
-                        <span className="grid h-8 w-8 place-items-center rounded-full bg-copper/20 text-cocoa">
+                        <span className="grid h-8 w-8 place-items-center rounded-full bg-copper/20 text-copper">
                           <Check className="h-4 w-4" />
                         </span>
                         <span className="text-cream/90">{f}</span>
