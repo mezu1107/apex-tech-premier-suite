@@ -49,7 +49,7 @@ function AboutPage() {
             </div>
           </Reveal>
           <Reveal variant="right">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-copper">Our story</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cocoa">Our story</p>
             <h2 className="mt-3 font-display text-3xl font-bold text-espresso sm:text-4xl">Craftsmanship meets code.</h2>
             <p className="mt-5 leading-relaxed text-foreground/70">
               We started Adphira in 2013 with a simple idea: software should feel as considered as the products people love. Thirteen years later, we've shipped 250+ products for founders, fortune-500s and everything in between.
@@ -67,7 +67,7 @@ function AboutPage() {
             {values.map(({ icon: Icon, title, desc }, i) => (
               <Reveal key={title} delay={i * 100}>
                 <div className="h-full rounded-3xl border border-border bg-card p-8 shadow-soft transition hover:-translate-y-1 hover:shadow-luxury">
-                  <div className="grid h-14 w-14 place-items-center rounded-2xl bg-copper/15 text-copper">
+                  <div className="grid h-14 w-14 place-items-center rounded-2xl bg-copper/15 text-cocoa">
                     <Icon className="h-6 w-6" />
                   </div>
                   <h3 className="mt-5 font-display text-xl font-bold text-espresso">{title}</h3>
@@ -82,7 +82,7 @@ function AboutPage() {
       <section className="py-16 lg:py-24">
         <div className="mx-auto max-w-5xl px-6 lg:px-10">
           <div className="text-center">
-            <Reveal><p className="text-xs font-semibold uppercase tracking-[0.3em] text-copper">Our Journey</p></Reveal>
+            <Reveal><p className="text-xs font-semibold uppercase tracking-[0.3em] text-cocoa">Our Journey</p></Reveal>
             <Reveal delay={100}><h2 className="mt-3 font-display text-3xl font-bold text-espresso sm:text-5xl">A decade of premium software</h2></Reveal>
           </div>
           <div className="relative mt-14 space-y-8 before:absolute before:left-4 before:top-0 before:h-full before:w-px before:bg-copper/30 sm:before:left-1/2">
@@ -91,7 +91,7 @@ function AboutPage() {
                 <div className={`relative flex flex-col gap-4 sm:flex-row ${i % 2 ? "sm:flex-row-reverse" : ""}`}>
                   <div className="sm:w-1/2 sm:px-6">
                     <div className="rounded-3xl border border-border bg-card p-6 shadow-soft">
-                      <p className="text-xs font-semibold uppercase tracking-widest text-copper">{t.year}</p>
+                      <p className="text-xs font-semibold uppercase tracking-widest text-cocoa">{t.year}</p>
                       <h3 className="mt-2 font-display text-xl font-bold text-espresso">{t.title}</h3>
                       <p className="mt-2 text-sm text-foreground/70">{t.desc}</p>
                     </div>
@@ -112,7 +112,7 @@ function AboutPage() {
               <div className="grid items-center gap-10 lg:grid-cols-[auto_1fr]">
                 <img src={avatar1} alt="CEO" className="h-32 w-32 rounded-full object-cover ring-4 ring-copper/40" />
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-copper">CEO Message</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cocoa">CEO Message</p>
                   <blockquote className="mt-4 font-display text-2xl leading-snug text-cream sm:text-3xl">
                     "Great software is a form of respect — for users, for teams, for the future. That's the standard we bring to every engagement."
                   </blockquote>
@@ -136,7 +136,7 @@ function AboutPage() {
             ].map((a, i) => (
               <Reveal key={a.label} delay={i * 80}>
                 <div className="flex items-center gap-4 rounded-3xl border border-border bg-card p-6 shadow-soft">
-                  <span className="grid h-12 w-12 place-items-center rounded-2xl bg-sand text-copper">
+                  <span className="grid h-12 w-12 place-items-center rounded-2xl bg-sand text-cocoa">
                     <a.icon className="h-5 w-5" />
                   </span>
                   <p className="font-display font-bold text-espresso">{a.label}</p>

@@ -62,7 +62,7 @@ function PricingPage() {
                       Most popular
                     </span>
                   )}
-                  <p className={`text-xs font-semibold uppercase tracking-widest ${p.featured ? "text-copper" : "text-copper"}`}>{p.name}</p>
+                  <p className={`text-xs font-semibold uppercase tracking-widest ${p.featured ? "text-cocoa" : "text-cocoa"}`}>{p.name}</p>
                   <p className={`mt-2 text-sm ${p.featured ? "text-cream/70" : "text-foreground/60"}`}>{p.tag}</p>
                   <p className="mt-6 font-display text-5xl font-extrabold">
                     ${(yearly ? p.yearly : p.monthly).toLocaleString()}
@@ -71,7 +71,7 @@ function PricingPage() {
                   <ul className="mt-8 flex-1 space-y-3 text-sm">
                     {p.features.map((f) => (
                       <li key={f} className="flex items-center gap-2">
-                        <Check className={`h-4 w-4 ${p.featured ? "text-copper" : "text-copper"}`} /> {f}
+                        <Check className={`h-4 w-4 ${p.featured ? "text-cocoa" : "text-cocoa"}`} /> {f}
                       </li>
                     ))}
                     {p.missing.map((f) => (

@@ -43,7 +43,7 @@ function CareersPage() {
             {benefits.map((b, i) => (
               <Reveal key={b.title} delay={i * 80}>
                 <div className="rounded-3xl border border-border bg-card p-6 shadow-soft">
-                  <div className="grid h-12 w-12 place-items-center rounded-2xl bg-copper/15 text-copper">
+                  <div className="grid h-12 w-12 place-items-center rounded-2xl bg-copper/15 text-cocoa">
                     <b.icon className="h-5 w-5" />
                   </div>
                   <h3 className="mt-4 font-display font-bold text-espresso">{b.title}</h3>

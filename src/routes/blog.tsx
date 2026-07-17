@@ -83,7 +83,7 @@ function BlogPage() {
                     </div>
                     <h3 className="mt-4 font-display text-lg font-bold text-espresso">{p.title}</h3>
                     <p className="mt-2 flex-1 text-sm text-foreground/70">{p.excerpt}</p>
-                    <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-copper">
+                    <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-cocoa">
                       Read more <ArrowRight className="h-4 w-4" />
                     </span>
                   </div>

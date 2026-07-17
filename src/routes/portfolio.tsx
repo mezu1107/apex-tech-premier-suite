@@ -70,7 +70,7 @@ function PortfolioPage() {
                     </div>
                   </div>
                   <div className="p-6">
-                    <p className="text-xs font-semibold uppercase tracking-widest text-copper">{p.cat}</p>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-cocoa">{p.cat}</p>
                     <h3 className="mt-2 font-display text-xl font-bold text-espresso">{p.title}</h3>
                     <p className="mt-1 text-sm text-foreground/60">{p.client}</p>
                   </div>

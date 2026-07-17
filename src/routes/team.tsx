@@ -56,7 +56,7 @@ function TeamPage() {
                   </div>
                   <div className="p-6">
                     <p className="font-display text-lg font-bold text-espresso">{m.name}</p>
-                    <p className="text-xs font-semibold uppercase tracking-widest text-copper">{m.role}</p>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-cocoa">{m.role}</p>
                     <p className="mt-3 text-sm text-foreground/70">{m.bio}</p>
                     <div className="mt-4 flex flex-wrap gap-1.5">
                       {m.skills.map((s) => (

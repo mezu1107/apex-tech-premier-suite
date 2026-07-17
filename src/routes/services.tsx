@@ -50,11 +50,11 @@ function ServicesPage() {
                   <ul className="mt-5 space-y-2 text-sm text-foreground/80">
                     {features.map((f) => (
                       <li key={f} className="flex items-center gap-2">
-                        <Check className="h-4 w-4 text-copper" /> {f}
+                        <Check className="h-4 w-4 text-cocoa" /> {f}
                       </li>
                     ))}
                   </ul>
-                  <Link to="/contact" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-copper">
+                  <Link to="/contact" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cocoa">
                     Discuss project <ArrowRight className="h-4 w-4" />
                   </Link>
                 </div>

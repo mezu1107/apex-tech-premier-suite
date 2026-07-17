@@ -43,7 +43,7 @@ function ContactPage() {
                   { icon: Clock, label: "Business hours", value: "Mon–Fri · 9:00 – 18:00 GMT" },
                 ].map((i) => (
                   <li key={i.label} className="flex items-start gap-3">
-                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-copper/15 text-copper">
+                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-copper/15 text-cocoa">
                       <i.icon className="h-4 w-4" />
                     </span>
                     <div>
@@ -108,7 +108,7 @@ function ContactPage() {
 
               {sent && (
                 <div className="slide-in mt-6 flex items-center gap-3 rounded-2xl border border-copper/40 bg-copper/10 p-4 text-sm text-espresso">
-                  <CheckCircle2 className="h-5 w-5 text-copper" />
+                  <CheckCircle2 className="h-5 w-5 text-cocoa" />
                   Thanks! We've received your message and will reply within one business day.
                 </div>
               )}

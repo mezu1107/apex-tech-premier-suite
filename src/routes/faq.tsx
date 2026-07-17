@@ -79,7 +79,7 @@ function FAQPage() {
                 >
                   <div className="flex items-center justify-between gap-4 p-5">
                     <span className="font-display font-bold text-espresso">{f.q}</span>
-                    <Plus className={`h-5 w-5 shrink-0 text-copper transition ${open === i ? "rotate-45" : ""}`} />
+                    <Plus className={`h-5 w-5 shrink-0 text-cocoa transition ${open === i ? "rotate-45" : ""}`} />
                   </div>
                   <div className={`grid transition-all duration-500 ${open === i ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
                     <div className="overflow-hidden">
