@@ -54,9 +54,9 @@ const featured = [
 ];
 
 const testimonials = [
-  { name: "Amelia Carter", role: "CEO, Northwind Retail", avatar: avatar1, quote: "Apex rebuilt our entire commerce platform. Sales grew 42% in the first quarter — the craftsmanship is remarkable." },
+  { name: "Amelia Carter", role: "CEO, Northwind Retail", avatar: avatar1, quote: "Adphira rebuilt our entire commerce platform. Sales grew 42% in the first quarter — the craftsmanship is remarkable." },
   { name: "Marcus Reyes", role: "CTO, Fable Logistics", avatar: avatar2, quote: "Their AI automation freed our team from thousands of manual tasks. A truly premium partner from day one." },
-  { name: "Zara Okafor", role: "Founder, Bloom Studio", avatar: avatar3, quote: "Elegant design, flawless code, on-time delivery. Apex feels like an in-house team, only sharper." },
+  { name: "Zara Okafor", role: "Founder, Bloom Studio", avatar: avatar3, quote: "Elegant design, flawless code, on-time delivery. Adphira feels like an in-house team, only sharper." },
 ];
 
 const trusted = ["NORTHWIND", "FABLE", "BLOOM", "ORION", "LUMEN", "ATLAS", "VERTEX", "HELIX"];
@@ -278,7 +278,7 @@ function LandingPage() {
                 </div>
                 <div className="relative bg-cocoa p-8 lg:p-12">
                   <div className="absolute inset-0 bg-gradient-to-br from-cocoa via-espresso to-cocoa" />
-                  <img src={whyImg} alt="Apex team workspace" width={1024} height={1024} loading="lazy" className="relative mx-auto w-full max-w-md drop-shadow-2xl" />
+                  <img src={whyImg} alt="Adphira team workspace" width={1024} height={1024} loading="lazy" className="relative mx-auto w-full max-w-md drop-shadow-2xl" />
                 </div>
               </div>
             </div>

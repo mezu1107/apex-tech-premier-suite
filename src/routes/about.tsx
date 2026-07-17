@@ -26,7 +26,7 @@ const values = [
 
 const timeline = [
   { year: "2013", title: "Founded in London", desc: "Three engineers, one workshop, a promise: no shortcuts." },
-  { year: "2016", title: "First 50 clients", desc: "Ecommerce, fintech and logistics teams choose Apex." },
+  { year: "2016", title: "First 50 clients", desc: "Ecommerce, fintech and logistics teams choose Adphira." },
   { year: "2019", title: "AI practice launched", desc: "Dedicated AI/ML studio delivering measurable outcomes." },
   { year: "2022", title: "Global expansion", desc: "Offices in Dubai and Singapore, 42 countries served." },
   { year: "2026", title: "250+ products shipped", desc: "Trusted by scale-ups and enterprise leaders alike." },
@@ -45,14 +45,14 @@ function AboutPage() {
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2 lg:px-10">
           <Reveal variant="left">
             <div className="rounded-[2.5rem] bg-gradient-to-br from-sand via-cream to-sand/50 p-8">
-              <img src={whyImg} alt="Apex workspace" className="mx-auto w-full max-w-md drop-shadow-2xl" />
+              <img src={whyImg} alt="Adphira workspace" className="mx-auto w-full max-w-md drop-shadow-2xl" />
             </div>
           </Reveal>
           <Reveal variant="right">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-copper">Our story</p>
             <h2 className="mt-3 font-display text-3xl font-bold text-espresso sm:text-4xl">Craftsmanship meets code.</h2>
             <p className="mt-5 leading-relaxed text-foreground/70">
-              We started Apex in 2013 with a simple idea: software should feel as considered as the products people love. Thirteen years later, we've shipped 250+ products for founders, fortune-500s and everything in between.
+              We started Adphira in 2013 with a simple idea: software should feel as considered as the products people love. Thirteen years later, we've shipped 250+ products for founders, fortune-500s and everything in between.
             </p>
             <p className="mt-4 leading-relaxed text-foreground/70">
               Every engagement pairs a senior product designer with senior engineers, a dedicated project lead, and a rigorous review process — so quality is never a compromise.

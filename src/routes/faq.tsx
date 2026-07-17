@@ -8,7 +8,7 @@ export const Route = createFileRoute("/faq")({
   head: () => ({
     meta: [
       { title: "FAQ — Adphira LLC" },
-      { name: "description", content: "Answers to common questions about working with Apex." },
+      { name: "description", content: "Answers to common questions about working with Adphira." },
       { property: "og:title", content: "FAQ — Adphira LLC" },
       { property: "og:url", content: "/faq" },
     ],
