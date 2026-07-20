@@ -55,8 +55,8 @@ function ContactPage() {
               </ul>
               <div className="mt-8 overflow-hidden rounded-2xl border border-border">
                 <iframe
-                  title="Adphira LLC office"
-                  src="https://www.openstreetmap.org/export/embed.html?bbox=-0.146%2C51.505%2C-0.116%2C51.520&layer=mapnik"
+                  title="Adphira LLC office — Jaranwala, Faisalabad"
+                  src="https://maps.google.com/maps?q=Jaranwala%2C%20Faisalabad%2C%20Pakistan&t=&z=13&ie=UTF8&iwloc=&output=embed"
                   className="h-56 w-full"
                   loading="lazy"
                 />
