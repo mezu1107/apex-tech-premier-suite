@@ -401,6 +401,9 @@ function LandingPage() {
               <p className="mx-auto mt-4 max-w-xl text-cream/70">Let's turn your idea into a beautifully crafted product.</p>
               <div className="mt-8 flex flex-wrap justify-center gap-3">
                 <Link to="/contact" className="inline-flex items-center gap-2 rounded-full bg-copper px-8 py-4 text-sm font-semibold text-espresso hover:bg-cream">Start a project</Link>
+                <a href="tel:+17207941888" className="inline-flex items-center gap-2 rounded-full border border-cream/40 px-8 py-4 text-sm font-semibold text-cream hover:bg-cream/10">
+                  <Phone className="h-4 w-4" /> +1 720 794 1888
+                </a>
                 <Link to="/pricing" className="inline-flex items-center gap-2 rounded-full border border-cream/30 px-8 py-4 text-sm font-semibold text-cream hover:bg-cream/10">View pricing</Link>
               </div>
             </div>
