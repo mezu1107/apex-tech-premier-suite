@@ -110,13 +110,13 @@ function AboutPage() {
           <Reveal>
             <div className="overflow-hidden rounded-[2.5rem] bg-espresso p-10 text-cream shadow-luxury sm:p-14 lg:p-20">
               <div className="grid items-center gap-10 lg:grid-cols-[auto_1fr]">
-                <img src={avatar1} alt="CEO" className="h-32 w-32 rounded-full object-cover ring-4 ring-copper/40" />
+                <img src={avatar1} alt="Shafqat Rasool, Founder & CEO of Adphira LLC" className="h-32 w-32 rounded-full object-cover ring-4 ring-copper/40" />
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cocoa">CEO Message</p>
                   <blockquote className="mt-4 font-display text-2xl leading-snug text-cream sm:text-3xl">
                     "Great software is a form of respect — for users, for teams, for the future. That's the standard we bring to every engagement."
                   </blockquote>
-                  <p className="mt-6 font-display text-lg font-bold">Amelia Carter</p>
+                  <p className="mt-6 font-display text-lg font-bold">Shafqat Rasool</p>
                   <p className="text-sm text-cream/70">Founder & CEO, Adphira LLC</p>
                 </div>
               </div>
