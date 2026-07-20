@@ -76,7 +76,7 @@ export function AIChatbot() {
     } catch (err) {
       setMessages((m) => [
         ...m,
-        { role: "assistant", content: "Sorry — I'm having trouble right now. Please try again in a moment or email hello@adphira.com." },
+        { role: "assistant", content: "Sorry — I'm having trouble right now. Please try again in a moment or email Info@adphira.com." },
       ]);
     } finally {
       setLoading(false);
