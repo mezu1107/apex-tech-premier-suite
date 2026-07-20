@@ -286,9 +286,14 @@ function LandingPage() {
                 Free Consultation <span className="italic text-cocoa">or</span> 20% Off Website Development
               </h2>
               <p className="mx-auto mt-6 max-w-2xl text-foreground/70">Book a discovery call this month and receive a complimentary product audit alongside our launch discount.</p>
-              <Link to="/contact" className="mt-10 inline-flex items-center gap-2 rounded-full bg-cocoa px-10 py-4 text-sm font-semibold text-cream shadow-luxury transition hover:bg-espresso">
-                Claim Offer <ArrowRight className="h-4 w-4" />
-              </Link>
+              <div className="mt-10 flex flex-wrap justify-center gap-3">
+                <Link to="/contact" className="inline-flex items-center gap-2 rounded-full bg-cocoa px-10 py-4 text-sm font-semibold text-cream shadow-luxury transition hover:bg-espresso">
+                  Claim Offer <ArrowRight className="h-4 w-4" />
+                </Link>
+                <a href="tel:+17207941888" className="inline-flex items-center gap-2 rounded-full border border-cocoa/30 bg-white px-10 py-4 text-sm font-semibold text-espresso transition hover:border-copper hover:text-cocoa">
+                  <Phone className="h-4 w-4" /> +1 720 794 1888
+                </a>
+              </div>
             </div>
           </Reveal>
         </div>
