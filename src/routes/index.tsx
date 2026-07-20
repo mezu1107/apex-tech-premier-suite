@@ -215,9 +215,14 @@ function LandingPage() {
                       </li>
                     ))}
                   </ul>
-                  <Link to="/about" className="mt-10 inline-flex items-center gap-2 rounded-full bg-copper px-8 py-4 text-sm font-semibold text-espresso transition hover:bg-cream">
-                    Learn More <ArrowRight className="h-4 w-4" />
-                  </Link>
+                  <div className="mt-10 flex flex-wrap gap-3">
+                    <Link to="/about" className="inline-flex items-center gap-2 rounded-full bg-copper px-8 py-4 text-sm font-semibold text-espresso transition hover:bg-cream">
+                      Learn More <ArrowRight className="h-4 w-4" />
+                    </Link>
+                    <a href="tel:+17207941888" className="inline-flex items-center gap-2 rounded-full border border-cream/30 px-8 py-4 text-sm font-semibold text-cream transition hover:bg-cream/10">
+                      <Phone className="h-4 w-4" /> +1 720 794 1888
+                    </a>
+                  </div>
                 </div>
                 <div className="relative bg-cocoa p-8 lg:p-12">
                   <div className="absolute inset-0 bg-gradient-to-br from-cocoa via-espresso to-cocoa" />
