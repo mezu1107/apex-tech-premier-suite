@@ -11,7 +11,6 @@ import {
   Globe2,
   HeadphonesIcon,
   Zap,
-  ShieldCheck,
   Rocket,
   Star,
   Plus,
