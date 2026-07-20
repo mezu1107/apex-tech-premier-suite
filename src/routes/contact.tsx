@@ -37,10 +37,10 @@ function ContactPage() {
               <h3 className="font-display text-xl font-bold text-espresso">Reach out directly</h3>
               <ul className="mt-6 space-y-5 text-sm">
                 {[
-                  { icon: MapPin, label: "Head office", value: "42 Innovation Blvd, London, UK" },
-                  { icon: Phone, label: "Phone", value: "+44 20 7946 0000" },
-                  { icon: Mail, label: "Email", value: "hello@adphira.com" },
-                  { icon: Clock, label: "Business hours", value: "Mon–Fri · 9:00 – 18:00 GMT" },
+                  { icon: MapPin, label: "Office", value: "2nd Floor, Malik Plaza, In front of TCS Office, Hassan Road, Jaranwala, Faisalabad, Pakistan" },
+                  { icon: Phone, label: "USA Phone", value: "+1 720 794 1888" },
+                  { icon: Mail, label: "Email", value: "Info@adphira.com" },
+                  { icon: Clock, label: "Business hours", value: "Mon–Sat · 9:00 – 19:00 PKT" },
                 ].map((i) => (
                   <li key={i.label} className="flex items-start gap-3">
                     <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-copper/15 text-cocoa">
