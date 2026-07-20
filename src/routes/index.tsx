@@ -13,6 +13,7 @@ import {
   Bot,
   Star,
   Check,
+  Phone,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import whyImg from "@/assets/why-choose.png";
