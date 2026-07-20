@@ -1,29 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-  ArrowRight,
-  Code2,
-  Smartphone,
-  Palette,
-  Sparkles,
-  Globe,
-  Briefcase,
-  Database,
-  ShoppingCart,
-  Cloud,
-  Bot,
-  Star,
-  Check,
-  Phone,
-} from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-import whyImg from "@/assets/why-choose.png";
-import bannerImg from "@/assets/banner-tech.jpg";
-import avatar1 from "@/assets/avatar1.jpg";
-import avatar2 from "@/assets/avatar2.jpg";
-import avatar3 from "@/assets/avatar3.jpg";
-import { Reveal } from "@/components/site/Reveal";
+import { createFileRoute } from "@tanstack/react-router";
 import { HeroSlider } from "@/components/site/HeroSlider";
-import { FeaturesGrid } from "@/components/site/FeaturesGrid";
+import { BentoHome } from "@/components/site/BentoHome";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -38,6 +15,15 @@ export const Route = createFileRoute("/")({
   }),
   component: LandingPage,
 });
+
+function LandingPage() {
+  return (
+    <div className="bg-white text-espresso">
+      <HeroSlider />
+      <BentoHome />
+    </div>
+  );
+}
 
 const services = [
   { icon: Code2, title: "Web Development", desc: "Fast, scalable and elegantly crafted websites tailored to your brand." },
