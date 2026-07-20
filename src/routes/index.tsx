@@ -347,9 +347,14 @@ function LandingPage() {
             </Reveal>
             <Reveal delay={200}><p className="mt-6 max-w-xl text-cream/80">Partner with a team that treats every product as a long-term craft — engineered for scale, designed for people.</p></Reveal>
             <Reveal delay={300}>
-              <Link to="/contact" className="mt-10 inline-flex items-center gap-2 rounded-full bg-copper px-10 py-4 text-sm font-semibold text-espresso shadow-luxury transition hover:bg-cream">
-                Contact Us <ArrowRight className="h-4 w-4" />
-              </Link>
+              <div className="mt-10 flex flex-wrap gap-3">
+                <Link to="/contact" className="inline-flex items-center gap-2 rounded-full bg-copper px-10 py-4 text-sm font-semibold text-espresso shadow-luxury transition hover:bg-cream">
+                  Contact Us <ArrowRight className="h-4 w-4" />
+                </Link>
+                <a href="tel:+17207941888" className="inline-flex items-center gap-2 rounded-full border border-cream/40 px-10 py-4 text-sm font-semibold text-cream transition hover:bg-cream/10">
+                  <Phone className="h-4 w-4" /> +1 720 794 1888
+                </a>
+              </div>
             </Reveal>
           </div>
         </div>
