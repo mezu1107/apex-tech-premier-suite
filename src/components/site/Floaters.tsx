@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { ArrowUp, MessageCircle, Phone, Calendar, FileText } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
+const PHONE = "+17207941888";
+const PHONE_DISPLAY = "+1 720 794 1888";
+
 export function ScrollProgress() {
   const [progress, setProgress] = useState(0);
   useEffect(() => {
@@ -40,11 +43,12 @@ export function BackToTop() {
 export function WhatsAppButton() {
   return (
     <a
-      href="https://wa.me/442079460000"
+      href={`https://wa.me/${PHONE.replace("+", "")}`}
       target="_blank"
       rel="noreferrer"
       className="pulse-ring fixed bottom-24 left-5 z-40 hidden h-14 w-14 place-items-center rounded-full bg-copper text-espresso shadow-luxury lg:grid"
       aria-label="Chat on WhatsApp"
+      title={PHONE_DISPLAY}
     >
       <MessageCircle className="h-6 w-6" />
     </a>
@@ -55,11 +59,11 @@ export function MobileStickyCTA() {
   return (
     <div className="safe-bottom fixed inset-x-0 bottom-0 z-40 border-t border-espresso/10 bg-cream/95 backdrop-blur-xl shadow-luxury lg:hidden">
       <div className="grid grid-cols-4 gap-1 px-2 py-2">
-        <a href="tel:+442079460000" className="flex flex-col items-center gap-0.5 rounded-2xl px-1 py-1.5 text-espresso active:bg-sand/70">
+        <a href={`tel:${PHONE}`} className="flex flex-col items-center gap-0.5 rounded-2xl px-1 py-1.5 text-espresso active:bg-sand/70">
           <Phone className="h-5 w-5 text-cocoa" />
           <span className="text-[10px] font-semibold">Call</span>
         </a>
-        <a href="https://wa.me/442079460000" target="_blank" rel="noreferrer" className="flex flex-col items-center gap-0.5 rounded-2xl px-1 py-1.5 text-espresso active:bg-sand/70">
+        <a href={`https://wa.me/${PHONE.replace("+", "")}`} target="_blank" rel="noreferrer" className="flex flex-col items-center gap-0.5 rounded-2xl px-1 py-1.5 text-espresso active:bg-sand/70">
           <MessageCircle className="h-5 w-5 text-cocoa" />
           <span className="text-[10px] font-semibold">WhatsApp</span>
         </a>

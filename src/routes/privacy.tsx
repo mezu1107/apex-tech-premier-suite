@@ -28,7 +28,7 @@ function PrivacyPage() {
                 { h: "How we use it", p: "To respond to enquiries, deliver services, and improve our website. We never sell your personal data." },
                 { h: "Data retention", p: "We retain data only for as long as necessary to provide services or as required by law." },
                 { h: "Your rights", p: "You may request access, correction or deletion of your personal data at any time by emailing privacy@adphira.com." },
-                { h: "Contact", p: "Questions? Reach us at privacy@adphira.com or write to 42 Innovation Blvd, London, UK." },
+                { h: "Contact", p: "Questions? Reach us at Info@adphira.com or write to 2nd Floor, Malik Plaza, In front of TCS Office, Hassan Road, Jaranwala, Faisalabad, Pakistan." },
               ].map((s) => (
                 <div key={s.h}>
                   <h2 className="font-display text-2xl font-bold text-espresso">{s.h}</h2>

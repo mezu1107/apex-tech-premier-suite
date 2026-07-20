@@ -26,7 +26,10 @@ export function AIChatbot() {
 
   useEffect(() => {
     if (pos === null && typeof window !== "undefined") {
-      setPos({ x: window.innerWidth - 84, y: window.innerHeight - 180 });
+      const isMobile = window.innerWidth < 1024;
+      // Keep the button clear of the mobile sticky CTA bar (~72px) and the WhatsApp/back-to-top stack.
+      const bottomOffset = isMobile ? 108 : 96;
+      setPos({ x: window.innerWidth - 76, y: window.innerHeight - bottomOffset });
     }
   }, [pos]);
 
@@ -73,7 +76,7 @@ export function AIChatbot() {
     } catch (err) {
       setMessages((m) => [
         ...m,
-        { role: "assistant", content: "Sorry — I'm having trouble right now. Please try again in a moment or email hello@adphira.com." },
+        { role: "assistant", content: "Sorry — I'm having trouble right now. Please try again in a moment or email Info@adphira.com." },
       ]);
     } finally {
       setLoading(false);

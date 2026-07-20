@@ -59,9 +59,9 @@ export function Footer() {
           <div>
             <p className="font-display font-bold text-white">Get in touch</p>
             <ul className="mt-5 space-y-3 text-sm">
-              <li className="flex items-start gap-2"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-copper" /> 42 Innovation Blvd, London, UK</li>
-              <li className="flex items-center gap-2"><Phone className="h-4 w-4 shrink-0 text-copper" /> +44 20 7946 0000</li>
-              <li className="flex items-center gap-2"><Mail className="h-4 w-4 shrink-0 text-copper" /> hello@adphira.com</li>
+              <li className="flex items-start gap-2"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-copper" /> 2nd Floor, Malik Plaza, In front of TCS Office, Hassan Road, Jaranwala, Faisalabad, Pakistan</li>
+              <li className="flex items-center gap-2"><Phone className="h-4 w-4 shrink-0 text-copper" /> <a href="tel:+17207941888" className="hover:text-copper">+1 720 794 1888</a></li>
+              <li className="flex items-center gap-2"><Mail className="h-4 w-4 shrink-0 text-copper" /> <a href="mailto:Info@adphira.com" className="hover:text-copper">Info@adphira.com</a></li>
             </ul>
             <form className="mt-5 flex overflow-hidden rounded-full border border-white/15 bg-white/5">
               <input

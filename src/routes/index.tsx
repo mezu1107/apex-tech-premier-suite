@@ -13,6 +13,7 @@ import {
   Bot,
   Star,
   Check,
+  Phone,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import whyImg from "@/assets/why-choose.png";
@@ -55,9 +56,9 @@ const featured = [
 ];
 
 const testimonials = [
-  { name: "Amelia Carter", role: "CEO, Northwind Retail", avatar: avatar1, quote: "Adphira rebuilt our entire commerce platform. Sales grew 42% in the first quarter — the craftsmanship is remarkable." },
-  { name: "Marcus Reyes", role: "CTO, Fable Logistics", avatar: avatar2, quote: "Their AI automation freed our team from thousands of manual tasks. A truly premium partner from day one." },
-  { name: "Zara Okafor", role: "Founder, Bloom Studio", avatar: avatar3, quote: "Elegant design, flawless code, on-time delivery. Adphira feels like an in-house team, only sharper." },
+  { name: "Hassan Ali", role: "CEO, Northwind Retail", avatar: avatar1, quote: "Adphira rebuilt our entire commerce platform. Sales grew 42% in the first quarter — the craftsmanship is remarkable." },
+  { name: "Ayesha Khan", role: "CTO, Fable Logistics", avatar: avatar2, quote: "Their AI automation freed our team from thousands of manual tasks. A truly premium partner from day one." },
+  { name: "Bilal Ahmed", role: "Founder, Bloom Studio", avatar: avatar3, quote: "Elegant design, flawless code, on-time delivery. Adphira feels like an in-house team, only sharper." },
 ];
 
 const trusted = ["NORTHWIND", "FABLE", "BLOOM", "ORION", "LUMEN", "ATLAS", "VERTEX", "HELIX"];
@@ -214,9 +215,14 @@ function LandingPage() {
                       </li>
                     ))}
                   </ul>
-                  <Link to="/about" className="mt-10 inline-flex items-center gap-2 rounded-full bg-copper px-8 py-4 text-sm font-semibold text-espresso transition hover:bg-cream">
-                    Learn More <ArrowRight className="h-4 w-4" />
-                  </Link>
+                  <div className="mt-10 flex flex-wrap gap-3">
+                    <Link to="/about" className="inline-flex items-center gap-2 rounded-full bg-copper px-8 py-4 text-sm font-semibold text-espresso transition hover:bg-cream">
+                      Learn More <ArrowRight className="h-4 w-4" />
+                    </Link>
+                    <a href="tel:+17207941888" className="inline-flex items-center gap-2 rounded-full border border-cream/30 px-8 py-4 text-sm font-semibold text-cream transition hover:bg-cream/10">
+                      <Phone className="h-4 w-4" /> +1 720 794 1888
+                    </a>
+                  </div>
                 </div>
                 <div className="relative bg-cocoa p-8 lg:p-12">
                   <div className="absolute inset-0 bg-gradient-to-br from-cocoa via-espresso to-cocoa" />
@@ -280,9 +286,14 @@ function LandingPage() {
                 Free Consultation <span className="italic text-cocoa">or</span> 20% Off Website Development
               </h2>
               <p className="mx-auto mt-6 max-w-2xl text-foreground/70">Book a discovery call this month and receive a complimentary product audit alongside our launch discount.</p>
-              <Link to="/contact" className="mt-10 inline-flex items-center gap-2 rounded-full bg-cocoa px-10 py-4 text-sm font-semibold text-cream shadow-luxury transition hover:bg-espresso">
-                Claim Offer <ArrowRight className="h-4 w-4" />
-              </Link>
+              <div className="mt-10 flex flex-wrap justify-center gap-3">
+                <Link to="/contact" className="inline-flex items-center gap-2 rounded-full bg-cocoa px-10 py-4 text-sm font-semibold text-cream shadow-luxury transition hover:bg-espresso">
+                  Claim Offer <ArrowRight className="h-4 w-4" />
+                </Link>
+                <a href="tel:+17207941888" className="inline-flex items-center gap-2 rounded-full border border-cocoa/30 bg-white px-10 py-4 text-sm font-semibold text-espresso transition hover:border-copper hover:text-cocoa">
+                  <Phone className="h-4 w-4" /> +1 720 794 1888
+                </a>
+              </div>
             </div>
           </Reveal>
         </div>
@@ -336,9 +347,14 @@ function LandingPage() {
             </Reveal>
             <Reveal delay={200}><p className="mt-6 max-w-xl text-cream/80">Partner with a team that treats every product as a long-term craft — engineered for scale, designed for people.</p></Reveal>
             <Reveal delay={300}>
-              <Link to="/contact" className="mt-10 inline-flex items-center gap-2 rounded-full bg-copper px-10 py-4 text-sm font-semibold text-espresso shadow-luxury transition hover:bg-cream">
-                Contact Us <ArrowRight className="h-4 w-4" />
-              </Link>
+              <div className="mt-10 flex flex-wrap gap-3">
+                <Link to="/contact" className="inline-flex items-center gap-2 rounded-full bg-copper px-10 py-4 text-sm font-semibold text-espresso shadow-luxury transition hover:bg-cream">
+                  Contact Us <ArrowRight className="h-4 w-4" />
+                </Link>
+                <a href="tel:+17207941888" className="inline-flex items-center gap-2 rounded-full border border-cream/40 px-10 py-4 text-sm font-semibold text-cream transition hover:bg-cream/10">
+                  <Phone className="h-4 w-4" /> +1 720 794 1888
+                </a>
+              </div>
             </Reveal>
           </div>
         </div>
@@ -385,6 +401,9 @@ function LandingPage() {
               <p className="mx-auto mt-4 max-w-xl text-cream/70">Let's turn your idea into a beautifully crafted product.</p>
               <div className="mt-8 flex flex-wrap justify-center gap-3">
                 <Link to="/contact" className="inline-flex items-center gap-2 rounded-full bg-copper px-8 py-4 text-sm font-semibold text-espresso hover:bg-cream">Start a project</Link>
+                <a href="tel:+17207941888" className="inline-flex items-center gap-2 rounded-full border border-cream/40 px-8 py-4 text-sm font-semibold text-cream hover:bg-cream/10">
+                  <Phone className="h-4 w-4" /> +1 720 794 1888
+                </a>
                 <Link to="/pricing" className="inline-flex items-center gap-2 rounded-full border border-cream/30 px-8 py-4 text-sm font-semibold text-cream hover:bg-cream/10">View pricing</Link>
               </div>
             </div>
