@@ -768,12 +768,6 @@ export function BentoHome() {
     <>
       <ServicesBento />
       <WhyBento />
-      <TechBento />
-      <ProcessBento />
-      <PortfolioBento />
-      <TestimonialsBento />
-      <FAQBento />
-      <ContactBento />
       <CTABanner />
     </>
   );
