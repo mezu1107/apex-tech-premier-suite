@@ -8,14 +8,14 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminLayout,
 });
 
-const nav = [
+const nav: { to: string; label: string; icon: typeof LayoutDashboard; exact?: boolean }[] = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { to: "/admin/services", label: "Services", icon: Wrench },
   { to: "/admin/portfolio", label: "Portfolio", icon: Briefcase },
   { to: "/admin/testimonials", label: "Testimonials", icon: Star },
   { to: "/admin/team", label: "Team", icon: Users },
   { to: "/admin/messages", label: "Messages", icon: MessageSquare },
-] as const;
+];
 
 function AdminLayout() {
   const { user, isAdmin, loading } = useAuth();
@@ -72,7 +72,7 @@ function AdminLayout() {
             {nav.map((n) => {
               const active = n.exact ? location.pathname === n.to : location.pathname.startsWith(n.to);
               return (
-                <Link key={n.to} to={n.to} className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition ${active ? "bg-espresso text-white" : "text-espresso/80 hover:bg-sand"}`}>
+                <Link key={n.to} to={n.to as string} className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition ${active ? "bg-espresso text-white" : "text-espresso/80 hover:bg-sand"}`}>
                   <n.icon className="h-4 w-4" /> {n.label}
                 </Link>
               );
