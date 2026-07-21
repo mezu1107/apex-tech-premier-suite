@@ -27,7 +27,8 @@ import {
   Play,
   ArrowUpRight,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState, type ComponentType } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { Reveal } from "@/components/site/Reveal";
 
 /* ---------- utility card wrappers ---------- */
@@ -151,7 +152,37 @@ function IconTile({
 
 /* ---------- 1. Services Bento (5 asymmetric cards) ---------- */
 
+const iconMap: Record<string, ComponentType<{ className?: string }>> = {
+  Code2, Smartphone, Search, Sparkles, Bot, Rocket, Zap, Star, Globe2, Trophy, Users,
+};
+
+type ServiceRow = {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  tags: string[] | null;
+  gradient: string;
+  featured: boolean;
+  sort_order: number;
+};
+
 function ServicesBento() {
+  const [services, setServices] = useState<ServiceRow[]>([]);
+  useEffect(() => {
+    supabase
+      .from("services")
+      .select("id,title,description,icon,tags,gradient,featured,sort_order")
+      .eq("published", true)
+      .order("sort_order", { ascending: true })
+      .then(({ data }) => setServices((data as ServiceRow[] | null) ?? []));
+  }, []);
+
+  if (services.length === 0) return null;
+
+  const [featured, ...rest] = services;
+  const gradFor = (g: string) => (["light", "teal", "dark", "lime", "mesh"].includes(g) ? (g as "light" | "teal" | "dark" | "lime" | "mesh") : "light");
+
   return (
     <BentoSection
       eyebrow="Our Services"
@@ -159,83 +190,46 @@ function ServicesBento() {
       desc="Five specialized practices — one accountable partner. Everything you need to design, build, launch and scale."
     >
       <div className="grid gap-4 sm:gap-5 lg:grid-cols-3 lg:grid-rows-2 lg:gap-6">
-        {/* Large featured — Web Development */}
+        {/* Large featured */}
         <Reveal className="lg:col-span-2 lg:row-span-1">
-          <BentoCard gradient="teal" className="p-7 sm:p-9 h-full min-h-[280px]">
+          <BentoCard gradient={gradFor(featured.gradient)} className="p-7 sm:p-9 h-full min-h-[280px]">
             <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-copper/25 blur-3xl transition-opacity duration-500 group-hover:opacity-80" />
             <div className="relative flex h-full flex-col">
               <div className="flex items-center gap-3">
-                <IconTile icon={Code2} tone="lime" />
+                <IconTile icon={iconMap[featured.icon] ?? Sparkles} tone="lime" />
                 <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest">Featured</span>
               </div>
               <h3 className="mt-5 font-display text-2xl font-black leading-tight sm:text-3xl">
-                Website & Web App Development
+                {featured.title}
               </h3>
               <p className="mt-3 max-w-lg text-sm leading-relaxed text-white/75 sm:text-base">
-                Blazing-fast websites, SaaS platforms and internal tools engineered with React, Next.js, TanStack and headless CMS — deployed at the edge.
+                {featured.description}
               </p>
               <div className="mt-6 flex flex-wrap gap-2">
-                {["React", "Next.js", "TanStack", "Tailwind", "Edge Deploy"].map((t) => (
+                {(featured.tags ?? []).map((t) => (
                   <span key={t} className="rounded-full border border-white/15 bg-white/8 px-3 py-1 text-xs font-medium">{t}</span>
                 ))}
               </div>
-              <LearnMore tone="light" label="Explore Web Development" />
+              <LearnMore tone="light" label={`Explore ${featured.title}`} />
             </div>
           </BentoCard>
         </Reveal>
 
-        {/* Digital Marketing */}
-        <Reveal delay={80}>
-          <BentoCard gradient="lime" className="p-7 h-full min-h-[280px]">
-            <div className="flex h-full flex-col">
-              <IconTile icon={Sparkles} tone="dark" />
-              <h3 className="mt-5 font-display text-xl font-black leading-tight">Digital Marketing</h3>
-              <p className="mt-2 text-sm leading-relaxed text-espresso/75">
-                Paid & organic engines that turn traffic into pipeline — Meta, Google, TikTok, SEO.
-              </p>
-              <LearnMore tone="lime" />
-            </div>
-          </BentoCard>
-        </Reveal>
-
-        {/* SEO */}
-        <Reveal delay={120}>
-          <BentoCard gradient="mesh" className="p-7 h-full min-h-[240px]">
-            <IconTile icon={Search} />
-            <h3 className="mt-5 font-display text-xl font-black leading-tight text-espresso">Search Engine Optimization</h3>
-            <p className="mt-2 text-sm leading-relaxed text-foreground/70">
-              Technical + content SEO that ranks for queries that actually convert.
-            </p>
-            <LearnMore />
-          </BentoCard>
-        </Reveal>
-
-        {/* Mobile Apps */}
-        <Reveal delay={160}>
-          <BentoCard className="p-7 h-full min-h-[240px]">
-            <IconTile icon={Smartphone} />
-            <h3 className="mt-5 font-display text-xl font-black leading-tight text-espresso">Mobile App Development</h3>
-            <p className="mt-2 text-sm leading-relaxed text-foreground/70">
-              iOS, Android & cross-platform apps built for performance and delight.
-            </p>
-            <LearnMore />
-          </BentoCard>
-        </Reveal>
-
-        {/* AI Automation */}
-        <Reveal delay={200}>
-          <BentoCard gradient="dark" className="p-7 h-full min-h-[240px]">
-            <div className="absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-copper/20 blur-2xl" />
-            <div className="relative">
-              <IconTile icon={Bot} tone="lime" />
-              <h3 className="mt-5 font-display text-xl font-black leading-tight">AI Automation</h3>
-              <p className="mt-2 text-sm leading-relaxed text-white/70">
-                Chatbots, LLM workflows & agents that save your team hours every week.
-              </p>
-              <LearnMore tone="light" />
-            </div>
-          </BentoCard>
-        </Reveal>
+        {rest.map((s, i) => {
+          const g = gradFor(s.gradient);
+          const dark = g === "teal" || g === "dark";
+          const Icon = iconMap[s.icon] ?? Sparkles;
+          return (
+            <Reveal key={s.id} delay={80 + i * 40}>
+              <BentoCard gradient={g} className="p-7 h-full min-h-[240px]">
+                <IconTile icon={Icon} tone={g === "lime" ? "dark" : dark ? "lime" : "teal"} />
+                <h3 className={`mt-5 font-display text-xl font-black leading-tight ${dark ? "" : "text-espresso"}`}>{s.title}</h3>
+                <p className={`mt-2 text-sm leading-relaxed ${dark ? "text-white/70" : g === "lime" ? "text-espresso/75" : "text-foreground/70"}`}>{s.description}</p>
+                <LearnMore tone={dark ? "light" : g === "lime" ? "lime" : "dark"} />
+              </BentoCard>
+            </Reveal>
+          );
+        })}
       </div>
     </BentoSection>
   );
