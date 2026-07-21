@@ -32,7 +32,8 @@ export function CrudTable({ table, title, fields, listColumns, orderBy, defaults
 
   async function load() {
     setLoading(true);
-    let q = supabase.from(table).select("*");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let q: any = (supabase.from as any)(table).select("*");
     if (orderBy) q = q.order(orderBy.column, { ascending: orderBy.ascending ?? true });
     const { data, error } = await q;
     if (error) setError(error.message);
@@ -60,9 +61,11 @@ export function CrudTable({ table, title, fields, listColumns, orderBy, defaults
     const id = payload.id as string | undefined;
     delete payload.created_at;
     delete payload.updated_at;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const t: any = (supabase.from as any)(table);
     const res = id
-      ? await supabase.from(table).update(payload).eq("id", id)
-      : await supabase.from(table).insert(payload);
+      ? await t.update(payload).eq("id", id)
+      : await t.insert(payload);
     if (res.error) {
       setError(res.error.message);
       setSaving(false);
@@ -75,7 +78,8 @@ export function CrudTable({ table, title, fields, listColumns, orderBy, defaults
 
   async function remove(id: string) {
     if (!confirm("Delete this item?")) return;
-    const { error } = await supabase.from(table).delete().eq("id", id);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error } = await (supabase.from as any)(table).delete().eq("id", id);
     if (error) { alert(error.message); return; }
     load();
   }
