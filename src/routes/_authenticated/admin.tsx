@@ -72,7 +72,8 @@ function AdminLayout() {
             {nav.map((n) => {
               const active = n.exact ? location.pathname === n.to : location.pathname.startsWith(n.to);
               return (
-                <Link key={n.to} to={n.to as string} className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition ${active ? "bg-espresso text-white" : "text-espresso/80 hover:bg-sand"}`}>
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                <Link key={n.to} to={n.to as any} className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition ${active ? "bg-espresso text-white" : "text-espresso/80 hover:bg-sand"}`}>
                   <n.icon className="h-4 w-4" /> {n.label}
                 </Link>
               );
