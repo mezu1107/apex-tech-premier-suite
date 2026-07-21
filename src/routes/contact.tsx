@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
-import { Mail, Phone, MapPin, Clock, CheckCircle2, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, CheckCircle2, Send, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Reveal } from "@/components/site/Reveal";
 
@@ -19,11 +20,25 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [form, setForm] = useState({ name: "", email: "", subject: "Web Development", message: "" });
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setError(null);
+    setBusy(true);
+    const { error } = await supabase.from("contact_messages").insert({
+      name: form.name.trim(),
+      email: form.email.trim(),
+      subject: form.subject.trim(),
+      message: form.message.trim(),
+    });
+    setBusy(false);
+    if (error) { setError(error.message); return; }
     setSent(true);
-    setTimeout(() => setSent(false), 6000);
+    setForm({ name: "", email: "", subject: "Web Development", message: "" });
+    setTimeout(() => setSent(false), 8000);
   };
 
   return (
@@ -72,15 +87,15 @@ function ContactPage() {
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 <label className="block">
                   <span className="text-xs font-semibold uppercase tracking-widest text-espresso/70">Name</span>
-                  <input required className="mt-1.5 w-full rounded-2xl border border-border bg-cream/60 px-4 py-3 text-sm focus:border-copper focus:outline-none" placeholder="Jane Cooper" />
+                  <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="mt-1.5 w-full rounded-2xl border border-border bg-cream/60 px-4 py-3 text-sm focus:border-copper focus:outline-none" placeholder="Jane Cooper" />
                 </label>
                 <label className="block">
                   <span className="text-xs font-semibold uppercase tracking-widest text-espresso/70">Email</span>
-                  <input type="email" required className="mt-1.5 w-full rounded-2xl border border-border bg-cream/60 px-4 py-3 text-sm focus:border-copper focus:outline-none" placeholder="jane@company.com" />
+                  <input type="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="mt-1.5 w-full rounded-2xl border border-border bg-cream/60 px-4 py-3 text-sm focus:border-copper focus:outline-none" placeholder="jane@company.com" />
                 </label>
                 <label className="block">
                   <span className="text-xs font-semibold uppercase tracking-widest text-espresso/70">Service</span>
-                  <select className="mt-1.5 w-full rounded-2xl border border-border bg-cream/60 px-4 py-3 text-sm focus:border-copper focus:outline-none">
+                  <select value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} className="mt-1.5 w-full rounded-2xl border border-border bg-cream/60 px-4 py-3 text-sm focus:border-copper focus:outline-none">
                     <option>Web Development</option>
                     <option>Mobile Apps</option>
                     <option>AI Solutions</option>
@@ -95,16 +110,21 @@ function ContactPage() {
                 </label>
                 <label className="block sm:col-span-2">
                   <span className="text-xs font-semibold uppercase tracking-widest text-espresso/70">Message</span>
-                  <textarea rows={5} required className="mt-1.5 w-full rounded-2xl border border-border bg-cream/60 px-4 py-3 text-sm focus:border-copper focus:outline-none" placeholder="Tell us about your goals..." />
+                  <textarea rows={5} required value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className="mt-1.5 w-full rounded-2xl border border-border bg-cream/60 px-4 py-3 text-sm focus:border-copper focus:outline-none" placeholder="Tell us about your goals..." />
                 </label>
               </div>
 
               <button
                 type="submit"
-                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-cocoa px-8 py-4 text-sm font-semibold text-cream shadow-luxury transition hover:bg-espresso sm:w-auto"
+                disabled={busy}
+                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-cocoa px-8 py-4 text-sm font-semibold text-cream shadow-luxury transition hover:bg-espresso disabled:opacity-60 sm:w-auto"
               >
-                Send message <Send className="h-4 w-4" />
+                {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />} Send message
               </button>
+
+              {error ? (
+                <div className="mt-4 rounded-2xl border border-red-300 bg-red-50 p-3 text-xs text-red-700">{error}</div>
+              ) : null}
 
               {sent && (
                 <div className="slide-in mt-6 flex items-center gap-3 rounded-2xl border border-copper/40 bg-copper/10 p-4 text-sm text-espresso">
