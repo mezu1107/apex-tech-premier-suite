@@ -14,6 +14,132 @@ export type Database = {
   }
   public: {
     Tables: {
+      blog_posts: {
+        Row: {
+          author: string | null
+          content: string | null
+          cover_url: string | null
+          created_at: string
+          excerpt: string | null
+          id: string
+          published: boolean
+          published_at: string | null
+          slug: string
+          sort_order: number
+          tags: string[]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author?: string | null
+          content?: string | null
+          cover_url?: string | null
+          created_at?: string
+          excerpt?: string | null
+          id?: string
+          published?: boolean
+          published_at?: string | null
+          slug: string
+          sort_order?: number
+          tags?: string[]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          author?: string | null
+          content?: string | null
+          cover_url?: string | null
+          created_at?: string
+          excerpt?: string | null
+          id?: string
+          published?: boolean
+          published_at?: string | null
+          slug?: string
+          sort_order?: number
+          tags?: string[]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      case_studies: {
+        Row: {
+          category: string | null
+          client: string | null
+          cover_url: string | null
+          created_at: string
+          id: string
+          link_url: string | null
+          published: boolean
+          results: string | null
+          sort_order: number
+          summary: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string | null
+          client?: string | null
+          cover_url?: string | null
+          created_at?: string
+          id?: string
+          link_url?: string | null
+          published?: boolean
+          results?: string | null
+          sort_order?: number
+          summary?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string | null
+          client?: string | null
+          cover_url?: string | null
+          created_at?: string
+          id?: string
+          link_url?: string | null
+          published?: boolean
+          results?: string | null
+          sort_order?: number
+          summary?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      clients: {
+        Row: {
+          created_at: string
+          id: string
+          logo_url: string | null
+          name: string
+          published: boolean
+          sort_order: number
+          updated_at: string
+          website_url: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          logo_url?: string | null
+          name: string
+          published?: boolean
+          sort_order?: number
+          updated_at?: string
+          website_url?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          logo_url?: string | null
+          name?: string
+          published?: boolean
+          sort_order?: number
+          updated_at?: string
+          website_url?: string | null
+        }
+        Relationships: []
+      }
       contact_messages: {
         Row: {
           created_at: string
@@ -41,6 +167,39 @@ export type Database = {
           message?: string
           name?: string
           subject?: string
+        }
+        Relationships: []
+      }
+      faqs: {
+        Row: {
+          answer: string
+          category: string | null
+          created_at: string
+          id: string
+          published: boolean
+          question: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          answer: string
+          category?: string | null
+          created_at?: string
+          id?: string
+          published?: boolean
+          question: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          answer?: string
+          category?: string | null
+          created_at?: string
+          id?: string
+          published?: boolean
+          question?: string
+          sort_order?: number
+          updated_at?: string
         }
         Relationships: []
       }
@@ -86,6 +245,87 @@ export type Database = {
         }
         Relationships: []
       }
+      pricing_plans: {
+        Row: {
+          created_at: string
+          cta_label: string | null
+          cta_url: string | null
+          description: string | null
+          featured: boolean
+          features: string[]
+          id: string
+          name: string
+          price: string
+          price_period: string | null
+          published: boolean
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          cta_label?: string | null
+          cta_url?: string | null
+          description?: string | null
+          featured?: boolean
+          features?: string[]
+          id?: string
+          name: string
+          price?: string
+          price_period?: string | null
+          published?: boolean
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          cta_label?: string | null
+          cta_url?: string | null
+          description?: string | null
+          featured?: boolean
+          features?: string[]
+          id?: string
+          name?: string
+          price?: string
+          price_period?: string | null
+          published?: boolean
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      process_steps: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          published: boolean
+          sort_order: number
+          step_number: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          published?: boolean
+          sort_order?: number
+          step_number?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          published?: boolean
+          sort_order?: number
+          step_number?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       services: {
         Row: {
           created_at: string
@@ -125,6 +365,36 @@ export type Database = {
           tags?: string[]
           title?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      stats: {
+        Row: {
+          created_at: string
+          id: string
+          label: string
+          published: boolean
+          sort_order: number
+          updated_at: string
+          value: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          label: string
+          published?: boolean
+          sort_order?: number
+          updated_at?: string
+          value: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          label?: string
+          published?: boolean
+          sort_order?: number
+          updated_at?: string
+          value?: string
         }
         Relationships: []
       }

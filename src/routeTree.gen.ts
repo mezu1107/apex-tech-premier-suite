@@ -28,9 +28,16 @@ import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminTestimonialsRouteImport } from './routes/_authenticated/admin.testimonials'
 import { Route as AuthenticatedAdminTeamRouteImport } from './routes/_authenticated/admin.team'
+import { Route as AuthenticatedAdminStatsRouteImport } from './routes/_authenticated/admin.stats'
 import { Route as AuthenticatedAdminServicesRouteImport } from './routes/_authenticated/admin.services'
+import { Route as AuthenticatedAdminProcessRouteImport } from './routes/_authenticated/admin.process'
+import { Route as AuthenticatedAdminPricingRouteImport } from './routes/_authenticated/admin.pricing'
 import { Route as AuthenticatedAdminPortfolioRouteImport } from './routes/_authenticated/admin.portfolio'
 import { Route as AuthenticatedAdminMessagesRouteImport } from './routes/_authenticated/admin.messages'
+import { Route as AuthenticatedAdminFaqsRouteImport } from './routes/_authenticated/admin.faqs'
+import { Route as AuthenticatedAdminClientsRouteImport } from './routes/_authenticated/admin.clients'
+import { Route as AuthenticatedAdminCasesRouteImport } from './routes/_authenticated/admin.cases'
+import { Route as AuthenticatedAdminBlogRouteImport } from './routes/_authenticated/admin.blog'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -127,10 +134,27 @@ const AuthenticatedAdminTeamRoute = AuthenticatedAdminTeamRouteImport.update({
   path: '/team',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
+const AuthenticatedAdminStatsRoute = AuthenticatedAdminStatsRouteImport.update({
+  id: '/stats',
+  path: '/stats',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
 const AuthenticatedAdminServicesRoute =
   AuthenticatedAdminServicesRouteImport.update({
     id: '/services',
     path: '/services',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminProcessRoute =
+  AuthenticatedAdminProcessRouteImport.update({
+    id: '/process',
+    path: '/process',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminPricingRoute =
+  AuthenticatedAdminPricingRouteImport.update({
+    id: '/pricing',
+    path: '/pricing',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
 const AuthenticatedAdminPortfolioRoute =
@@ -145,6 +169,27 @@ const AuthenticatedAdminMessagesRoute =
     path: '/messages',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminFaqsRoute = AuthenticatedAdminFaqsRouteImport.update({
+  id: '/faqs',
+  path: '/faqs',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminClientsRoute =
+  AuthenticatedAdminClientsRouteImport.update({
+    id: '/clients',
+    path: '/clients',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminCasesRoute = AuthenticatedAdminCasesRouteImport.update({
+  id: '/cases',
+  path: '/cases',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminBlogRoute = AuthenticatedAdminBlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -162,9 +207,16 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/api/chat': typeof ApiChatRoute
+  '/admin/blog': typeof AuthenticatedAdminBlogRoute
+  '/admin/cases': typeof AuthenticatedAdminCasesRoute
+  '/admin/clients': typeof AuthenticatedAdminClientsRoute
+  '/admin/faqs': typeof AuthenticatedAdminFaqsRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/admin/portfolio': typeof AuthenticatedAdminPortfolioRoute
+  '/admin/pricing': typeof AuthenticatedAdminPricingRoute
+  '/admin/process': typeof AuthenticatedAdminProcessRoute
   '/admin/services': typeof AuthenticatedAdminServicesRoute
+  '/admin/stats': typeof AuthenticatedAdminStatsRoute
   '/admin/team': typeof AuthenticatedAdminTeamRoute
   '/admin/testimonials': typeof AuthenticatedAdminTestimonialsRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
@@ -184,9 +236,16 @@ export interface FileRoutesByTo {
   '/team': typeof TeamRoute
   '/terms': typeof TermsRoute
   '/api/chat': typeof ApiChatRoute
+  '/admin/blog': typeof AuthenticatedAdminBlogRoute
+  '/admin/cases': typeof AuthenticatedAdminCasesRoute
+  '/admin/clients': typeof AuthenticatedAdminClientsRoute
+  '/admin/faqs': typeof AuthenticatedAdminFaqsRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/admin/portfolio': typeof AuthenticatedAdminPortfolioRoute
+  '/admin/pricing': typeof AuthenticatedAdminPricingRoute
+  '/admin/process': typeof AuthenticatedAdminProcessRoute
   '/admin/services': typeof AuthenticatedAdminServicesRoute
+  '/admin/stats': typeof AuthenticatedAdminStatsRoute
   '/admin/team': typeof AuthenticatedAdminTeamRoute
   '/admin/testimonials': typeof AuthenticatedAdminTestimonialsRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
@@ -209,9 +268,16 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/api/chat': typeof ApiChatRoute
+  '/_authenticated/admin/blog': typeof AuthenticatedAdminBlogRoute
+  '/_authenticated/admin/cases': typeof AuthenticatedAdminCasesRoute
+  '/_authenticated/admin/clients': typeof AuthenticatedAdminClientsRoute
+  '/_authenticated/admin/faqs': typeof AuthenticatedAdminFaqsRoute
   '/_authenticated/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/_authenticated/admin/portfolio': typeof AuthenticatedAdminPortfolioRoute
+  '/_authenticated/admin/pricing': typeof AuthenticatedAdminPricingRoute
+  '/_authenticated/admin/process': typeof AuthenticatedAdminProcessRoute
   '/_authenticated/admin/services': typeof AuthenticatedAdminServicesRoute
+  '/_authenticated/admin/stats': typeof AuthenticatedAdminStatsRoute
   '/_authenticated/admin/team': typeof AuthenticatedAdminTeamRoute
   '/_authenticated/admin/testimonials': typeof AuthenticatedAdminTestimonialsRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
@@ -234,9 +300,16 @@ export interface FileRouteTypes {
     | '/terms'
     | '/admin'
     | '/api/chat'
+    | '/admin/blog'
+    | '/admin/cases'
+    | '/admin/clients'
+    | '/admin/faqs'
     | '/admin/messages'
     | '/admin/portfolio'
+    | '/admin/pricing'
+    | '/admin/process'
     | '/admin/services'
+    | '/admin/stats'
     | '/admin/team'
     | '/admin/testimonials'
     | '/admin/'
@@ -256,9 +329,16 @@ export interface FileRouteTypes {
     | '/team'
     | '/terms'
     | '/api/chat'
+    | '/admin/blog'
+    | '/admin/cases'
+    | '/admin/clients'
+    | '/admin/faqs'
     | '/admin/messages'
     | '/admin/portfolio'
+    | '/admin/pricing'
+    | '/admin/process'
     | '/admin/services'
+    | '/admin/stats'
     | '/admin/team'
     | '/admin/testimonials'
     | '/admin'
@@ -280,9 +360,16 @@ export interface FileRouteTypes {
     | '/terms'
     | '/_authenticated/admin'
     | '/api/chat'
+    | '/_authenticated/admin/blog'
+    | '/_authenticated/admin/cases'
+    | '/_authenticated/admin/clients'
+    | '/_authenticated/admin/faqs'
     | '/_authenticated/admin/messages'
     | '/_authenticated/admin/portfolio'
+    | '/_authenticated/admin/pricing'
+    | '/_authenticated/admin/process'
     | '/_authenticated/admin/services'
+    | '/_authenticated/admin/stats'
     | '/_authenticated/admin/team'
     | '/_authenticated/admin/testimonials'
     | '/_authenticated/admin/'
@@ -441,11 +528,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminTeamRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/stats': {
+      id: '/_authenticated/admin/stats'
+      path: '/stats'
+      fullPath: '/admin/stats'
+      preLoaderRoute: typeof AuthenticatedAdminStatsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/services': {
       id: '/_authenticated/admin/services'
       path: '/services'
       fullPath: '/admin/services'
       preLoaderRoute: typeof AuthenticatedAdminServicesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/process': {
+      id: '/_authenticated/admin/process'
+      path: '/process'
+      fullPath: '/admin/process'
+      preLoaderRoute: typeof AuthenticatedAdminProcessRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/pricing': {
+      id: '/_authenticated/admin/pricing'
+      path: '/pricing'
+      fullPath: '/admin/pricing'
+      preLoaderRoute: typeof AuthenticatedAdminPricingRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/admin/portfolio': {
@@ -462,22 +570,64 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminMessagesRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/faqs': {
+      id: '/_authenticated/admin/faqs'
+      path: '/faqs'
+      fullPath: '/admin/faqs'
+      preLoaderRoute: typeof AuthenticatedAdminFaqsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/clients': {
+      id: '/_authenticated/admin/clients'
+      path: '/clients'
+      fullPath: '/admin/clients'
+      preLoaderRoute: typeof AuthenticatedAdminClientsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/cases': {
+      id: '/_authenticated/admin/cases'
+      path: '/cases'
+      fullPath: '/admin/cases'
+      preLoaderRoute: typeof AuthenticatedAdminCasesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/blog': {
+      id: '/_authenticated/admin/blog'
+      path: '/blog'
+      fullPath: '/admin/blog'
+      preLoaderRoute: typeof AuthenticatedAdminBlogRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
   }
 }
 
 interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminBlogRoute: typeof AuthenticatedAdminBlogRoute
+  AuthenticatedAdminCasesRoute: typeof AuthenticatedAdminCasesRoute
+  AuthenticatedAdminClientsRoute: typeof AuthenticatedAdminClientsRoute
+  AuthenticatedAdminFaqsRoute: typeof AuthenticatedAdminFaqsRoute
   AuthenticatedAdminMessagesRoute: typeof AuthenticatedAdminMessagesRoute
   AuthenticatedAdminPortfolioRoute: typeof AuthenticatedAdminPortfolioRoute
+  AuthenticatedAdminPricingRoute: typeof AuthenticatedAdminPricingRoute
+  AuthenticatedAdminProcessRoute: typeof AuthenticatedAdminProcessRoute
   AuthenticatedAdminServicesRoute: typeof AuthenticatedAdminServicesRoute
+  AuthenticatedAdminStatsRoute: typeof AuthenticatedAdminStatsRoute
   AuthenticatedAdminTeamRoute: typeof AuthenticatedAdminTeamRoute
   AuthenticatedAdminTestimonialsRoute: typeof AuthenticatedAdminTestimonialsRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminBlogRoute: AuthenticatedAdminBlogRoute,
+  AuthenticatedAdminCasesRoute: AuthenticatedAdminCasesRoute,
+  AuthenticatedAdminClientsRoute: AuthenticatedAdminClientsRoute,
+  AuthenticatedAdminFaqsRoute: AuthenticatedAdminFaqsRoute,
   AuthenticatedAdminMessagesRoute: AuthenticatedAdminMessagesRoute,
   AuthenticatedAdminPortfolioRoute: AuthenticatedAdminPortfolioRoute,
+  AuthenticatedAdminPricingRoute: AuthenticatedAdminPricingRoute,
+  AuthenticatedAdminProcessRoute: AuthenticatedAdminProcessRoute,
   AuthenticatedAdminServicesRoute: AuthenticatedAdminServicesRoute,
+  AuthenticatedAdminStatsRoute: AuthenticatedAdminStatsRoute,
   AuthenticatedAdminTeamRoute: AuthenticatedAdminTeamRoute,
   AuthenticatedAdminTestimonialsRoute: AuthenticatedAdminTestimonialsRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
@@ -517,13 +667,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -125,20 +126,22 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isChromeless = pathname.startsWith("/admin") || pathname.startsWith("/auth");
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ScrollProgress />
-      <Header />
+      {!isChromeless && <ScrollProgress />}
+      {!isChromeless && <Header />}
       <main className="min-h-screen">
         <Outlet />
       </main>
-      <Footer />
-      <BackToTop />
-      <WhatsAppButton />
-      <AIChatbot />
-      <MobileStickyCTA />
-      <div className="h-16 lg:hidden" />
+      {!isChromeless && <Footer />}
+      {!isChromeless && <BackToTop />}
+      {!isChromeless && <WhatsAppButton />}
+      {!isChromeless && <AIChatbot />}
+      {!isChromeless && <MobileStickyCTA />}
+      {!isChromeless && <div className="h-16 lg:hidden" />}
     </QueryClientProvider>
   );
 }

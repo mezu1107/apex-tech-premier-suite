@@ -11,7 +11,7 @@ export const Route = createFileRoute("/_authenticated/admin/team")({
         { name: "name", label: "Name", type: "text", required: true },
         { name: "role_title", label: "Role", type: "text" },
         { name: "bio", label: "Bio", type: "textarea" },
-        { name: "photo_url", label: "Photo URL", type: "text" },
+        { name: "photo_url", label: "Photo", type: "image" },
         { name: "email", label: "Email", type: "text" },
         { name: "linkedin_url", label: "LinkedIn URL", type: "text" },
         { name: "twitter_url", label: "Twitter URL", type: "text" },
