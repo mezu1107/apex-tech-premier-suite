@@ -103,7 +103,7 @@ const iconMap: Record<string, ComponentType<{ className?: string }>> = {
 /* ---------- types ---------- */
 
 type ServiceRow = {
-  id: string; title: string; description: string; icon: string;
+  id: string; title: string; slug: string; description: string; icon: string;
   tags: string[] | null; gradient: string; featured: boolean; sort_order: number;
 };
 type ClientRow = { id: string; name: string; logo_url: string | null; website_url: string | null };
@@ -137,7 +137,7 @@ function ServicesBento({ services }: { services: ServiceRow[] }) {
                   <span key={t} className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-medium">{t}</span>
                 ))}
               </div>
-              <Link to="/services" className="mt-6 inline-flex items-center gap-1.5 text-sm font-bold text-white/90 hover:text-white">
+              <Link to="/services/$slug" params={{ slug: (featured as ServiceRow & { slug: string }).slug }} className="mt-6 inline-flex items-center gap-1.5 text-sm font-bold text-white/90 hover:text-white">
                 Explore {featured.title} <ArrowUpRight className="h-4 w-4" />
               </Link>
             </div>
@@ -154,7 +154,7 @@ function ServicesBento({ services }: { services: ServiceRow[] }) {
                 <IconTile icon={Icon} tone={g === "lime" ? "dark" : dark ? "lime" : "teal"} />
                 <h3 className={`mt-5 font-display text-xl font-black leading-tight ${dark ? "" : "text-espresso"}`}>{s.title}</h3>
                 <p className={`mt-2 text-sm leading-relaxed ${dark ? "text-white/70" : g === "lime" ? "text-espresso/75" : "text-foreground/70"}`}>{s.description}</p>
-                <Link to="/services" className={`mt-6 inline-flex items-center gap-1.5 text-sm font-bold ${dark ? "text-white/90" : "text-cocoa"}`}>
+                <Link to="/services/$slug" params={{ slug: (s as ServiceRow & { slug: string }).slug }} className={`mt-6 inline-flex items-center gap-1.5 text-sm font-bold ${dark ? "text-white/90" : "text-cocoa"}`}>
                   Learn more <ArrowUpRight className="h-4 w-4" />
                 </Link>
               </BentoCard>
