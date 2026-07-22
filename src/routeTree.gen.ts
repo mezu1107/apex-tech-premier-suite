@@ -23,6 +23,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
@@ -107,6 +108,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesSlugRoute = ServicesSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ServicesRoute,
 } as any)
 const ApiChatRoute = ApiChatRouteImport.update({
   id: '/api/chat',
@@ -202,11 +208,12 @@ export interface FileRoutesByFullPath {
   '/portfolio': typeof PortfolioRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
-  '/services': typeof ServicesRoute
+  '/services': typeof ServicesRouteWithChildren
   '/team': typeof TeamRoute
   '/terms': typeof TermsRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/api/chat': typeof ApiChatRoute
+  '/services/$slug': typeof ServicesSlugRoute
   '/admin/blog': typeof AuthenticatedAdminBlogRoute
   '/admin/cases': typeof AuthenticatedAdminCasesRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
@@ -232,10 +239,11 @@ export interface FileRoutesByTo {
   '/portfolio': typeof PortfolioRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
-  '/services': typeof ServicesRoute
+  '/services': typeof ServicesRouteWithChildren
   '/team': typeof TeamRoute
   '/terms': typeof TermsRoute
   '/api/chat': typeof ApiChatRoute
+  '/services/$slug': typeof ServicesSlugRoute
   '/admin/blog': typeof AuthenticatedAdminBlogRoute
   '/admin/cases': typeof AuthenticatedAdminCasesRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
@@ -263,11 +271,12 @@ export interface FileRoutesById {
   '/portfolio': typeof PortfolioRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
-  '/services': typeof ServicesRoute
+  '/services': typeof ServicesRouteWithChildren
   '/team': typeof TeamRoute
   '/terms': typeof TermsRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/api/chat': typeof ApiChatRoute
+  '/services/$slug': typeof ServicesSlugRoute
   '/_authenticated/admin/blog': typeof AuthenticatedAdminBlogRoute
   '/_authenticated/admin/cases': typeof AuthenticatedAdminCasesRoute
   '/_authenticated/admin/clients': typeof AuthenticatedAdminClientsRoute
@@ -300,6 +309,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/admin'
     | '/api/chat'
+    | '/services/$slug'
     | '/admin/blog'
     | '/admin/cases'
     | '/admin/clients'
@@ -329,6 +339,7 @@ export interface FileRouteTypes {
     | '/team'
     | '/terms'
     | '/api/chat'
+    | '/services/$slug'
     | '/admin/blog'
     | '/admin/cases'
     | '/admin/clients'
@@ -360,6 +371,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/_authenticated/admin'
     | '/api/chat'
+    | '/services/$slug'
     | '/_authenticated/admin/blog'
     | '/_authenticated/admin/cases'
     | '/_authenticated/admin/clients'
@@ -387,7 +399,7 @@ export interface RootRouteChildren {
   PortfolioRoute: typeof PortfolioRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
-  ServicesRoute: typeof ServicesRoute
+  ServicesRoute: typeof ServicesRouteWithChildren
   TeamRoute: typeof TeamRoute
   TermsRoute: typeof TermsRoute
   ApiChatRoute: typeof ApiChatRoute
@@ -492,6 +504,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/services/$slug': {
+      id: '/services/$slug'
+      path: '/$slug'
+      fullPath: '/services/$slug'
+      preLoaderRoute: typeof ServicesSlugRouteImport
+      parentRoute: typeof ServicesRoute
     }
     '/api/chat': {
       id: '/api/chat'
@@ -647,6 +666,18 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface ServicesRouteChildren {
+  ServicesSlugRoute: typeof ServicesSlugRoute
+}
+
+const ServicesRouteChildren: ServicesRouteChildren = {
+  ServicesSlugRoute: ServicesSlugRoute,
+}
+
+const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
+  ServicesRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
@@ -659,7 +690,7 @@ const rootRouteChildren: RootRouteChildren = {
   PortfolioRoute: PortfolioRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
-  ServicesRoute: ServicesRoute,
+  ServicesRoute: ServicesRouteWithChildren,
   TeamRoute: TeamRoute,
   TermsRoute: TermsRoute,
   ApiChatRoute: ApiChatRoute,

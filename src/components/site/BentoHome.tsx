@@ -22,6 +22,7 @@ import {
 import { type ComponentType } from "react";
 import { Reveal } from "@/components/site/Reveal";
 import { useLiveList } from "@/lib/use-live-list";
+import { TrustBar } from "@/components/site/TrustBar";
 
 const PHONE = "+1 720 794 1888";
 
@@ -510,6 +511,7 @@ export function BentoHome() {
 
   return (
     <>
+      <TrustBar />
       <ServicesBento services={services} />
       <ClientsStrip clients={clients} />
       <SimpleServicesCards services={services} />

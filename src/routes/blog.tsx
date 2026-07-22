@@ -1,11 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Search, Calendar, ArrowRight } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Reveal } from "@/components/site/Reveal";
-import heroImg from "@/assets/hero-tech.png";
-import whyImg from "@/assets/why-choose.png";
-import bannerImg from "@/assets/banner-tech.jpg";
+import { useLiveList } from "@/lib/use-live-list";
 
 export const Route = createFileRoute("/blog")({
   head: () => ({
@@ -20,22 +18,19 @@ export const Route = createFileRoute("/blog")({
   component: BlogPage,
 });
 
-const posts = [
-  { title: "Designing AI products people actually love", cat: "AI", date: "Jun 12, 2026", img: bannerImg, excerpt: "The design patterns and evaluation loops behind AI features that stick." },
-  { title: "How we ship at 10x speed without cutting corners", cat: "Process", date: "May 28, 2026", img: heroImg, excerpt: "A look inside our review process, tooling and team rituals." },
-  { title: "The state of headless commerce in 2026", cat: "Ecommerce", date: "May 10, 2026", img: whyImg, excerpt: "What's working, what's noise, and where we'd place our bets." },
-  { title: "Postgres at scale: 12 lessons from 10 years", cat: "Engineering", date: "Apr 22, 2026", img: heroImg, excerpt: "Indexes, partitions, and the boring stuff that saves millions." },
-  { title: "Design systems that actually get adopted", cat: "Design", date: "Apr 04, 2026", img: whyImg, excerpt: "Documentation, DX, and the politics of tokens." },
-  { title: "Why we still love React in 2026", cat: "Engineering", date: "Mar 18, 2026", img: bannerImg, excerpt: "A pragmatic take on the modern React ecosystem." },
-];
-
-const cats = ["All", "AI", "Engineering", "Design", "Process", "Ecommerce"];
+type Post = {
+  id: string; title: string; slug: string; excerpt: string | null; content: string | null;
+  cover_url: string | null; author: string | null; tags: string[] | null; published_at: string | null;
+};
 
 function BlogPage() {
+  const { rows, loading } = useLiveList<Post>("blog_posts", { orderBy: { column: "sort_order" } });
   const [q, setQ] = useState("");
-  const [cat, setCat] = useState("All");
-  const visible = posts.filter(
-    (p) => (cat === "All" || p.cat === cat) && (q === "" || p.title.toLowerCase().includes(q.toLowerCase())),
+  const [tag, setTag] = useState<string>("All");
+
+  const tags = useMemo(() => ["All", ...Array.from(new Set(rows.flatMap((r) => r.tags ?? [])))], [rows]);
+  const visible = rows.filter(
+    (p) => (tag === "All" || (p.tags ?? []).includes(tag)) && (q === "" || p.title.toLowerCase().includes(q.toLowerCase())),
   );
 
   return (
@@ -46,12 +41,12 @@ function BlogPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-wrap gap-2">
-              {cats.map((c) => (
+              {tags.map((c) => (
                 <button
                   key={c}
-                  onClick={() => setCat(c)}
+                  onClick={() => setTag(c)}
                   className={`rounded-full px-4 py-1.5 text-xs font-semibold transition ${
-                    cat === c ? "bg-cocoa text-cream" : "border border-border bg-card text-espresso hover:border-copper"
+                    tag === c ? "bg-cocoa text-cream" : "border border-border bg-card text-espresso hover:border-copper"
                   }`}
                 >
                   {c}
@@ -69,28 +64,42 @@ function BlogPage() {
             </div>
           </div>
 
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {visible.map((p, i) => (
-              <Reveal key={p.title} delay={(i % 3) * 80}>
-                <a href="#" className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-soft transition hover:-translate-y-1 hover:shadow-luxury">
-                  <div className="aspect-[16/10] overflow-hidden bg-sand">
-                    <img src={p.img} alt={p.title} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
-                  </div>
-                  <div className="flex flex-1 flex-col p-6">
-                    <div className="flex items-center gap-3 text-xs text-foreground/60">
-                      <span className="rounded-full bg-sand px-2.5 py-1 font-semibold uppercase tracking-widest text-espresso/80">{p.cat}</span>
-                      <span className="inline-flex items-center gap-1"><Calendar className="h-3 w-3" /> {p.date}</span>
+          {loading ? (
+            <div className="grid place-items-center py-24 text-sm text-foreground/50">Loading articles…</div>
+          ) : visible.length === 0 ? (
+            <div className="mt-10 rounded-3xl border border-dashed border-espresso/20 p-12 text-center text-sm text-foreground/50">No articles yet.</div>
+          ) : (
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {visible.map((p, i) => (
+                <Reveal key={p.id} delay={(i % 3) * 80}>
+                  <a href="#" className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-soft transition hover:-translate-y-1 hover:shadow-luxury">
+                    <div className="aspect-[16/10] overflow-hidden bg-sand">
+                      {p.cover_url ? (
+                        <img src={p.cover_url} alt={p.title} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+                      ) : (
+                        <div className="grid h-full w-full place-items-center text-espresso/40">No image</div>
+                      )}
                     </div>
-                    <h3 className="mt-4 font-display text-lg font-bold text-espresso">{p.title}</h3>
-                    <p className="mt-2 flex-1 text-sm text-foreground/70">{p.excerpt}</p>
-                    <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-cocoa">
-                      Read more <ArrowRight className="h-4 w-4" />
-                    </span>
-                  </div>
-                </a>
-              </Reveal>
-            ))}
-          </div>
+                    <div className="flex flex-1 flex-col p-6">
+                      <div className="flex flex-wrap items-center gap-2 text-xs text-foreground/60">
+                        {(p.tags ?? []).slice(0, 1).map((t) => (
+                          <span key={t} className="rounded-full bg-sand px-2.5 py-1 font-semibold uppercase tracking-widest text-espresso/80">{t}</span>
+                        ))}
+                        {p.published_at && (
+                          <span className="inline-flex items-center gap-1"><Calendar className="h-3 w-3" /> {new Date(p.published_at).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}</span>
+                        )}
+                      </div>
+                      <h3 className="mt-4 font-display text-lg font-bold text-espresso">{p.title}</h3>
+                      {p.excerpt && <p className="mt-2 flex-1 text-sm text-foreground/70">{p.excerpt}</p>}
+                      <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-cocoa">
+                        Read more <ArrowRight className="h-4 w-4" />
+                      </span>
+                    </div>
+                  </a>
+                </Reveal>
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </>
