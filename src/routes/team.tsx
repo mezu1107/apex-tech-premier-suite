@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useApplyPageSeo } from "@/lib/page-seo";
 import { Linkedin, Twitter, Mail } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Reveal } from "@/components/site/Reveal";
@@ -23,6 +24,7 @@ type Member = {
 };
 
 function TeamPage() {
+  useApplyPageSeo("/team");
   const { rows, loading } = useLiveList<Member>("team_members", { orderBy: { column: "sort_order" } });
 
   return (

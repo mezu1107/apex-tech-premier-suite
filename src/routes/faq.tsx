@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useApplyPageSeo } from "@/lib/page-seo";
 import { useMemo, useState } from "react";
 import { Plus, Search } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";

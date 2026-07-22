@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useApplyPageSeo } from "@/lib/page-seo";
 import { Check } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Reveal } from "@/components/site/Reveal";
@@ -24,6 +25,7 @@ type Plan = {
 };
 
 function PricingPage() {
+  useApplyPageSeo("/pricing");
   const { rows, loading } = useLiveList<Plan>("pricing_plans", { orderBy: { column: "sort_order" } });
 
   return (
