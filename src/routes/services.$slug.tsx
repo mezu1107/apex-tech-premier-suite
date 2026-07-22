@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowRight, Check, Phone, Loader2, ArrowLeft, Sparkles, Code2, Smartphone, Cloud, Shield, Search, Megaphone, Users, Palette, Database, ShoppingCart, type LucideIcon } from "lucide-react";
+import { ArrowRight, Check, Phone, Loader2, ArrowLeft, Sparkles, Code2, Smartphone, Cloud, Shield, Search, Megaphone, Users, Palette, Database, ShoppingCart, ChevronDown, type LucideIcon } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Reveal } from "@/components/site/Reveal";
 
@@ -9,6 +9,10 @@ const PHONE = "+1 720 794 1888";
 const iconMap: Record<string, LucideIcon> = {
   Code2, Smartphone, Sparkles, Cloud, Shield, Search, Megaphone, Users, Palette, Database, ShoppingCart,
 };
+
+type ProcessStep = { step?: string; title?: string; description?: string };
+type PricingTier = { name?: string; price?: string; period?: string; description?: string; features?: string[]; featured?: boolean; cta_label?: string; cta_url?: string };
+type FaqItem = { question?: string; answer?: string };
 
 type Service = {
   id: string;
@@ -19,62 +23,96 @@ type Service = {
   icon: string | null;
   tags: string[] | null;
   hero_image: string | null;
+  banner_image: string | null;
+  features: string[] | null;
+  process: ProcessStep[] | null;
+  pricing_tiers: PricingTier[] | null;
+  faq: FaqItem[] | null;
+  meta_title: string | null;
+  meta_description: string | null;
+  meta_keywords: string | null;
+  og_title: string | null;
+  og_description: string | null;
+  og_image: string | null;
 };
 
+const SELECT =
+  "id,title,slug,description,long_description,icon,tags,hero_image,banner_image,features,process,pricing_tiers,faq,meta_title,meta_description,meta_keywords,og_title,og_description,og_image";
+
+async function fetchService(slug: string) {
+  const { data } = await supabase.from("services").select(SELECT).eq("slug", slug).eq("published", true).maybeSingle();
+  return (data as Service | null) ?? null;
+}
+
 export const Route = createFileRoute("/services/$slug")({
-  head: ({ params }) => ({
-    meta: [
-      { title: `Service — Adphira LLC` },
-      { name: "description", content: `Dedicated ${params.slug.replace(/-/g, " ")} service by Adphira LLC.` },
-      { property: "og:title", content: `Service — Adphira LLC` },
-    ],
-  }),
+  loader: async ({ params }) => {
+    const service = await fetchService(params.slug);
+    if (!service) throw notFound();
+    return { service };
+  },
+  head: ({ loaderData, params }) => {
+    const s = loaderData?.service;
+    const title = s?.meta_title || (s ? `${s.title} — Adphira LLC` : "Service — Adphira LLC");
+    const description = s?.meta_description || s?.description || `Dedicated ${params.slug.replace(/-/g, " ")} service by Adphira LLC.`;
+    const url = `/services/${params.slug}`;
+    const image = s?.og_image || s?.hero_image || s?.banner_image || undefined;
+    const meta: { title?: string; name?: string; property?: string; content?: string }[] = [
+      { title },
+      { name: "description", content: description },
+      { property: "og:title", content: s?.og_title || title },
+      { property: "og:description", content: s?.og_description || description },
+      { property: "og:url", content: url },
+      { property: "og:type", content: "website" },
+    ];
+    if (s?.meta_keywords) meta.push({ name: "keywords", content: s.meta_keywords });
+    if (image) {
+      meta.push({ property: "og:image", content: image });
+      meta.push({ name: "twitter:image", content: image });
+    }
+    return { meta, links: [{ rel: "canonical", href: url }] };
+  },
   component: ServiceDetail,
+  pendingComponent: () => (
+    <div className="grid min-h-[60vh] place-items-center pt-32"><Loader2 className="h-6 w-6 animate-spin text-cocoa" /></div>
+  ),
+  notFoundComponent: () => (
+    <div className="grid min-h-[60vh] place-items-center px-6 pt-32 text-center">
+      <div>
+        <h1 className="font-display text-3xl font-black text-espresso">Service not found</h1>
+        <Link to="/services" className="mt-6 inline-flex items-center gap-2 rounded-full bg-espresso px-5 py-3 text-sm font-bold text-white hover:bg-cocoa">
+          <ArrowLeft className="h-4 w-4" /> All services
+        </Link>
+      </div>
+    </div>
+  ),
+  errorComponent: ({ reset }) => (
+    <div className="grid min-h-[60vh] place-items-center px-6 pt-32 text-center">
+      <div>
+        <h1 className="font-display text-3xl font-black text-espresso">Couldn't load this service</h1>
+        <button onClick={reset} className="mt-6 rounded-full bg-espresso px-5 py-3 text-sm font-bold text-white">Retry</button>
+      </div>
+    </div>
+  ),
 });
 
 function ServiceDetail() {
-  const { slug } = Route.useParams();
-  const [service, setService] = useState<Service | null>(null);
+  const { service } = Route.useLoaderData();
   const [related, setRelated] = useState<Service[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [missing, setMissing] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   useEffect(() => {
     let cancelled = false;
-    async function load() {
-      setLoading(true);
-      const { data } = await supabase
-        .from("services")
-        .select("id,title,slug,description,long_description,icon,tags,hero_image")
-        .eq("slug", slug)
-        .eq("published", true)
-        .maybeSingle();
-      if (cancelled) return;
-      if (!data) { setMissing(true); setLoading(false); return; }
-      setService(data as Service);
-      const { data: rel } = await supabase
-        .from("services")
-        .select("id,title,slug,description,long_description,icon,tags,hero_image")
-        .eq("published", true)
-        .neq("slug", slug)
-        .order("sort_order", { ascending: true })
-        .limit(6);
-      if (!cancelled) setRelated((rel as Service[]) ?? []);
-      setLoading(false);
-    }
-    load();
+    supabase.from("services").select(SELECT).eq("published", true).neq("slug", service.slug)
+      .order("sort_order", { ascending: true }).limit(6)
+      .then(({ data }) => { if (!cancelled) setRelated(((data as Service[] | null) ?? [])); });
     return () => { cancelled = true; };
-  }, [slug]);
-
-  if (loading) {
-    return <div className="grid min-h-[60vh] place-items-center pt-32"><Loader2 className="h-6 w-6 animate-spin text-cocoa" /></div>;
-  }
-
-  if (missing || !service) {
-    throw notFound();
-  }
+  }, [service.slug]);
 
   const Icon = iconMap[service.icon ?? ""] ?? Sparkles;
+  const features = service.features ?? [];
+  const processSteps = service.process ?? [];
+  const pricing = service.pricing_tiers ?? [];
+  const faq = service.faq ?? [];
 
   return (
     <>
@@ -116,9 +154,7 @@ function ServiceDetail() {
                 {service.hero_image ? (
                   <img src={service.hero_image} alt={service.title} className="h-full w-full object-cover" />
                 ) : (
-                  <div className="grid h-full w-full place-items-center">
-                    <Icon className="h-24 w-24 text-copper/60" />
-                  </div>
+                  <div className="grid h-full w-full place-items-center"><Icon className="h-24 w-24 text-copper/60" /></div>
                 )}
               </div>
             </Reveal>
@@ -126,7 +162,7 @@ function ServiceDetail() {
         </div>
       </section>
 
-      {/* Long description + features */}
+      {/* Overview */}
       <section className="bg-white py-20">
         <div className="mx-auto grid max-w-6xl gap-12 px-5 sm:px-6 lg:grid-cols-[1.6fr_1fr] lg:px-8">
           <Reveal>
@@ -134,7 +170,7 @@ function ServiceDetail() {
               <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-cocoa">Overview</span>
               <h2 className="mt-2 font-display text-3xl font-black text-espresso sm:text-4xl">What you get</h2>
               <div className="prose prose-espresso mt-5 max-w-none text-base leading-relaxed text-foreground/75">
-                {(service.long_description ?? service.description).split("\n").map((p, i) => (
+                {(service.long_description ?? service.description).split(/\n{2,}/).map((p, i) => (
                   <p key={i} className="mb-4">{p}</p>
                 ))}
               </div>
@@ -153,10 +189,148 @@ function ServiceDetail() {
               <Link to="/contact" className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-espresso px-5 py-3 text-sm font-bold text-white hover:bg-cocoa">
                 Request a quote <ArrowRight className="h-4 w-4" />
               </Link>
+              <a href={`tel:${PHONE.replace(/\s/g, "")}`} className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full border border-espresso/15 px-5 py-3 text-sm font-bold text-espresso hover:bg-white">
+                <Phone className="h-4 w-4" /> {PHONE}
+              </a>
             </div>
           </Reveal>
         </div>
       </section>
+
+      {/* Banner */}
+      {service.banner_image && (
+        <section
+          className="relative min-h-[280px] bg-cover bg-center py-20 text-white sm:min-h-[360px]"
+          style={{ backgroundImage: `linear-gradient(rgba(4,25,27,0.65), rgba(4,25,27,0.75)), url(${service.banner_image})` }}
+        >
+          <div className="mx-auto max-w-4xl px-5 text-center sm:px-6">
+            <Reveal>
+              <h2 className="font-display text-3xl font-black leading-tight sm:text-4xl">Ready to launch {service.title.toLowerCase()}?</h2>
+              <p className="mt-3 text-white/80">Book a free 30-minute consultation with our team.</p>
+              <div className="mt-6 flex flex-wrap justify-center gap-3">
+                <Link to="/contact" className="inline-flex items-center gap-2 rounded-full bg-copper px-6 py-3 text-sm font-bold text-espresso hover:bg-white">
+                  Book a call <ArrowRight className="h-4 w-4" />
+                </Link>
+                <a href={`tel:${PHONE.replace(/\s/g, "")}`} className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3 text-sm font-bold text-white hover:bg-white/20">
+                  <Phone className="h-4 w-4" /> {PHONE}
+                </a>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      )}
+
+      {/* Features */}
+      {features.length > 0 && (
+        <section className="bg-sand/40 py-20">
+          <div className="mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
+            <div className="mb-10 max-w-2xl">
+              <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-cocoa">Features</span>
+              <h2 className="mt-2 font-display text-3xl font-black text-espresso sm:text-4xl">What's included</h2>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {features.map((f, i) => (
+                <Reveal key={i} delay={(i % 3) * 60}>
+                  <div className="flex h-full items-start gap-3 rounded-2xl border border-espresso/10 bg-white p-5 shadow-soft">
+                    <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-copper/20 text-cocoa">
+                      <Check className="h-4 w-4" />
+                    </div>
+                    <p className="text-sm font-semibold text-espresso">{f}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Process */}
+      {processSteps.length > 0 && (
+        <section className="bg-white py-20">
+          <div className="mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
+            <div className="mb-10 max-w-2xl">
+              <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-cocoa">Process</span>
+              <h2 className="mt-2 font-display text-3xl font-black text-espresso sm:text-4xl">How we work</h2>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {processSteps.map((p, i) => (
+                <Reveal key={i} delay={i * 80}>
+                  <div className="h-full rounded-3xl border border-espresso/10 bg-sand/40 p-6">
+                    <span className="font-display text-3xl font-black text-copper">{p.step ?? String(i + 1).padStart(2, "0")}</span>
+                    <p className="mt-2 font-display text-lg font-bold text-espresso">{p.title}</p>
+                    {p.description && <p className="mt-2 text-sm text-foreground/70">{p.description}</p>}
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Pricing */}
+      {pricing.length > 0 && (
+        <section className="bg-sand/40 py-20">
+          <div className="mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
+            <div className="mb-10 max-w-2xl">
+              <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-cocoa">Pricing</span>
+              <h2 className="mt-2 font-display text-3xl font-black text-espresso sm:text-4xl">Simple, transparent pricing</h2>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {pricing.map((tier, i) => (
+                <Reveal key={i} delay={i * 80}>
+                  <div className={`flex h-full flex-col rounded-3xl border p-7 shadow-soft ${tier.featured ? "border-copper bg-espresso text-white" : "border-espresso/10 bg-white"}`}>
+                    <p className={`font-display text-lg font-black ${tier.featured ? "text-copper" : "text-espresso"}`}>{tier.name}</p>
+                    {tier.description && <p className={`mt-1 text-sm ${tier.featured ? "text-white/70" : "text-foreground/70"}`}>{tier.description}</p>}
+                    <div className="mt-4 flex items-baseline gap-1">
+                      <span className={`font-display text-4xl font-black ${tier.featured ? "text-white" : "text-espresso"}`}>{tier.price}</span>
+                      {tier.period && <span className={`text-sm ${tier.featured ? "text-white/60" : "text-foreground/60"}`}>/ {tier.period}</span>}
+                    </div>
+                    <ul className="mt-5 flex-1 space-y-2 text-sm">
+                      {(tier.features ?? []).map((f, fi) => (
+                        <li key={fi} className={`flex items-start gap-2 ${tier.featured ? "text-white/85" : "text-espresso/85"}`}>
+                          <Check className={`mt-0.5 h-4 w-4 shrink-0 ${tier.featured ? "text-copper" : "text-cocoa"}`} /> {f}
+                        </li>
+                      ))}
+                    </ul>
+                    <a href={tier.cta_url || "/contact"}
+                      className={`mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold ${tier.featured ? "bg-copper text-espresso hover:bg-white" : "bg-espresso text-white hover:bg-cocoa"}`}>
+                      {tier.cta_label || "Get started"} <ArrowRight className="h-4 w-4" />
+                    </a>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* FAQ */}
+      {faq.length > 0 && (
+        <section className="bg-white py-20">
+          <div className="mx-auto max-w-3xl px-5 sm:px-6 lg:px-8">
+            <div className="mb-10 text-center">
+              <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-cocoa">FAQ</span>
+              <h2 className="mt-2 font-display text-3xl font-black text-espresso sm:text-4xl">Frequently asked questions</h2>
+            </div>
+            <div className="space-y-3">
+              {faq.map((item, i) => (
+                <div key={i} className="overflow-hidden rounded-2xl border border-espresso/10 bg-sand/30">
+                  <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                    className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left">
+                    <span className="font-semibold text-espresso">{item.question}</span>
+                    <ChevronDown className={`h-4 w-4 shrink-0 text-cocoa transition ${openFaq === i ? "rotate-180" : ""}`} />
+                  </button>
+                  {openFaq === i && item.answer && (
+                    <div className="border-t border-espresso/10 bg-white px-5 py-4 text-sm leading-relaxed text-foreground/75">
+                      {item.answer.split(/\n{2,}/).map((p, pi) => <p key={pi} className="mb-2">{p}</p>)}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Related */}
       {related.length > 0 && (
@@ -170,12 +344,8 @@ function ServiceDetail() {
               {related.map((r) => {
                 const RIcon = iconMap[r.icon ?? ""] ?? Sparkles;
                 return (
-                  <Link
-                    key={r.id}
-                    to="/services/$slug"
-                    params={{ slug: r.slug }}
-                    className="group h-full rounded-3xl border border-espresso/10 bg-white p-6 transition hover:-translate-y-1 hover:shadow-lg"
-                  >
+                  <Link key={r.id} to="/services/$slug" params={{ slug: r.slug }}
+                    className="group h-full rounded-3xl border border-espresso/10 bg-white p-6 transition hover:-translate-y-1 hover:shadow-lg">
                     <div className="grid h-11 w-11 place-items-center rounded-xl bg-espresso text-copper">
                       <RIcon className="h-5 w-5" />
                     </div>
