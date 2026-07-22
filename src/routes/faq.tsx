@@ -22,6 +22,7 @@ export const Route = createFileRoute("/faq")({
 type Faq = { id: string; question: string; answer: string; category: string | null };
 
 function FAQPage() {
+  useApplyPageSeo("/faq");
   const { rows, loading } = useLiveList<Faq>("faqs", { orderBy: { column: "sort_order" } });
   const [q, setQ] = useState("");
   const [cat, setCat] = useState<string>("All");
