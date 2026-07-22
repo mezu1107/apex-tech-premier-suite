@@ -1,9 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Search, Calendar, ArrowRight } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Reveal } from "@/components/site/Reveal";
 import { useLiveList } from "@/lib/use-live-list";
+import { useApplyPageSeo } from "@/lib/page-seo";
 
 export const Route = createFileRoute("/blog")({
   head: () => ({
@@ -24,6 +25,7 @@ type Post = {
 };
 
 function BlogPage() {
+  useApplyPageSeo("/blog");
   const { rows, loading } = useLiveList<Post>("blog_posts", { orderBy: { column: "sort_order" } });
   const [q, setQ] = useState("");
   const [tag, setTag] = useState<string>("All");
@@ -72,7 +74,7 @@ function BlogPage() {
             <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {visible.map((p, i) => (
                 <Reveal key={p.id} delay={(i % 3) * 80}>
-                  <a href="#" className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-soft transition hover:-translate-y-1 hover:shadow-luxury">
+                  <Link to="/blog/$slug" params={{ slug: p.slug }} className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-soft transition hover:-translate-y-1 hover:shadow-luxury">
                     <div className="aspect-[16/10] overflow-hidden bg-sand">
                       {p.cover_url ? (
                         <img src={p.cover_url} alt={p.title} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
@@ -95,7 +97,7 @@ function BlogPage() {
                         Read more <ArrowRight className="h-4 w-4" />
                       </span>
                     </div>
-                  </a>
+                  </Link>
                 </Reveal>
               ))}
             </div>
