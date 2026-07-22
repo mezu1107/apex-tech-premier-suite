@@ -332,9 +332,12 @@ export type Database = {
           description: string
           featured: boolean
           gradient: string
+          hero_image: string | null
           icon: string
           id: string
+          long_description: string | null
           published: boolean
+          slug: string | null
           sort_order: number
           tags: string[]
           title: string
@@ -345,9 +348,12 @@ export type Database = {
           description: string
           featured?: boolean
           gradient?: string
+          hero_image?: string | null
           icon?: string
           id?: string
+          long_description?: string | null
           published?: boolean
+          slug?: string | null
           sort_order?: number
           tags?: string[]
           title: string
@@ -358,9 +364,12 @@ export type Database = {
           description?: string
           featured?: boolean
           gradient?: string
+          hero_image?: string | null
           icon?: string
           id?: string
+          long_description?: string | null
           published?: boolean
+          slug?: string | null
           sort_order?: number
           tags?: string[]
           title?: string

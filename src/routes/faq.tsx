@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Plus, Search } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Reveal } from "@/components/site/Reveal";
+import { useLiveList } from "@/lib/use-live-list";
 
 export const Route = createFileRoute("/faq")({
   head: () => ({
@@ -17,26 +18,17 @@ export const Route = createFileRoute("/faq")({
   component: FAQPage,
 });
 
-const faqs = [
-  { cat: "General", q: "What kind of clients do you work with?", a: "From venture-backed startups to Fortune 500 enterprises. We choose engagements where craft and impact matter." },
-  { cat: "General", q: "Where are you based?", a: "London (HQ), Dubai and Singapore, with a fully remote-friendly team across 12 countries." },
-  { cat: "Process", q: "How long does a typical project take?", a: "MVPs land in 6–10 weeks. Full platforms typically 3–6 months. We share detailed timelines during discovery." },
-  { cat: "Process", q: "Do you sign NDAs?", a: "Absolutely. We routinely operate under NDAs, DPAs and custom MSAs." },
-  { cat: "Pricing", q: "How do you price projects?", a: "Fixed-scope, retainer, or dedicated squad — whichever aligns best with your goals and risk profile." },
-  { cat: "Pricing", q: "Do you offer maintenance?", a: "Yes. Every launch includes a 30-day warranty; ongoing SLAs are available." },
-  { cat: "Support", q: "What kind of support do you provide?", a: "Business-hours support on all plans; 24/7 on Enterprise with a named account manager." },
-  { cat: "Support", q: "Who owns the code?", a: "You do. 100%. We ship you clean repositories, docs and infrastructure diagrams." },
-];
-
-const cats = ["All", "General", "Process", "Pricing", "Support"] as const;
+type Faq = { id: string; question: string; answer: string; category: string | null };
 
 function FAQPage() {
+  const { rows, loading } = useLiveList<Faq>("faqs", { orderBy: { column: "sort_order" } });
   const [q, setQ] = useState("");
-  const [cat, setCat] = useState<(typeof cats)[number]>("All");
-  const [open, setOpen] = useState<number | null>(0);
+  const [cat, setCat] = useState<string>("All");
+  const [open, setOpen] = useState<string | null>(null);
 
-  const filtered = faqs.filter(
-    (f) => (cat === "All" || f.cat === cat) && (q === "" || (f.q + f.a).toLowerCase().includes(q.toLowerCase())),
+  const cats = useMemo(() => ["All", ...Array.from(new Set(rows.map((r) => r.category).filter((c): c is string => Boolean(c))))], [rows]);
+  const filtered = rows.filter(
+    (f) => (cat === "All" || f.category === cat) && (q === "" || (f.question + f.answer).toLowerCase().includes(q.toLowerCase())),
   );
 
   return (
@@ -70,29 +62,33 @@ function FAQPage() {
             ))}
           </div>
 
-          <div className="mt-8 space-y-3">
-            {filtered.map((f, i) => (
-              <Reveal key={f.q} delay={i * 40}>
-                <button
-                  onClick={() => setOpen(open === i ? null : i)}
-                  className="w-full overflow-hidden rounded-2xl border border-border bg-card text-left shadow-soft transition hover:border-copper"
-                >
-                  <div className="flex items-center justify-between gap-4 p-5">
-                    <span className="font-display font-bold text-espresso">{f.q}</span>
-                    <Plus className={`h-5 w-5 shrink-0 text-cocoa transition ${open === i ? "rotate-45" : ""}`} />
-                  </div>
-                  <div className={`grid transition-all duration-500 ${open === i ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
-                    <div className="overflow-hidden">
-                      <p className="px-5 pb-5 text-sm leading-relaxed text-foreground/70">{f.a}</p>
+          {loading ? (
+            <div className="grid place-items-center py-24 text-sm text-foreground/50">Loading…</div>
+          ) : (
+            <div className="mt-8 space-y-3">
+              {filtered.map((f, i) => (
+                <Reveal key={f.id} delay={i * 40}>
+                  <button
+                    onClick={() => setOpen(open === f.id ? null : f.id)}
+                    className="w-full overflow-hidden rounded-2xl border border-border bg-card text-left shadow-soft transition hover:border-copper"
+                  >
+                    <div className="flex items-center justify-between gap-4 p-5">
+                      <span className="font-display font-bold text-espresso">{f.question}</span>
+                      <Plus className={`h-5 w-5 shrink-0 text-cocoa transition ${open === f.id ? "rotate-45" : ""}`} />
                     </div>
-                  </div>
-                </button>
-              </Reveal>
-            ))}
-            {filtered.length === 0 && (
-              <p className="text-center text-sm text-foreground/60">No results — try a different search.</p>
-            )}
-          </div>
+                    <div className={`grid transition-all duration-500 ${open === f.id ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
+                      <div className="overflow-hidden">
+                        <p className="px-5 pb-5 text-sm leading-relaxed text-foreground/70">{f.answer}</p>
+                      </div>
+                    </div>
+                  </button>
+                </Reveal>
+              ))}
+              {filtered.length === 0 && (
+                <p className="text-center text-sm text-foreground/60">No results — try a different search.</p>
+              )}
+            </div>
+          )}
         </div>
       </section>
     </>
