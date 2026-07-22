@@ -1,8 +1,8 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Plus, Pencil, Trash2, Loader2, X, Save } from "lucide-react";
+import { Plus, Pencil, Trash2, Loader2, X, Save, Upload, ImageIcon } from "lucide-react";
 
-export type FieldType = "text" | "textarea" | "number" | "boolean" | "tags" | "select";
+export type FieldType = "text" | "textarea" | "number" | "boolean" | "tags" | "select" | "image";
 
 export interface FieldDef {
   name: string;
@@ -21,6 +21,95 @@ export interface CrudTableProps {
   orderBy?: { column: string; ascending?: boolean };
   defaults?: Record<string, unknown>;
   readOnly?: boolean;
+}
+
+function ImageUploadField({
+  value,
+  onChange,
+  table,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  table: string;
+}) {
+  const [uploading, setUploading] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  async function handleFile(file: File) {
+    setErr(null);
+    setUploading(true);
+    try {
+      const ext = file.name.split(".").pop() || "jpg";
+      const path = `${table}/${crypto.randomUUID()}.${ext}`;
+      const { error } = await supabase.storage.from("media").upload(path, file, {
+        cacheControl: "3600",
+        upsert: false,
+      });
+      if (error) throw error;
+      const { data } = supabase.storage.from("media").getPublicUrl(path);
+      onChange(data.publicUrl);
+    } catch (e) {
+      setErr((e as Error).message);
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  return (
+    <div className="mt-1.5 space-y-2">
+      <div className="flex items-center gap-3">
+        <div className="grid h-16 w-16 shrink-0 place-items-center overflow-hidden rounded-2xl border border-espresso/12 bg-sand/40">
+          {value ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={value} alt="" className="h-full w-full object-cover" />
+          ) : (
+            <ImageIcon className="h-5 w-5 text-espresso/40" />
+          )}
+        </div>
+        <div className="flex-1 min-w-0 space-y-2">
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => inputRef.current?.click()}
+              disabled={uploading}
+              className="inline-flex items-center gap-1.5 rounded-full bg-espresso px-4 py-2 text-xs font-bold text-white hover:bg-cocoa disabled:opacity-60"
+            >
+              {uploading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Upload className="h-3.5 w-3.5" />}
+              {uploading ? "Uploading…" : "Upload from PC"}
+            </button>
+            {value && (
+              <button
+                type="button"
+                onClick={() => onChange("")}
+                className="rounded-full border border-espresso/15 px-3 py-2 text-xs font-bold text-espresso hover:bg-sand"
+              >
+                Clear
+              </button>
+            )}
+          </div>
+          <input
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            placeholder="or paste image URL"
+            className="w-full rounded-xl border border-espresso/12 bg-sand/40 px-3 py-2 text-xs outline-none focus:border-cocoa focus:bg-white"
+          />
+        </div>
+      </div>
+      <input
+        ref={inputRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={(e) => {
+          const f = e.target.files?.[0];
+          if (f) handleFile(f);
+          if (inputRef.current) inputRef.current.value = "";
+        }}
+      />
+      {err && <p className="text-xs text-red-600">{err}</p>}
+    </div>
+  );
 }
 
 export function CrudTable({ table, title, fields, listColumns, orderBy, defaults = {}, readOnly = false }: CrudTableProps) {
@@ -86,8 +175,8 @@ export function CrudTable({ table, title, fields, listColumns, orderBy, defaults
 
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between gap-3">
-        <div>
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+        <div className="min-w-0">
           <h1 className="font-display text-2xl font-black text-espresso">{title}</h1>
           <p className="text-sm text-foreground/60">{rows.length} item{rows.length === 1 ? "" : "s"}</p>
         </div>
@@ -168,6 +257,12 @@ export function CrudTable({ table, title, fields, listColumns, orderBy, defaults
                       className="mt-1.5 w-full rounded-2xl border border-espresso/12 bg-sand/40 px-4 py-3 text-sm outline-none focus:border-cocoa focus:bg-white">
                       {f.options?.map((o) => (<option key={o} value={o}>{o}</option>))}
                     </select>
+                  ) : f.type === "image" ? (
+                    <ImageUploadField
+                      value={String(editing[f.name] ?? "")}
+                      onChange={(v) => setEditing({ ...editing, [f.name]: v })}
+                      table={table}
+                    />
                   ) : (
                     <input value={String(editing[f.name] ?? "")} onChange={(e) => setEditing({ ...editing, [f.name]: e.target.value })}
                       placeholder={f.placeholder}

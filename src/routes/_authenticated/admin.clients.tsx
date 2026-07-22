@@ -1,25 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CrudTable } from "@/components/admin/CrudTable";
 
-export const Route = createFileRoute("/_authenticated/admin/testimonials")({
+export const Route = createFileRoute("/_authenticated/admin/clients")({
   component: () => (
     <CrudTable
-      table="testimonials"
-      title="Testimonials"
+      table="clients"
+      title="Clients & Logos"
       orderBy={{ column: "sort_order", ascending: true }}
       fields={[
         { name: "name", label: "Client name", type: "text", required: true },
-        { name: "role_title", label: "Role / Company", type: "text" },
-        { name: "quote", label: "Quote", type: "textarea", required: true },
-        { name: "stars", label: "Stars (1-5)", type: "number" },
-        { name: "avatar_url", label: "Avatar", type: "image" },
+        { name: "logo_url", label: "Logo image", type: "image" },
+        { name: "website_url", label: "Website URL", type: "text" },
         { name: "sort_order", label: "Sort order", type: "number" },
         { name: "published", label: "Published", type: "boolean" },
       ]}
       listColumns={[
         { key: "name", label: "Name" },
-        { key: "role_title", label: "Role" },
-        { key: "stars", label: "★" },
+        { key: "website_url", label: "Site" },
+        { key: "sort_order", label: "Order" },
         { key: "published", label: "Live", render: (r) => (r.published ? "✓" : "—") },
       ]}
     />
