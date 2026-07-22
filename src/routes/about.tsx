@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useApplyPageSeo } from "@/lib/page-seo";
 import { Target, Eye, Heart, Award, Sparkles, ArrowRight } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Reveal } from "@/components/site/Reveal";
@@ -33,6 +34,7 @@ const timeline = [
 ];
 
 function AboutPage() {
+  useApplyPageSeo("/about");
   return (
     <>
       <PageHeader

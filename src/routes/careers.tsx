@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useApplyPageSeo } from "@/lib/page-seo";
 import { MapPin, Clock, Heart, Zap, Globe, Coffee } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Reveal } from "@/components/site/Reveal";
@@ -33,6 +34,7 @@ const benefits = [
 ];
 
 function CareersPage() {
+  useApplyPageSeo("/careers");
   return (
     <>
       <PageHeader eyebrow="Careers" title="Do the best work of your career." description="We hire senior, kind, curious people and give them the room to ship." />

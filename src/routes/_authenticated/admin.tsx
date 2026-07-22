@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet, Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { LayoutDashboard, Wrench, Briefcase, MessageSquare, Users, Star, LogOut, Loader2, Menu, X, ArrowLeft, HelpCircle, FileText, Tag, Building2, GitBranch, BarChart3, BookOpen } from "lucide-react";
+import { LayoutDashboard, Wrench, Briefcase, MessageSquare, Users, Star, LogOut, Loader2, Menu, X, ArrowLeft, HelpCircle, FileText, Tag, Building2, GitBranch, BarChart3, BookOpen, Search } from "lucide-react";
 import { useAuth } from "@/lib/use-auth";
 
 export const Route = createFileRoute("/_authenticated/admin")({
@@ -21,6 +21,7 @@ const nav: { to: string; label: string; icon: typeof LayoutDashboard; exact?: bo
   { to: "/admin/pricing", label: "Pricing Plans", icon: Tag },
   { to: "/admin/blog", label: "Blog", icon: FileText },
   { to: "/admin/faqs", label: "FAQs", icon: HelpCircle },
+  { to: "/admin/seo", label: "Page SEO", icon: Search },
   { to: "/admin/messages", label: "Messages", icon: MessageSquare },
 ];
 

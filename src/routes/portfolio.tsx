@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useApplyPageSeo } from "@/lib/page-seo";
 import { useMemo, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
@@ -21,6 +22,7 @@ export const Route = createFileRoute("/portfolio")({
 type Project = { id: string; title: string; category: string; description: string | null; image_url: string | null; link_url: string | null };
 
 function PortfolioPage() {
+  useApplyPageSeo("/portfolio");
   const { rows, loading } = useLiveList<Project>("portfolio", { orderBy: { column: "sort_order" } });
   const [filter, setFilter] = useState<string>("All");
 

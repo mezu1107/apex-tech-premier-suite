@@ -22,6 +22,12 @@ export type Database = {
           created_at: string
           excerpt: string | null
           id: string
+          meta_description: string | null
+          meta_keywords: string | null
+          meta_title: string | null
+          og_description: string | null
+          og_image: string | null
+          og_title: string | null
           published: boolean
           published_at: string | null
           slug: string
@@ -37,6 +43,12 @@ export type Database = {
           created_at?: string
           excerpt?: string | null
           id?: string
+          meta_description?: string | null
+          meta_keywords?: string | null
+          meta_title?: string | null
+          og_description?: string | null
+          og_image?: string | null
+          og_title?: string | null
           published?: boolean
           published_at?: string | null
           slug: string
@@ -52,6 +64,12 @@ export type Database = {
           created_at?: string
           excerpt?: string | null
           id?: string
+          meta_description?: string | null
+          meta_keywords?: string | null
+          meta_title?: string | null
+          og_description?: string | null
+          og_image?: string | null
+          og_title?: string | null
           published?: boolean
           published_at?: string | null
           slug?: string
@@ -203,6 +221,54 @@ export type Database = {
         }
         Relationships: []
       }
+      page_seo: {
+        Row: {
+          canonical_url: string | null
+          created_at: string
+          id: string
+          label: string
+          meta_description: string | null
+          meta_keywords: string | null
+          meta_title: string | null
+          noindex: boolean
+          og_description: string | null
+          og_image: string | null
+          og_title: string | null
+          path: string
+          updated_at: string
+        }
+        Insert: {
+          canonical_url?: string | null
+          created_at?: string
+          id?: string
+          label: string
+          meta_description?: string | null
+          meta_keywords?: string | null
+          meta_title?: string | null
+          noindex?: boolean
+          og_description?: string | null
+          og_image?: string | null
+          og_title?: string | null
+          path: string
+          updated_at?: string
+        }
+        Update: {
+          canonical_url?: string | null
+          created_at?: string
+          id?: string
+          label?: string
+          meta_description?: string | null
+          meta_keywords?: string | null
+          meta_title?: string | null
+          noindex?: boolean
+          og_description?: string | null
+          og_image?: string | null
+          og_title?: string | null
+          path?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       portfolio: {
         Row: {
           category: string
@@ -328,14 +394,25 @@ export type Database = {
       }
       services: {
         Row: {
+          banner_image: string | null
           created_at: string
           description: string
+          faq: Json
           featured: boolean
+          features: string[]
           gradient: string
           hero_image: string | null
           icon: string
           id: string
           long_description: string | null
+          meta_description: string | null
+          meta_keywords: string | null
+          meta_title: string | null
+          og_description: string | null
+          og_image: string | null
+          og_title: string | null
+          pricing_tiers: Json
+          process: Json
           published: boolean
           slug: string | null
           sort_order: number
@@ -344,14 +421,25 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          banner_image?: string | null
           created_at?: string
           description: string
+          faq?: Json
           featured?: boolean
+          features?: string[]
           gradient?: string
           hero_image?: string | null
           icon?: string
           id?: string
           long_description?: string | null
+          meta_description?: string | null
+          meta_keywords?: string | null
+          meta_title?: string | null
+          og_description?: string | null
+          og_image?: string | null
+          og_title?: string | null
+          pricing_tiers?: Json
+          process?: Json
           published?: boolean
           slug?: string | null
           sort_order?: number
@@ -360,14 +448,25 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          banner_image?: string | null
           created_at?: string
           description?: string
+          faq?: Json
           featured?: boolean
+          features?: string[]
           gradient?: string
           hero_image?: string | null
           icon?: string
           id?: string
           long_description?: string | null
+          meta_description?: string | null
+          meta_keywords?: string | null
+          meta_title?: string | null
+          og_description?: string | null
+          og_image?: string | null
+          og_title?: string | null
+          pricing_tiers?: Json
+          process?: Json
           published?: boolean
           slug?: string | null
           sort_order?: number

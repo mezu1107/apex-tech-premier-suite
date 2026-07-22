@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useApplyPageSeo } from "@/lib/page-seo";
 import { ArrowRight, Check, Sparkles, Code2, Smartphone, Cloud, Shield, Search, Megaphone, Users, Palette, Database, ShoppingCart, type LucideIcon } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Reveal } from "@/components/site/Reveal";
@@ -31,6 +32,7 @@ type ServiceRow = {
 };
 
 function ServicesPage() {
+  useApplyPageSeo("/services");
   const { rows, loading } = useLiveList<ServiceRow>("services", { orderBy: { column: "sort_order" } });
 
   return (

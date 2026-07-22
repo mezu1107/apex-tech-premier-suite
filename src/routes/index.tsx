@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useApplyPageSeo } from "@/lib/page-seo";
 import { HeroSlider } from "@/components/site/HeroSlider";
 import { BentoHome } from "@/components/site/BentoHome";
 
@@ -18,6 +19,7 @@ export const Route = createFileRoute("/")({
 });
 
 function LandingPage() {
+  useApplyPageSeo("/");
   return (
     <div className="bg-white text-espresso">
       <HeroSlider />

@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Plus, Pencil, Trash2, Loader2, X, Save, Upload, ImageIcon } from "lucide-react";
+import { Plus, Pencil, Trash2, Loader2, X, Save, Upload, ImageIcon, GripVertical } from "lucide-react";
 
-export type FieldType = "text" | "textarea" | "number" | "boolean" | "tags" | "select" | "image";
+export type FieldType = "text" | "textarea" | "number" | "boolean" | "tags" | "select" | "image" | "repeater";
 
 export interface FieldDef {
   name: string;
@@ -11,6 +11,10 @@ export interface FieldDef {
   required?: boolean;
   options?: string[];
   placeholder?: string;
+  section?: string;
+  help?: string;
+  subFields?: FieldDef[]; // for repeater
+  itemLabel?: string;     // for repeater
 }
 
 export interface CrudTableProps {
@@ -23,15 +27,7 @@ export interface CrudTableProps {
   readOnly?: boolean;
 }
 
-function ImageUploadField({
-  value,
-  onChange,
-  table,
-}: {
-  value: string;
-  onChange: (v: string) => void;
-  table: string;
-}) {
+function ImageUploadField({ value, onChange, table }: { value: string; onChange: (v: string) => void; table: string }) {
   const [uploading, setUploading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -42,10 +38,7 @@ function ImageUploadField({
     try {
       const ext = file.name.split(".").pop() || "jpg";
       const path = `${table}/${crypto.randomUUID()}.${ext}`;
-      const { error } = await supabase.storage.from("media").upload(path, file, {
-        cacheControl: "3600",
-        upsert: false,
-      });
+      const { error } = await supabase.storage.from("media").upload(path, file, { cacheControl: "3600", upsert: false });
       if (error) throw error;
       const { data } = supabase.storage.from("media").getPublicUrl(path);
       onChange(data.publicUrl);
@@ -60,56 +53,118 @@ function ImageUploadField({
     <div className="mt-1.5 space-y-2">
       <div className="flex items-center gap-3">
         <div className="grid h-16 w-16 shrink-0 place-items-center overflow-hidden rounded-2xl border border-espresso/12 bg-sand/40">
-          {value ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={value} alt="" className="h-full w-full object-cover" />
-          ) : (
-            <ImageIcon className="h-5 w-5 text-espresso/40" />
-          )}
+          {value ? <img src={value} alt="" className="h-full w-full object-cover" /> : <ImageIcon className="h-5 w-5 text-espresso/40" />}
         </div>
         <div className="flex-1 min-w-0 space-y-2">
           <div className="flex flex-wrap gap-2">
-            <button
-              type="button"
-              onClick={() => inputRef.current?.click()}
-              disabled={uploading}
-              className="inline-flex items-center gap-1.5 rounded-full bg-espresso px-4 py-2 text-xs font-bold text-white hover:bg-cocoa disabled:opacity-60"
-            >
+            <button type="button" onClick={() => inputRef.current?.click()} disabled={uploading}
+              className="inline-flex items-center gap-1.5 rounded-full bg-espresso px-4 py-2 text-xs font-bold text-white hover:bg-cocoa disabled:opacity-60">
               {uploading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Upload className="h-3.5 w-3.5" />}
               {uploading ? "Uploading…" : "Upload from PC"}
             </button>
             {value && (
-              <button
-                type="button"
-                onClick={() => onChange("")}
-                className="rounded-full border border-espresso/15 px-3 py-2 text-xs font-bold text-espresso hover:bg-sand"
-              >
-                Clear
-              </button>
+              <button type="button" onClick={() => onChange("")} className="rounded-full border border-espresso/15 px-3 py-2 text-xs font-bold text-espresso hover:bg-sand">Clear</button>
             )}
           </div>
-          <input
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            placeholder="or paste image URL"
-            className="w-full rounded-xl border border-espresso/12 bg-sand/40 px-3 py-2 text-xs outline-none focus:border-cocoa focus:bg-white"
-          />
+          <input value={value} onChange={(e) => onChange(e.target.value)} placeholder="or paste image URL"
+            className="w-full rounded-xl border border-espresso/12 bg-sand/40 px-3 py-2 text-xs outline-none focus:border-cocoa focus:bg-white" />
         </div>
       </div>
-      <input
-        ref={inputRef}
-        type="file"
-        accept="image/*"
-        className="hidden"
-        onChange={(e) => {
-          const f = e.target.files?.[0];
-          if (f) handleFile(f);
-          if (inputRef.current) inputRef.current.value = "";
-        }}
-      />
+      <input ref={inputRef} type="file" accept="image/*" className="hidden"
+        onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFile(f); if (inputRef.current) inputRef.current.value = ""; }} />
       {err && <p className="text-xs text-red-600">{err}</p>}
     </div>
   );
+}
+
+function FieldEditor({ field, value, onChange, table }: { field: FieldDef; value: unknown; onChange: (v: unknown) => void; table: string }) {
+  if (field.type === "textarea") {
+    return <textarea rows={4} value={String(value ?? "")} onChange={(e) => onChange(e.target.value)}
+      className="mt-1.5 w-full rounded-2xl border border-espresso/12 bg-sand/40 px-4 py-3 text-sm outline-none focus:border-cocoa focus:bg-white" />;
+  }
+  if (field.type === "boolean") {
+    return (
+      <label className="mt-1.5 flex cursor-pointer items-center gap-2 text-sm">
+        <input type="checkbox" checked={Boolean(value)} onChange={(e) => onChange(e.target.checked)} />
+        <span className="text-espresso/80">{field.placeholder ?? "Enabled"}</span>
+      </label>
+    );
+  }
+  if (field.type === "number") {
+    return <input type="number" value={Number(value ?? 0)} onChange={(e) => onChange(Number(e.target.value))}
+      className="mt-1.5 w-full rounded-2xl border border-espresso/12 bg-sand/40 px-4 py-3 text-sm outline-none focus:border-cocoa focus:bg-white" />;
+  }
+  if (field.type === "tags") {
+    return <input value={(value as string[] | undefined)?.join(", ") ?? ""}
+      onChange={(e) => onChange(e.target.value.split(",").map((t) => t.trim()).filter(Boolean))}
+      placeholder={field.placeholder ?? "Comma separated"}
+      className="mt-1.5 w-full rounded-2xl border border-espresso/12 bg-sand/40 px-4 py-3 text-sm outline-none focus:border-cocoa focus:bg-white" />;
+  }
+  if (field.type === "select") {
+    return (
+      <select value={String(value ?? "")} onChange={(e) => onChange(e.target.value)}
+        className="mt-1.5 w-full rounded-2xl border border-espresso/12 bg-sand/40 px-4 py-3 text-sm outline-none focus:border-cocoa focus:bg-white">
+        {field.options?.map((o) => (<option key={o} value={o}>{o}</option>))}
+      </select>
+    );
+  }
+  if (field.type === "image") {
+    return <ImageUploadField value={String(value ?? "")} onChange={onChange as (v: string) => void} table={table} />;
+  }
+  if (field.type === "repeater") {
+    const items = Array.isArray(value) ? (value as Record<string, unknown>[]) : [];
+    const setItems = (next: Record<string, unknown>[]) => onChange(next);
+    const blank = () => {
+      const b: Record<string, unknown> = {};
+      (field.subFields ?? []).forEach((sf) => {
+        b[sf.name] = sf.type === "boolean" ? false : sf.type === "number" ? 0 : sf.type === "tags" ? [] : "";
+      });
+      return b;
+    };
+    return (
+      <div className="mt-1.5 space-y-3">
+        {items.map((item, idx) => (
+          <div key={idx} className="rounded-2xl border border-espresso/12 bg-sand/30 p-4">
+            <div className="mb-3 flex items-center justify-between">
+              <div className="inline-flex items-center gap-2 text-xs font-bold text-espresso/70">
+                <GripVertical className="h-3.5 w-3.5" /> {field.itemLabel ?? "Item"} #{idx + 1}
+              </div>
+              <div className="flex gap-1">
+                {idx > 0 && (
+                  <button type="button" onClick={() => { const c = [...items]; [c[idx-1], c[idx]] = [c[idx], c[idx-1]]; setItems(c); }}
+                    className="rounded-lg border border-espresso/15 px-2 py-1 text-xs font-bold text-espresso hover:bg-white">↑</button>
+                )}
+                {idx < items.length - 1 && (
+                  <button type="button" onClick={() => { const c = [...items]; [c[idx+1], c[idx]] = [c[idx], c[idx+1]]; setItems(c); }}
+                    className="rounded-lg border border-espresso/15 px-2 py-1 text-xs font-bold text-espresso hover:bg-white">↓</button>
+                )}
+                <button type="button" onClick={() => setItems(items.filter((_, i) => i !== idx))}
+                  className="rounded-lg border border-red-200 px-2 py-1 text-xs font-bold text-red-600 hover:bg-red-50">
+                  <Trash2 className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            </div>
+            <div className="grid gap-3">
+              {(field.subFields ?? []).map((sf) => (
+                <div key={sf.name}>
+                  <label className="text-[10px] font-semibold uppercase tracking-widest text-espresso/60">{sf.label}</label>
+                  <FieldEditor field={sf} value={item[sf.name]} onChange={(v) => {
+                    const c = [...items]; c[idx] = { ...c[idx], [sf.name]: v }; setItems(c);
+                  }} table={table} />
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+        <button type="button" onClick={() => setItems([...items, blank()])}
+          className="inline-flex items-center gap-1.5 rounded-full border border-dashed border-espresso/30 px-4 py-2 text-xs font-bold text-espresso hover:border-cocoa hover:bg-sand">
+          <Plus className="h-3.5 w-3.5" /> Add {field.itemLabel ?? "item"}
+        </button>
+      </div>
+    );
+  }
+  return <input value={String(value ?? "")} onChange={(e) => onChange(e.target.value)} placeholder={field.placeholder}
+    className="mt-1.5 w-full rounded-2xl border border-espresso/12 bg-sand/40 px-4 py-3 text-sm outline-none focus:border-cocoa focus:bg-white" />;
 }
 
 export function CrudTable({ table, title, fields, listColumns, orderBy, defaults = {}, readOnly = false }: CrudTableProps) {
@@ -136,7 +191,7 @@ export function CrudTable({ table, title, fields, listColumns, orderBy, defaults
     const empty: Record<string, unknown> = { ...defaults };
     fields.forEach((f) => {
       if (!(f.name in empty)) {
-        empty[f.name] = f.type === "boolean" ? false : f.type === "number" ? 0 : f.type === "tags" ? [] : "";
+        empty[f.name] = f.type === "boolean" ? false : f.type === "number" ? 0 : f.type === "tags" || f.type === "repeater" ? [] : "";
       }
     });
     setEditing(empty);
@@ -152,14 +207,8 @@ export function CrudTable({ table, title, fields, listColumns, orderBy, defaults
     delete payload.updated_at;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const t: any = (supabase.from as any)(table);
-    const res = id
-      ? await t.update(payload).eq("id", id)
-      : await t.insert(payload);
-    if (res.error) {
-      setError(res.error.message);
-      setSaving(false);
-      return;
-    }
+    const res = id ? await t.update(payload).eq("id", id) : await t.insert(payload);
+    if (res.error) { setError(res.error.message); setSaving(false); return; }
     setEditing(null);
     setSaving(false);
     load();
@@ -172,6 +221,15 @@ export function CrudTable({ table, title, fields, listColumns, orderBy, defaults
     if (error) { alert(error.message); return; }
     load();
   }
+
+  // Group fields by section for form rendering
+  const groups: { section: string | null; fields: FieldDef[] }[] = [];
+  fields.forEach((f) => {
+    const sec = f.section ?? null;
+    const last = groups[groups.length - 1];
+    if (last && last.section === sec) last.fields.push(f);
+    else groups.push({ section: sec, fields: [f] });
+  });
 
   return (
     <div>
@@ -227,47 +285,28 @@ export function CrudTable({ table, title, fields, listColumns, orderBy, defaults
 
       {editing && (
         <div className="fixed inset-0 z-50 grid place-items-center bg-espresso/50 p-4" onClick={() => !saving && setEditing(null)}>
-          <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-3xl bg-white p-6 shadow-2xl" onClick={(e) => e.stopPropagation()}>
+          <div className="max-h-[92vh] w-full max-w-3xl overflow-y-auto rounded-3xl bg-white p-6 shadow-2xl" onClick={(e) => e.stopPropagation()}>
             <div className="mb-4 flex items-center justify-between">
               <h2 className="font-display text-xl font-black text-espresso">{editing.id ? "Edit" : "Create"} {title.replace(/s$/, "")}</h2>
               <button onClick={() => setEditing(null)} className="rounded-full p-1.5 hover:bg-sand"><X className="h-4 w-4" /></button>
             </div>
-            <div className="grid gap-4">
-              {fields.map((f) => (
-                <div key={f.name}>
-                  <label className="text-xs font-semibold uppercase tracking-widest text-espresso/70">{f.label}</label>
-                  {f.type === "textarea" ? (
-                    <textarea rows={4} value={String(editing[f.name] ?? "")} onChange={(e) => setEditing({ ...editing, [f.name]: e.target.value })}
-                      className="mt-1.5 w-full rounded-2xl border border-espresso/12 bg-sand/40 px-4 py-3 text-sm outline-none focus:border-cocoa focus:bg-white" />
-                  ) : f.type === "boolean" ? (
-                    <label className="mt-1.5 flex cursor-pointer items-center gap-2 text-sm">
-                      <input type="checkbox" checked={Boolean(editing[f.name])} onChange={(e) => setEditing({ ...editing, [f.name]: e.target.checked })} />
-                      <span className="text-espresso/80">{f.placeholder ?? "Enabled"}</span>
-                    </label>
-                  ) : f.type === "number" ? (
-                    <input type="number" value={Number(editing[f.name] ?? 0)} onChange={(e) => setEditing({ ...editing, [f.name]: Number(e.target.value) })}
-                      className="mt-1.5 w-full rounded-2xl border border-espresso/12 bg-sand/40 px-4 py-3 text-sm outline-none focus:border-cocoa focus:bg-white" />
-                  ) : f.type === "tags" ? (
-                    <input value={(editing[f.name] as string[] | undefined)?.join(", ") ?? ""}
-                      onChange={(e) => setEditing({ ...editing, [f.name]: e.target.value.split(",").map((t) => t.trim()).filter(Boolean) })}
-                      placeholder="Comma separated"
-                      className="mt-1.5 w-full rounded-2xl border border-espresso/12 bg-sand/40 px-4 py-3 text-sm outline-none focus:border-cocoa focus:bg-white" />
-                  ) : f.type === "select" ? (
-                    <select value={String(editing[f.name] ?? "")} onChange={(e) => setEditing({ ...editing, [f.name]: e.target.value })}
-                      className="mt-1.5 w-full rounded-2xl border border-espresso/12 bg-sand/40 px-4 py-3 text-sm outline-none focus:border-cocoa focus:bg-white">
-                      {f.options?.map((o) => (<option key={o} value={o}>{o}</option>))}
-                    </select>
-                  ) : f.type === "image" ? (
-                    <ImageUploadField
-                      value={String(editing[f.name] ?? "")}
-                      onChange={(v) => setEditing({ ...editing, [f.name]: v })}
-                      table={table}
-                    />
-                  ) : (
-                    <input value={String(editing[f.name] ?? "")} onChange={(e) => setEditing({ ...editing, [f.name]: e.target.value })}
-                      placeholder={f.placeholder}
-                      className="mt-1.5 w-full rounded-2xl border border-espresso/12 bg-sand/40 px-4 py-3 text-sm outline-none focus:border-cocoa focus:bg-white" />
+            <div className="space-y-6">
+              {groups.map((g, gi) => (
+                <div key={gi}>
+                  {g.section && (
+                    <div className="mb-3 border-b border-espresso/10 pb-2">
+                      <p className="font-display text-sm font-black uppercase tracking-widest text-cocoa">{g.section}</p>
+                    </div>
                   )}
+                  <div className="grid gap-4">
+                    {g.fields.map((f) => (
+                      <div key={f.name}>
+                        <label className="text-xs font-semibold uppercase tracking-widest text-espresso/70">{f.label}</label>
+                        {f.help && <p className="mt-0.5 text-[11px] text-foreground/50">{f.help}</p>}
+                        <FieldEditor field={f} value={editing[f.name]} onChange={(v) => setEditing({ ...editing, [f.name]: v })} table={table} />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>

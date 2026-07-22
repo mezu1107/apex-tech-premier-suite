@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useApplyPageSeo } from "@/lib/page-seo";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Reveal } from "@/components/site/Reveal";
 
@@ -15,6 +16,7 @@ export const Route = createFileRoute("/privacy")({
 });
 
 function PrivacyPage() {
+  useApplyPageSeo("/privacy");
   return (
     <>
       <PageHeader eyebrow="Legal" title="Privacy Policy" description="Last updated: July 2026." />

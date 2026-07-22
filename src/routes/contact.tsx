@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useApplyPageSeo } from "@/lib/page-seo";
 import { useState, type FormEvent } from "react";
 import { Mail, Phone, MapPin, Clock, CheckCircle2, Send, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -19,6 +20,7 @@ export const Route = createFileRoute("/contact")({
 });
 
 function ContactPage() {
+  useApplyPageSeo("/contact");
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
