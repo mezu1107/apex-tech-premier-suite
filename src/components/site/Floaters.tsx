@@ -67,11 +67,11 @@ export function MobileStickyCTA() {
           <MessageCircle className="h-5 w-5 text-cocoa" />
           <span className="text-[10px] font-semibold">WhatsApp</span>
         </a>
-        <Link to="/contact" className="flex flex-col items-center gap-0.5 rounded-2xl px-1 py-1.5 text-espresso active:bg-sand/70">
+        <Link to="/book" className="flex flex-col items-center gap-0.5 rounded-2xl px-1 py-1.5 text-espresso active:bg-sand/70">
           <Calendar className="h-5 w-5 text-cocoa" />
           <span className="text-[10px] font-semibold">Book</span>
         </Link>
-        <Link to="/contact" className="flex flex-col items-center gap-0.5 rounded-2xl px-1 py-1.5 text-espresso active:bg-sand/70">
+        <Link to="/quote" className="flex flex-col items-center gap-0.5 rounded-2xl px-1 py-1.5 text-espresso active:bg-sand/70">
           <FileText className="h-5 w-5 text-cocoa" />
           <span className="text-[10px] font-semibold">Quote</span>
         </Link>
