@@ -1,6 +1,38 @@
 import { Link } from "@tanstack/react-router";
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react";
+import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, Loader2, CheckCircle2 } from "lucide-react";
+import { useState } from "react";
+import { z } from "zod";
+import { supabase } from "@/integrations/supabase/client";
 import { Logo } from "./Logo";
+
+function NewsletterForm() {
+  const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
+  const [msg, setMsg] = useState<string>("");
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const email = String(new FormData(e.currentTarget).get("email") ?? "");
+    const parsed = z.string().trim().email().max(255).safeParse(email);
+    if (!parsed.success) { setState("error"); setMsg("Enter a valid email."); return; }
+    setState("sending");
+    const { error } = await supabase.from("newsletter_subscribers").insert({ email: parsed.data, source: "footer" });
+    if (error && !/duplicate|unique/i.test(error.message)) { setState("error"); setMsg(error.message); return; }
+    setState("done"); setMsg("You're subscribed!");
+    (e.target as HTMLFormElement).reset();
+  }
+  return (
+    <div>
+      <form onSubmit={onSubmit} className="mt-5 flex overflow-hidden rounded-full border border-white/15 bg-white/5">
+        <input name="email" type="email" required placeholder="you@company.com"
+          className="w-full bg-transparent px-4 py-2.5 text-sm text-white placeholder:text-white/40 focus:outline-none" />
+        <button type="submit" disabled={state === "sending"} className="inline-flex items-center gap-1.5 bg-copper px-5 text-sm font-semibold text-espresso transition hover:brightness-95 disabled:opacity-60">
+          {state === "sending" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : state === "done" ? <CheckCircle2 className="h-3.5 w-3.5" /> : null}
+          {state === "done" ? "Joined" : "Join"}
+        </button>
+      </form>
+      {msg && <p className={`mt-2 text-xs ${state === "error" ? "text-rose-300" : "text-white/70"}`}>{msg}</p>}
+    </div>
+  );
+}
 
 export function Footer() {
   return (
@@ -63,16 +95,7 @@ export function Footer() {
               <li className="flex items-center gap-2"><Phone className="h-4 w-4 shrink-0 text-copper" /> <a href="tel:+17207941888" className="hover:text-copper">+1 720 794 1888</a></li>
               <li className="flex items-center gap-2"><Mail className="h-4 w-4 shrink-0 text-copper" /> <a href="mailto:Info@adphira.com" className="hover:text-copper">Info@adphira.com</a></li>
             </ul>
-            <form className="mt-5 flex overflow-hidden rounded-full border border-white/15 bg-white/5">
-              <input
-                type="email"
-                placeholder="you@company.com"
-                className="w-full bg-transparent px-4 py-2.5 text-sm text-white placeholder:text-white/40 focus:outline-none"
-              />
-              <button type="button" className="bg-copper px-5 text-sm font-semibold text-espresso transition hover:brightness-95">
-                Join
-              </button>
-            </form>
+            <NewsletterForm />
           </div>
         </div>
 
