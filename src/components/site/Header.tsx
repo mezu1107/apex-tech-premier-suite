@@ -66,12 +66,18 @@ export function Header() {
           })}
         </ul>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <Link
-            to="/contact"
+            to="/book"
+            className="hidden rounded-full border border-espresso/15 px-4 py-2.5 text-sm font-semibold text-espresso transition hover:bg-sand md:inline-flex"
+          >
+            Book a call
+          </Link>
+          <Link
+            to="/quote"
             className="hidden rounded-full bg-cocoa px-6 py-2.5 text-sm font-semibold text-white shadow-soft transition hover:bg-espresso sm:inline-flex"
           >
-            Get Started
+            Get a quote
           </Link>
           <button
             onClick={() => setOpen((v) => !v)}
@@ -110,12 +116,10 @@ export function Header() {
               );
             })}
           </ul>
-          <Link
-            to="/contact"
-            className="mt-4 inline-flex w-full items-center justify-center rounded-full bg-cocoa px-6 py-3 text-sm font-semibold text-white shadow-soft"
-          >
-            Get Started
-          </Link>
+          <div className="mt-4 grid gap-2">
+            <Link to="/quote" className="inline-flex w-full items-center justify-center rounded-full bg-cocoa px-6 py-3 text-sm font-semibold text-white shadow-soft">Get a quote</Link>
+            <Link to="/book" className="inline-flex w-full items-center justify-center rounded-full border border-espresso/15 px-6 py-3 text-sm font-semibold text-espresso">Book a call</Link>
+          </div>
         </div>
       </div>
     </header>

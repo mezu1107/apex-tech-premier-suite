@@ -1,13 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Wrench, Briefcase, Star, Users, MessageSquare, ArrowRight, Tag, HelpCircle, FileText, Building2, GitBranch, BarChart3, BookOpen } from "lucide-react";
+import { Wrench, Briefcase, Star, Users, MessageSquare, ArrowRight, Tag, HelpCircle, FileText, Building2, GitBranch, BarChart3, BookOpen, FileSignature, CalendarCheck, Mail } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/admin/")({
   component: Dashboard,
 });
 
 const cards = [
+  { table: "quote_requests", label: "Quote Requests", icon: FileSignature, to: "/admin/quotes" },
+  { table: "bookings", label: "Bookings", icon: CalendarCheck, to: "/admin/bookings" },
+  { table: "contact_messages", label: "Messages", icon: MessageSquare, to: "/admin/messages" },
+  { table: "newsletter_subscribers", label: "Newsletter", icon: Mail, to: "/admin/newsletter" },
   { table: "services", label: "Services", icon: Wrench, to: "/admin/services" },
   { table: "portfolio", label: "Portfolio", icon: Briefcase, to: "/admin/portfolio" },
   { table: "case_studies", label: "Case Studies", icon: BookOpen, to: "/admin/cases" },
@@ -19,7 +23,6 @@ const cards = [
   { table: "pricing_plans", label: "Pricing Plans", icon: Tag, to: "/admin/pricing" },
   { table: "blog_posts", label: "Blog Posts", icon: FileText, to: "/admin/blog" },
   { table: "faqs", label: "FAQs", icon: HelpCircle, to: "/admin/faqs" },
-  { table: "contact_messages", label: "Messages", icon: MessageSquare, to: "/admin/messages" },
 ] as const;
 
 function Dashboard() {
