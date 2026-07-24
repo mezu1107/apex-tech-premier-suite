@@ -157,6 +157,30 @@
   .slide-in { animation: slideInUp 0.5s ease-out; }
   .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
 
+  @keyframes serviceOrbit {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes serviceOrbitReverse {
+    to { transform: rotate(-360deg); }
+  }
+  @keyframes serviceFloat {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-8px) scale(1.04); }
+  }
+  .service-orbit {
+    animation: serviceOrbit 14s linear infinite;
+    border-top-color: var(--copper);
+  }
+  .service-orbit-reverse {
+    animation: serviceOrbitReverse 10s linear infinite;
+    border-bottom-color: var(--copper);
+  }
+  .service-icon-float { animation: serviceFloat 3s ease-in-out infinite; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .service-orbit, .service-orbit-reverse, .service-icon-float { animation: none; }
+  }
+
   /* Premium glass surface — used by nav + hero cards */
   .glass {
     background: color-mix(in oklab, #ffffff 78%, transparent);

@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowRight, Check, Phone, Loader2, ArrowLeft, Sparkles, Code2, Smartphone, Cloud, Shield, Search, Megaphone, Users, Palette, Database, ShoppingCart, ChevronDown, type LucideIcon } from "lucide-react";
+import { ArrowRight, Check, Phone, Loader2, ArrowLeft, Sparkles, Code2, Smartphone, Cloud, Shield, Search, Megaphone, Users, Palette, Database, ShoppingCart, ChevronDown, TrendingUp, Zap, type LucideIcon } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Reveal } from "@/components/site/Reveal";
 
@@ -113,6 +113,7 @@ function ServiceDetail() {
   const processSteps = service.process ?? [];
   const pricing = service.pricing_tiers ?? [];
   const faq = service.faq ?? [];
+  const impactLabel = service.slug === "digital-marketing" ? "Qualified reach" : service.slug === "ai-automation" ? "Tasks automated" : "Growth potential";
 
   return (
     <>
@@ -154,7 +155,23 @@ function ServiceDetail() {
                 {service.hero_image ? (
                   <img src={service.hero_image} alt={service.title} className="h-full w-full object-cover" />
                 ) : (
-                  <div className="grid h-full w-full place-items-center"><Icon className="h-24 w-24 text-copper/60" /></div>
+                  <div className="relative grid h-full w-full place-items-center overflow-hidden" aria-label={`${service.title} performance visual`}>
+                    <div className="service-orbit absolute h-56 w-56 rounded-full border border-copper/25" />
+                    <div className="service-orbit-reverse absolute h-40 w-40 rounded-full border border-white/15" />
+                    <div className="relative z-10 grid h-24 w-24 place-items-center rounded-3xl border border-white/10 bg-white/5 shadow-2xl backdrop-blur-sm">
+                      <Icon className="service-icon-float h-11 w-11 text-copper" />
+                    </div>
+                    <div className="absolute bottom-5 left-5 right-5 grid grid-cols-2 gap-3">
+                      <div className="rounded-xl border border-white/10 bg-white/5 p-3 backdrop-blur-sm">
+                        <span className="flex items-center gap-1 text-xs text-white/60"><TrendingUp className="h-3.5 w-3.5 text-copper" /> {impactLabel}</span>
+                        <strong className="mt-1 block font-display text-xl text-white">0 → 100×</strong>
+                      </div>
+                      <div className="rounded-xl border border-white/10 bg-white/5 p-3 backdrop-blur-sm">
+                        <span className="flex items-center gap-1 text-xs text-white/60"><Zap className="h-3.5 w-3.5 text-copper" /> Delivery</span>
+                        <strong className="mt-1 block font-display text-xl text-white">Built to scale</strong>
+                      </div>
+                    </div>
+                  </div>
                 )}
               </div>
             </Reveal>
