@@ -40,8 +40,10 @@ function ImageUploadField({ value, onChange, table }: { value: string; onChange:
       const path = `${table}/${crypto.randomUUID()}.${ext}`;
       const { error } = await supabase.storage.from("media").upload(path, file, { cacheControl: "3600", upsert: false });
       if (error) throw error;
-      const { data } = supabase.storage.from("media").getPublicUrl(path);
-      onChange(data.publicUrl);
+      // Free-plan safe: private bucket + long-lived signed URL (works without public buckets).
+      const { data, error: signErr } = await supabase.storage.from("media").createSignedUrl(path, 60 * 60 * 24 * 365 * 50);
+      if (signErr || !data?.signedUrl) throw signErr ?? new Error("Could not sign image URL");
+      onChange(data.signedUrl);
     } catch (e) {
       setErr((e as Error).message);
     } finally {
