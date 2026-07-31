@@ -65,7 +65,7 @@ function AdminLayout() {
         <button onClick={() => setOpen(!open)} className="grid h-9 w-9 place-items-center rounded-xl border border-espresso/10">
           {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
         </button>
-        <span className="font-display font-black text-espresso">Adphira Admin</span>
+        <span className="font-display font-black text-espresso">AYMOXI Admin</span>
         <button onClick={signOut} className="grid h-9 w-9 place-items-center rounded-xl border border-espresso/10"><LogOut className="h-4 w-4" /></button>
       </div>
 
@@ -86,7 +86,7 @@ function AdminLayout() {
             </button>
           </div>
           <div className="mb-6">
-            <p className="font-display text-lg font-black text-espresso">Adphira Admin</p>
+            <p className="font-display text-lg font-black text-espresso">AYMOXI Admin</p>
             <p className="mt-0.5 truncate text-xs text-foreground/50">{user?.email}</p>
           </div>
           <nav className="space-y-1">

@@ -8,9 +8,9 @@ import { useLiveList } from "@/lib/use-live-list";
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
-      { title: "Pricing — Adphira LLC" },
+      { title: "Pricing — AYMOXI LLC" },
       { name: "description", content: "Transparent pricing for Starter, Growth and Enterprise engagements." },
-      { property: "og:title", content: "Pricing — Adphira LLC" },
+      { property: "og:title", content: "Pricing — AYMOXI LLC" },
       { property: "og:url", content: "/pricing" },
     ],
     links: [{ rel: "canonical", href: "/pricing" }],

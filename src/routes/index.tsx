@@ -6,10 +6,10 @@ import { BentoHome } from "@/components/site/BentoHome";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Adphira LLC — Premium Software, AI & Digital Marketing" },
-      { name: "description", content: "Adphira LLC builds premium websites, mobile apps, AI automation and growth marketing for ambitious businesses worldwide." },
-      { property: "og:title", content: "Adphira LLC — Premium Software, AI & Digital Marketing" },
-      { property: "og:description", content: "Adphira LLC builds premium websites, mobile apps, AI automation and growth marketing for ambitious businesses worldwide." },
+      { title: "AYMOXI LLC — Premium Software, AI & Digital Marketing" },
+      { name: "description", content: "AYMOXI LLC builds premium websites, mobile apps, AI automation and growth marketing for ambitious businesses worldwide." },
+      { property: "og:title", content: "AYMOXI LLC — Premium Software, AI & Digital Marketing" },
+      { property: "og:description", content: "AYMOXI LLC builds premium websites, mobile apps, AI automation and growth marketing for ambitious businesses worldwide." },
       { property: "og:url", content: "/" },
       { property: "og:type", content: "website" },
     ],

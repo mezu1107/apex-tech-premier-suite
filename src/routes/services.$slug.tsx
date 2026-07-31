@@ -52,8 +52,8 @@ export const Route = createFileRoute("/services/$slug")({
   },
   head: ({ loaderData, params }) => {
     const s = loaderData?.service;
-    const title = s?.meta_title || (s ? `${s.title} — Adphira LLC` : "Service — Adphira LLC");
-    const description = s?.meta_description || s?.description || `Dedicated ${params.slug.replace(/-/g, " ")} service by Adphira LLC.`;
+    const title = s?.meta_title || (s ? `${s.title} — AYMOXI LLC` : "Service — AYMOXI LLC");
+    const description = s?.meta_description || s?.description || `Dedicated ${params.slug.replace(/-/g, " ")} service by AYMOXI LLC.`;
     const url = `/services/${params.slug}`;
     const image = s?.og_image || s?.hero_image || s?.banner_image || undefined;
     const meta: { title?: string; name?: string; property?: string; content?: string }[] = [

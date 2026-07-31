@@ -10,9 +10,9 @@ const PHONE = "+1 720 794 1888";
 export const Route = createFileRoute("/quote")({
   head: () => ({
     meta: [
-      { title: "Request a Quote — Adphira LLC" },
+      { title: "Request a Quote — AYMOXI LLC" },
       { name: "description", content: "Get a tailored quote for your web, mobile, cloud, AI or growth project. Fast response, transparent pricing." },
-      { property: "og:title", content: "Request a Quote — Adphira LLC" },
+      { property: "og:title", content: "Request a Quote — AYMOXI LLC" },
       { property: "og:description", content: "Tell us about your project and get a personalised quote." },
       { property: "og:type", content: "website" },
     ],

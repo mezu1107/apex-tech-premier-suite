@@ -9,9 +9,9 @@ import { useApplyPageSeo } from "@/lib/page-seo";
 export const Route = createFileRoute("/blog/")({
   head: () => ({
     meta: [
-      { title: "Blog — Adphira LLC" },
+      { title: "Blog — AYMOXI LLC" },
       { name: "description", content: "Insights on software, AI, product and design." },
-      { property: "og:title", content: "Blog — Adphira LLC" },
+      { property: "og:title", content: "Blog — AYMOXI LLC" },
       { property: "og:url", content: "/blog" },
     ],
     links: [{ rel: "canonical", href: "/blog" }],

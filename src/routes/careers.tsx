@@ -7,9 +7,9 @@ import { Reveal } from "@/components/site/Reveal";
 export const Route = createFileRoute("/careers")({
   head: () => ({
     meta: [
-      { title: "Careers — Adphira LLC" },
-      { name: "description", content: "Open roles and life at Adphira LLC." },
-      { property: "og:title", content: "Careers — Adphira LLC" },
+      { title: "Careers — AYMOXI LLC" },
+      { name: "description", content: "Open roles and life at AYMOXI LLC." },
+      { property: "og:title", content: "Careers — AYMOXI LLC" },
       { property: "og:url", content: "/careers" },
     ],
     links: [{ rel: "canonical", href: "/careers" }],

@@ -8,9 +8,9 @@ import { useLiveList } from "@/lib/use-live-list";
 export const Route = createFileRoute("/team")({
   head: () => ({
     meta: [
-      { title: "Leadership — Adphira LLC" },
-      { name: "description", content: "Meet the founders leading Adphira LLC — Shafqat Rasool and Noman." },
-      { property: "og:title", content: "Leadership — Adphira LLC" },
+      { title: "Leadership — AYMOXI LLC" },
+      { name: "description", content: "Meet the founders leading AYMOXI LLC — Shafqat Rasool and Noman." },
+      { property: "og:title", content: "Leadership — AYMOXI LLC" },
       { property: "og:url", content: "/team" },
     ],
     links: [{ rel: "canonical", href: "/team" }],
@@ -31,7 +31,7 @@ function TeamPage() {
     <>
       <PageHeader
         eyebrow="Leadership"
-        title="Meet the founders behind Adphira."
+        title="Meet the founders behind AYMOXI."
         description="A focused leadership team combining vision, engineering excellence and disciplined delivery."
       />
       <section className="pb-24">

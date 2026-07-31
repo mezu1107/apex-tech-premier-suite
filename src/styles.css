@@ -35,7 +35,7 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  /* Legacy token names, remapped to Adphira brand palette so existing
+  /* Legacy token names, remapped to AYMOXI brand palette so existing
      classes (bg-cream, text-espresso, bg-copper, text-cocoa, bg-sand)
      inherit the new theme site-wide. */
   --color-cream: var(--cream);
@@ -51,7 +51,7 @@
 :root {
   --radius: 1rem;
 
-  /* Adphira brand palette
+  /* AYMOXI brand palette
      cream   = white background
      sand    = subtle light background
      espresso= dark teal (headings / dark text on light)

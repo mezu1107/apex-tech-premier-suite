@@ -29,8 +29,8 @@ export const Route = createFileRoute("/blog/$slug")({
   },
   head: ({ loaderData, params }) => {
     const p = loaderData?.post;
-    const title = p?.meta_title || p?.title || "Article — Adphira LLC";
-    const description = p?.meta_description || p?.excerpt || "Read this article on the Adphira blog.";
+    const title = p?.meta_title || p?.title || "Article — AYMOXI LLC";
+    const description = p?.meta_description || p?.excerpt || "Read this article on the AYMOXI blog.";
     const url = `/blog/${params.slug}`;
     const image = p?.og_image || p?.cover_url || undefined;
     const meta: { title?: string; name?: string; property?: string; content?: string }[] = [

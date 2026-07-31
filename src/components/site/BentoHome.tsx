@@ -226,7 +226,7 @@ function WhyBento({ stats }: { stats: StatRow[] }) {
   const s = stats.slice(0, 4);
   return (
     <Section tone="sand">
-      <SectionHeading eyebrow="Why Choose Us" title="Why Choose Adphira LLC" desc="A boutique team of engineers, designers and strategists delivering enterprise-grade results with a hand-crafted touch." tone="sand" />
+      <SectionHeading eyebrow="Why Choose Us" title="Why Choose AYMOXI LLC" desc="A boutique team of engineers, designers and strategists delivering enterprise-grade results with a hand-crafted touch." tone="sand" />
       <div className="grid gap-4 sm:gap-5 lg:grid-cols-4 lg:grid-rows-3 lg:gap-6">
         <Reveal className="lg:col-span-2 lg:row-span-2">
           <BentoCard gradient="dark" className="p-8 sm:p-10 h-full min-h-[320px]">
