@@ -6,7 +6,7 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/components/ui/chart";
-import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Pie, PieChart, Cell } from "recharts";
+import { Area, AreaChart, XAxis, YAxis, CartesianGrid, Pie, PieChart, Cell } from "recharts";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { format, subDays, startOfDay, eachDayOfInterval } from "date-fns";
 import { CalendarCheck, FileSignature, TrendingUp, BriefcaseBusiness } from "lucide-react";
