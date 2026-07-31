@@ -44,8 +44,8 @@
   --color-copper: var(--copper);
   --color-cocoa: var(--cocoa);
 
-  --shadow-luxury: 0 30px 60px -20px rgba(10, 75, 79, 0.18);
-  --shadow-soft: 0 10px 30px -12px rgba(10, 75, 79, 0.12);
+  --shadow-luxury: 0 30px 60px -20px rgba(30, 80, 15, 0.18);
+  --shadow-soft: 0 10px 30px -12px rgba(30, 80, 15, 0.12);
 }
 
 :root {
@@ -58,10 +58,10 @@
      cocoa   = primary teal (primary buttons / dark surfaces)
      copper  = lime accent (highlights, small accents) */
   --cream: #ffffff;
-  --sand: #f0f7f5;
-  --espresso: #06363a;
-  --cocoa: #0a4b4f;
-  --copper: #b9e52e;
+  --sand: #f2f8ec;
+  --espresso: #123409;
+  --cocoa: #2e6b16;
+  --copper: #8cc63f;
 
   --background: #ffffff;
   --foreground: #0f172a;
@@ -69,19 +69,19 @@
   --card-foreground: #0f172a;
   --popover: #ffffff;
   --popover-foreground: #0f172a;
-  --primary: #0a4b4f;
+  --primary: #2e6b16;
   --primary-foreground: #ffffff;
-  --secondary: #f9fbfb;
-  --secondary-foreground: #06363a;
-  --muted: #f9fbfb;
+  --secondary: #f7fbf2;
+  --secondary-foreground: #123409;
+  --muted: #f7fbf2;
   --muted-foreground: #5b6470;
-  --accent: #b9e52e;
-  --accent-foreground: #06363a;
+  --accent: #8cc63f;
+  --accent-foreground: #123409;
   --destructive: #d64545;
   --destructive-foreground: #ffffff;
-  --border: #e7ecec;
-  --input: #e7ecec;
-  --ring: #0a4b4f;
+  --border: #e6ece0;
+  --input: #e6ece0;
+  --ring: #2e6b16;
 }
 
 @layer base {

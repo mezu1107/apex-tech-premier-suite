@@ -85,7 +85,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "AYMOXI LLC — Premium Software, AI & Digital Marketing" },
       { name: "description", content: "AYMOXI LLC builds premium websites, mobile apps, AI automation and growth marketing for ambitious businesses worldwide." },
       { name: "author", content: "AYMOXI LLC" },
-      { name: "theme-color", content: "#0A4B4F" },
+      { name: "theme-color", content: "#2E6B16" },
       { property: "og:title", content: "AYMOXI LLC — Premium Software, AI & Digital Marketing" },
       { property: "og:description", content: "AYMOXI LLC builds premium websites, mobile apps, AI automation and growth marketing for ambitious businesses worldwide." },
       { property: "og:type", content: "website" },
