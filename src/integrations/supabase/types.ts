@@ -710,6 +710,48 @@ export type Database = {
         }
         Relationships: []
       }
+      tracking_pixels: {
+        Row: {
+          body_code: string | null
+          created_at: string
+          enabled: boolean
+          head_code: string | null
+          id: string
+          label: string | null
+          pixel_id: string | null
+          provider: string
+          sort_order: number
+          updated_at: string
+          verification_code: string | null
+        }
+        Insert: {
+          body_code?: string | null
+          created_at?: string
+          enabled?: boolean
+          head_code?: string | null
+          id?: string
+          label?: string | null
+          pixel_id?: string | null
+          provider: string
+          sort_order?: number
+          updated_at?: string
+          verification_code?: string | null
+        }
+        Update: {
+          body_code?: string | null
+          created_at?: string
+          enabled?: boolean
+          head_code?: string | null
+          id?: string
+          label?: string | null
+          pixel_id?: string | null
+          provider?: string
+          sort_order?: number
+          updated_at?: string
+          verification_code?: string | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
