@@ -6,7 +6,7 @@ import { Reveal } from "@/components/site/Reveal";
 import { useLiveList } from "@/lib/use-live-list";
 import { useApplyPageSeo } from "@/lib/page-seo";
 
-export const Route = createFileRoute("/blog")({
+export const Route = createFileRoute("/blog/")({
   head: () => ({
     meta: [
       { title: "Blog — Adphira LLC" },
