@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet, Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { LayoutDashboard, Wrench, Briefcase, MessageSquare, Users, Star, LogOut, Loader2, Menu, X, ArrowLeft, HelpCircle, FileText, Tag, Building2, GitBranch, BarChart3, BookOpen, Search, FileSignature, CalendarCheck, Mail } from "lucide-react";
+import { LayoutDashboard, Wrench, Briefcase, MessageSquare, Users, Star, LogOut, Loader2, Menu, X, ArrowLeft, HelpCircle, FileText, Tag, Building2, GitBranch, BarChart3, BookOpen, Search, FileSignature, CalendarCheck, Mail, Radar } from "lucide-react";
 import { useAuth } from "@/lib/use-auth";
 
 export const Route = createFileRoute("/_authenticated/admin")({
@@ -26,6 +26,7 @@ const nav: { to: string; label: string; icon: typeof LayoutDashboard; exact?: bo
   { to: "/admin/bookings", label: "Bookings", icon: CalendarCheck },
   { to: "/admin/newsletter", label: "Newsletter", icon: Mail },
   { to: "/admin/messages", label: "Messages", icon: MessageSquare },
+  { to: "/admin/pixels", label: "Tracking Pixels", icon: Radar },
 ];
 
 function AdminLayout() {

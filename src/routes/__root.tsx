@@ -16,6 +16,7 @@ import { Header } from "../components/site/Header";
 import { Footer } from "../components/site/Footer";
 import { BackToTop, MobileStickyCTA, ScrollProgress, WhatsAppButton } from "../components/site/Floaters";
 import { AIChatbot } from "../components/site/AIChatbot";
+import { TrackingPixels } from "../components/site/TrackingPixels";
 
 function NotFoundComponent() {
   return (
@@ -131,6 +132,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <TrackingPixels />
       {!isChromeless && <ScrollProgress />}
       {!isChromeless && <Header />}
       <main className="min-h-screen">
