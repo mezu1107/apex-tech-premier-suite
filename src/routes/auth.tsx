@@ -6,8 +6,8 @@ import { Loader2, LogIn, UserPlus, ArrowLeft } from "lucide-react";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Sign in — Adphira Admin" },
-      { name: "description", content: "Sign in to the Adphira admin panel." },
+      { title: "Sign in — AYMOXI Admin" },
+      { name: "description", content: "Sign in to the AYMOXI admin panel." },
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),

@@ -38,10 +38,10 @@ export function Header() {
       }`}
     >
       <nav className="mx-auto flex max-w-[1320px] items-center justify-between px-6 py-3 lg:px-10">
-        <Link to="/" className="flex items-center gap-2" aria-label="Adphira LLC — Home">
+        <Link to="/" className="flex items-center gap-2" aria-label="AYMOXI LLC — Home">
           <Logo className="h-11 w-auto" />
           <span className="hidden font-display text-lg font-extrabold tracking-tight text-espresso sm:inline">
-            adphira<span className="ml-1 text-[0.7em] font-semibold text-copper">LLC</span>
+            aymoxi<span className="ml-1 text-[0.7em] font-semibold text-copper">LLC</span>
           </span>
         </Link>
 

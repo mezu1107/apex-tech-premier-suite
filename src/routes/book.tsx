@@ -10,9 +10,9 @@ const PHONE = "+1 720 794 1888";
 export const Route = createFileRoute("/book")({
   head: () => ({
     meta: [
-      { title: "Book a Call — Adphira LLC" },
-      { name: "description", content: "Schedule a discovery call with the Adphira team. Pick your preferred date, time and meeting type." },
-      { property: "og:title", content: "Book a Call — Adphira LLC" },
+      { title: "Book a Call — AYMOXI LLC" },
+      { name: "description", content: "Schedule a discovery call with the AYMOXI team. Pick your preferred date, time and meeting type." },
+      { property: "og:title", content: "Book a Call — AYMOXI LLC" },
       { property: "og:description", content: "Schedule a discovery call with our team." },
       { property: "og:type", content: "website" },
     ],

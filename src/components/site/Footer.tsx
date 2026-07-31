@@ -45,7 +45,7 @@ export function Footer() {
             <div className="flex items-center gap-2">
               <Logo className="h-12 w-auto" variant="light" />
               <span className="font-display text-xl font-extrabold tracking-tight text-white">
-                adphira<span className="ml-1 text-xs font-semibold text-copper">LLC</span>
+                aymoxi<span className="ml-1 text-xs font-semibold text-copper">LLC</span>
               </span>
             </div>
             <p className="mt-5 text-sm leading-relaxed text-white/60">
@@ -93,14 +93,14 @@ export function Footer() {
             <ul className="mt-5 space-y-3 text-sm">
               <li className="flex items-start gap-2"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-copper" /> 2nd Floor, Malik Plaza, In front of TCS Office, Hassan Road, Jaranwala, Faisalabad, Pakistan</li>
               <li className="flex items-center gap-2"><Phone className="h-4 w-4 shrink-0 text-copper" /> <a href="tel:+17207941888" className="hover:text-copper">+1 720 794 1888</a></li>
-              <li className="flex items-center gap-2"><Mail className="h-4 w-4 shrink-0 text-copper" /> <a href="mailto:Info@adphira.com" className="hover:text-copper">Info@adphira.com</a></li>
+              <li className="flex items-center gap-2"><Mail className="h-4 w-4 shrink-0 text-copper" /> <a href="mailto:info@aymoxi.com" className="hover:text-copper">info@aymoxi.com</a></li>
             </ul>
             <NewsletterForm />
           </div>
         </div>
 
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-white/50 sm:flex-row">
-          <p>© {new Date().getFullYear()} Adphira LLC. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} AYMOXI LLC. All rights reserved.</p>
           <p className="text-center">
             Designed & Developed by{" "}
             <span className="font-display font-bold text-copper">AM Enterprises</span>

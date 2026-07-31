@@ -13,7 +13,7 @@ const SUGGESTIONS = [
 export function AIChatbot() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([
-    { role: "assistant", content: "Hi! I'm Adphira Assistant 👋 Ask me anything about our services, pricing, or how we can help your business grow." },
+    { role: "assistant", content: "Hi! I'm AYMOXI Assistant 👋 Ask me anything about our services, pricing, or how we can help your business grow." },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -76,7 +76,7 @@ export function AIChatbot() {
     } catch (err) {
       setMessages((m) => [
         ...m,
-        { role: "assistant", content: "Sorry — I'm having trouble right now. Please try again in a moment or email Info@adphira.com." },
+        { role: "assistant", content: "Sorry — I'm having trouble right now. Please try again in a moment or email info@aymoxi.com." },
       ]);
     } finally {
       setLoading(false);
@@ -123,7 +123,7 @@ export function AIChatbot() {
                 <Sparkles className="h-4 w-4" />
               </div>
               <div>
-                <p className="font-display text-sm font-bold leading-tight">Adphira Assistant</p>
+                <p className="font-display text-sm font-bold leading-tight">AYMOXI Assistant</p>
                 <p className="flex items-center gap-1.5 text-[10px] text-copper">
                   <span className="h-1.5 w-1.5 rounded-full bg-copper animate-pulse" /> Online · AI powered
                 </p>

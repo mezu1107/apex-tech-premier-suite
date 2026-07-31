@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet, Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { LayoutDashboard, Wrench, Briefcase, MessageSquare, Users, Star, LogOut, Loader2, Menu, X, ArrowLeft, HelpCircle, FileText, Tag, Building2, GitBranch, BarChart3, BookOpen, Search, FileSignature, CalendarCheck, Mail } from "lucide-react";
+import { LayoutDashboard, Wrench, Briefcase, MessageSquare, Users, Star, LogOut, Loader2, Menu, X, ArrowLeft, HelpCircle, FileText, Tag, Building2, GitBranch, BarChart3, BookOpen, Search, FileSignature, CalendarCheck, Mail, Radar } from "lucide-react";
 import { useAuth } from "@/lib/use-auth";
 
 export const Route = createFileRoute("/_authenticated/admin")({
@@ -26,6 +26,7 @@ const nav: { to: string; label: string; icon: typeof LayoutDashboard; exact?: bo
   { to: "/admin/bookings", label: "Bookings", icon: CalendarCheck },
   { to: "/admin/newsletter", label: "Newsletter", icon: Mail },
   { to: "/admin/messages", label: "Messages", icon: MessageSquare },
+  { to: "/admin/pixels", label: "Tracking Pixels", icon: Radar },
 ];
 
 function AdminLayout() {
@@ -65,7 +66,7 @@ function AdminLayout() {
         <button onClick={() => setOpen(!open)} className="grid h-9 w-9 place-items-center rounded-xl border border-espresso/10">
           {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
         </button>
-        <span className="font-display font-black text-espresso">Adphira Admin</span>
+        <span className="font-display font-black text-espresso">AYMOXI Admin</span>
         <button onClick={signOut} className="grid h-9 w-9 place-items-center rounded-xl border border-espresso/10"><LogOut className="h-4 w-4" /></button>
       </div>
 
@@ -86,7 +87,7 @@ function AdminLayout() {
             </button>
           </div>
           <div className="mb-6">
-            <p className="font-display text-lg font-black text-espresso">Adphira Admin</p>
+            <p className="font-display text-lg font-black text-espresso">AYMOXI Admin</p>
             <p className="mt-0.5 truncate text-xs text-foreground/50">{user?.email}</p>
           </div>
           <nav className="space-y-1">

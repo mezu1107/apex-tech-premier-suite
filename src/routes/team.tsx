@@ -8,9 +8,9 @@ import { useLiveList } from "@/lib/use-live-list";
 export const Route = createFileRoute("/team")({
   head: () => ({
     meta: [
-      { title: "Leadership — Adphira LLC" },
-      { name: "description", content: "Meet the founders leading Adphira LLC — Shafqat Rasool and Noman." },
-      { property: "og:title", content: "Leadership — Adphira LLC" },
+      { title: "Leadership — AYMOXI LLC" },
+      { name: "description", content: "Meet the founders leading AYMOXI LLC — Shafqat Rasool and Noman." },
+      { property: "og:title", content: "Leadership — AYMOXI LLC" },
       { property: "og:url", content: "/team" },
     ],
     links: [{ rel: "canonical", href: "/team" }],
@@ -31,7 +31,7 @@ function TeamPage() {
     <>
       <PageHeader
         eyebrow="Leadership"
-        title="Meet the founders behind Adphira."
+        title="Meet the founders behind AYMOXI."
         description="A focused leadership team combining vision, engineering excellence and disciplined delivery."
       />
       <section className="pb-24">
@@ -49,7 +49,7 @@ function TeamPage() {
                       {m.photo_url ? (
                         <img src={m.photo_url} alt={m.name} className="h-full w-full object-cover transition duration-700 group-hover:scale-110" loading="lazy" />
                       ) : (
-                        <div className="grid h-full w-full place-items-center bg-gradient-to-br from-[#0a4b4f] to-[#04191b]">
+                        <div className="grid h-full w-full place-items-center bg-gradient-to-br from-[#2e6b16] to-[#0a2205]">
                           <span className="font-display text-6xl font-black text-copper">{m.name.slice(0, 1)}</span>
                         </div>
                       )}

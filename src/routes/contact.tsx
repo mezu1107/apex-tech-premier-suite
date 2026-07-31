@@ -9,9 +9,9 @@ import { Reveal } from "@/components/site/Reveal";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Adphira LLC" },
+      { title: "Contact — AYMOXI LLC" },
       { name: "description", content: "Book a free consultation or send us a message." },
-      { property: "og:title", content: "Contact — Adphira LLC" },
+      { property: "og:title", content: "Contact — AYMOXI LLC" },
       { property: "og:url", content: "/contact" },
     ],
     links: [{ rel: "canonical", href: "/contact" }],
@@ -56,7 +56,7 @@ function ContactPage() {
                 {[
                   { icon: MapPin, label: "Office", value: "2nd Floor, Malik Plaza, In front of TCS Office, Hassan Road, Jaranwala, Faisalabad, Pakistan" },
                   { icon: Phone, label: "USA Phone", value: "+1 720 794 1888" },
-                  { icon: Mail, label: "Email", value: "Info@adphira.com" },
+                  { icon: Mail, label: "Email", value: "info@aymoxi.com" },
                   { icon: Clock, label: "Business hours", value: "Mon–Sat · 9:00 – 19:00 PKT" },
                 ].map((i) => (
                   <li key={i.label} className="flex items-start gap-3">
@@ -72,7 +72,7 @@ function ContactPage() {
               </ul>
               <div className="mt-8 overflow-hidden rounded-2xl border border-border">
                 <iframe
-                  title="Adphira LLC office — Jaranwala, Faisalabad"
+                  title="AYMOXI LLC office — Jaranwala, Faisalabad"
                   src="https://maps.google.com/maps?q=Jaranwala%2C%20Faisalabad%2C%20Pakistan&t=&z=13&ie=UTF8&iwloc=&output=embed"
                   className="h-56 w-full"
                   loading="lazy"

@@ -6,7 +6,7 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/components/ui/chart";
-import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Pie, PieChart, Cell } from "recharts";
+import { Area, AreaChart, XAxis, YAxis, CartesianGrid, Pie, PieChart, Cell } from "recharts";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { format, subDays, startOfDay, eachDayOfInterval } from "date-fns";
 import { CalendarCheck, FileSignature, TrendingUp, BriefcaseBusiness } from "lucide-react";
@@ -82,6 +82,10 @@ export function DashboardOverview() {
     bookings: { label: "Bookings", color: "var(--cocoa)" },
     quotes: { label: "Quotes", color: "var(--copper)" },
   } satisfies ChartConfig;
+
+  const statusConfig = Object.fromEntries(
+    data.statuses.map((s) => [s.name, { label: s.name, color: s.color }]),
+  ) as ChartConfig;
 
   if (data.loading) {
     return <div className="grid h-64 place-items-center"><p className="animate-pulse text-sm text-muted-foreground">Loading chart data...</p></div>;
@@ -162,34 +166,39 @@ export function DashboardOverview() {
           <CardDescription>Distribution of recent bookings</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={data.statuses}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={60}
-                  outerRadius={80}
-                  paddingAngle={5}
-                  dataKey="value"
-                >
-                  {data.statuses.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                <ChartTooltip content={<ChartTooltipContent />} />
-              </PieChart>
-            </ResponsiveContainer>
-            <div className="mt-4 flex flex-wrap justify-center gap-4 text-xs">
-              {data.statuses.map((s, i) => (
-                <div key={s.name} className="flex items-center gap-1">
-                   <div className="h-2 w-2 rounded-full bg-cocoa" />
-                  <span className="capitalize">{s.name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          {data.statuses.length === 0 ? (
+            <div className="grid h-[240px] place-items-center text-sm text-muted-foreground">No bookings yet</div>
+          ) : (
+            <>
+              <ChartContainer config={statusConfig} className="mx-auto h-[240px] w-full">
+                <PieChart>
+                  <Pie
+                    data={data.statuses}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={60}
+                    outerRadius={85}
+                    paddingAngle={4}
+                    dataKey="value"
+                    nameKey="name"
+                  >
+                    {data.statuses.map((entry) => (
+                      <Cell key={entry.name} fill={entry.color} stroke="transparent" />
+                    ))}
+                  </Pie>
+                  <ChartTooltip content={<ChartTooltipContent nameKey="name" />} />
+                </PieChart>
+              </ChartContainer>
+              <div className="mt-4 flex flex-wrap justify-center gap-4 text-xs">
+                {data.statuses.map((s) => (
+                  <div key={s.name} className="flex items-center gap-1.5">
+                    <div className="h-2 w-2 rounded-full" style={{ background: s.color }} />
+                    <span className="capitalize">{s.name} · {s.value}</span>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </CardContent>
       </Card>
       </div>
