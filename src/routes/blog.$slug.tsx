@@ -94,7 +94,7 @@ function BlogPost() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#06363a] via-[#082a2c] to-[#04191b] pt-32 pb-16 text-white">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#123409] via-[#0f2d08] to-[#0a2205] pt-32 pb-16 text-white">
         <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-copper/20 blur-3xl" />
         <div className="relative mx-auto max-w-4xl px-5 sm:px-6 lg:px-8">
           <Link to="/blog" className="inline-flex items-center gap-1.5 text-xs font-semibold text-white/70 hover:text-copper">

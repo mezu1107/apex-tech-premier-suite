@@ -39,13 +39,13 @@ function BentoCard({
 }) {
   const bg =
     gradient === "teal"
-      ? "bg-gradient-to-br from-[#0a4b4f] via-[#0d5a5e] to-[#06363a] text-white border-white/10"
+      ? "bg-gradient-to-br from-[#2e6b16] via-[#3a7f1c] to-[#123409] text-white border-white/10"
       : gradient === "dark"
-      ? "bg-gradient-to-br from-[#06363a] via-[#082a2c] to-[#04191b] text-white border-white/10"
+      ? "bg-gradient-to-br from-[#123409] via-[#0f2d08] to-[#0a2205] text-white border-white/10"
       : gradient === "lime"
-      ? "bg-gradient-to-br from-[#c9ee45] via-[#b9e52e] to-[#9ac91a] text-espresso border-espresso/10"
+      ? "bg-gradient-to-br from-[#a8dd55] via-[#8cc63f] to-[#6faa26] text-espresso border-espresso/10"
       : gradient === "mesh"
-      ? "bg-[radial-gradient(circle_at_20%_0%,#b9e52e33_0%,transparent_45%),radial-gradient(circle_at_80%_100%,#0a4b4f22_0%,transparent_50%),linear-gradient(135deg,#ffffff,#f0f7f5)] text-espresso border-espresso/10"
+      ? "bg-[radial-gradient(circle_at_20%_0%,#8cc63f33_0%,transparent_45%),radial-gradient(circle_at_80%_100%,#2e6b1622_0%,transparent_50%),linear-gradient(135deg,#ffffff,#f0f7f5)] text-espresso border-espresso/10"
       : "bg-white text-espresso border-espresso/8";
   return (
     <div className={`group relative overflow-hidden rounded-3xl border ${bg} shadow-[0_10px_40px_-15px_rgba(6,54,58,0.18)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_25px_70px_-20px_rgba(10,75,79,0.35)] ${className}`}>
@@ -327,7 +327,7 @@ function OfferBanner() {
   return (
     <section className="bg-white py-12">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0a4b4f] via-[#083033] to-[#04191b] p-8 text-white shadow-luxury sm:p-12">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#2e6b16] via-[#083033] to-[#0a2205] p-8 text-white shadow-luxury sm:p-12">
           <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-copper/20 blur-3xl" />
           <div className="relative grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
             <div>
@@ -404,7 +404,7 @@ function VisionBlock() {
       <div className="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
         <Reveal>
           <div className="relative overflow-hidden rounded-3xl">
-            <div className="aspect-[4/3] w-full bg-gradient-to-br from-[#0a4b4f] via-[#0d5a5e] to-[#083033]">
+            <div className="aspect-[4/3] w-full bg-gradient-to-br from-[#2e6b16] via-[#3a7f1c] to-[#083033]">
               <div className="absolute inset-0 grid place-items-center">
                 <div className="text-center">
                   <Sparkles className="mx-auto h-16 w-16 text-copper" />
@@ -473,7 +473,7 @@ function TestimonialsCards({ items }: { items: TestimonialRow[] }) {
 
 function FinalCTA() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-[#06363a] via-[#082a2c] to-[#04191b] py-20 text-white">
+    <section className="relative overflow-hidden bg-gradient-to-br from-[#123409] via-[#0f2d08] to-[#0a2205] py-20 text-white">
       <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-copper/20 blur-3xl" />
       <div className="relative mx-auto max-w-4xl px-5 text-center">
         <Reveal>

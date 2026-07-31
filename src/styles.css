@@ -185,11 +185,11 @@
   .glass {
     background: color-mix(in oklab, #ffffff 78%, transparent);
     backdrop-filter: blur(18px) saturate(140%);
-    border: 1px solid color-mix(in oklab, #0a4b4f 8%, transparent);
+    border: 1px solid color-mix(in oklab, #2e6b16 8%, transparent);
   }
   .glass-dark {
-    background: color-mix(in oklab, #06363a 82%, transparent);
+    background: color-mix(in oklab, #123409 82%, transparent);
     backdrop-filter: blur(18px) saturate(140%);
-    border: 1px solid color-mix(in oklab, #b9e52e 20%, transparent);
+    border: 1px solid color-mix(in oklab, #8cc63f 20%, transparent);
   }
 }

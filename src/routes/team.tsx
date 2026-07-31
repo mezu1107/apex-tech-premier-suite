@@ -49,7 +49,7 @@ function TeamPage() {
                       {m.photo_url ? (
                         <img src={m.photo_url} alt={m.name} className="h-full w-full object-cover transition duration-700 group-hover:scale-110" loading="lazy" />
                       ) : (
-                        <div className="grid h-full w-full place-items-center bg-gradient-to-br from-[#0a4b4f] to-[#04191b]">
+                        <div className="grid h-full w-full place-items-center bg-gradient-to-br from-[#2e6b16] to-[#0a2205]">
                           <span className="font-display text-6xl font-black text-copper">{m.name.slice(0, 1)}</span>
                         </div>
                       )}

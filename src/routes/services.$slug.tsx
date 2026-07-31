@@ -118,7 +118,7 @@ function ServiceDetail() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#06363a] via-[#082a2c] to-[#04191b] pt-32 pb-20 text-white">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#123409] via-[#0f2d08] to-[#0a2205] pt-32 pb-20 text-white">
         <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-copper/20 blur-3xl" />
         <div className="relative mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
           <Reveal>
@@ -151,7 +151,7 @@ function ServiceDetail() {
               </Reveal>
             </div>
             <Reveal delay={200}>
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#0a4b4f] to-[#04191b]">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#2e6b16] to-[#0a2205]">
                 {service.hero_image ? (
                   <img src={service.hero_image} alt={service.title} className="h-full w-full object-cover" />
                 ) : (
