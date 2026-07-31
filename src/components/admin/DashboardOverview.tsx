@@ -83,6 +83,10 @@ export function DashboardOverview() {
     quotes: { label: "Quotes", color: "var(--copper)" },
   } satisfies ChartConfig;
 
+  const statusConfig = Object.fromEntries(
+    data.statuses.map((s) => [s.name, { label: s.name, color: s.color }]),
+  ) as ChartConfig;
+
   if (data.loading) {
     return <div className="grid h-64 place-items-center"><p className="animate-pulse text-sm text-muted-foreground">Loading chart data...</p></div>;
   }
