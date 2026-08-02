@@ -22,25 +22,9 @@ export function AIChatbot({ open, onClose }: { open: boolean; onClose: () => voi
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, loading, open]);
 
-  const onPointerDown = (e: React.PointerEvent) => {
-    if (!btnRef.current || !pos) return;
-    (e.target as HTMLElement).setPointerCapture(e.pointerId);
-    dragRef.current = { dx: e.clientX - pos.x, dy: e.clientY - pos.y, moved: false };
-  };
-  const onPointerMove = (e: React.PointerEvent) => {
-    if (!dragRef.current) return;
-    const nx = e.clientX - dragRef.current.dx;
-    const ny = e.clientY - dragRef.current.dy;
-    if (Math.abs(e.movementX) + Math.abs(e.movementY) > 2) dragRef.current.moved = true;
-    const maxX = window.innerWidth - 60;
-    const maxY = window.innerHeight - 60;
-    setPos({ x: Math.max(8, Math.min(maxX, nx)), y: Math.max(8, Math.min(maxY, ny)) });
-  };
-  const onPointerUp = () => {
-    const moved = dragRef.current?.moved;
-    dragRef.current = null;
-    if (!moved) setOpen((v) => !v);
-  };
+  if (!open) return null;
+
+
 
   async function send(text: string) {
     const clean = text.trim();
