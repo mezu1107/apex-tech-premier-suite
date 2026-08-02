@@ -48,8 +48,10 @@ function BentoCard({
       ? "bg-[radial-gradient(circle_at_20%_0%,#8cc63f33_0%,transparent_45%),radial-gradient(circle_at_80%_100%,#2e6b1622_0%,transparent_50%),linear-gradient(135deg,#ffffff,#f0f7f5)] text-espresso border-espresso/10"
       : "bg-white text-espresso border-espresso/8";
   return (
-    <div className={`group relative overflow-hidden rounded-3xl border ${bg} shadow-[0_10px_40px_-15px_rgba(6,54,58,0.18)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_25px_70px_-20px_rgba(10,75,79,0.35)] ${className}`}>
-      {children}
+    <div className="scene-3d h-full">
+      <div className={`card-3d group relative h-full overflow-hidden rounded-3xl border ${bg} ${className}`}>
+        {children}
+      </div>
     </div>
   );
 }
