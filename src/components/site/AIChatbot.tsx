@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Bot, Send, X, GripVertical, Sparkles } from "lucide-react";
+import { Send, X, Sparkles } from "lucide-react";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -10,28 +10,13 @@ const SUGGESTIONS = [
   "Book a free consultation",
 ];
 
-export function AIChatbot() {
-  const [open, setOpen] = useState(false);
+export function AIChatbot({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [messages, setMessages] = useState<Msg[]>([
     { role: "assistant", content: "Hi! I'm AYMOXI Assistant 👋 Ask me anything about our services, pricing, or how we can help your business grow." },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-
-  // Draggable floating button
-  const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
-  const dragRef = useRef<{ dx: number; dy: number; moved: boolean } | null>(null);
-  const btnRef = useRef<HTMLButtonElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (pos === null && typeof window !== "undefined") {
-      const isMobile = window.innerWidth < 1024;
-      // Keep the button clear of the mobile sticky CTA bar (~72px) and the WhatsApp/back-to-top stack.
-      const bottomOffset = isMobile ? 108 : 96;
-      setPos({ x: window.innerWidth - 76, y: window.innerHeight - bottomOffset });
-    }
-  }, [pos]);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
