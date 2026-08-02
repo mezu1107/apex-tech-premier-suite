@@ -224,8 +224,15 @@ function SimpleServicesCards({ services }: { services: ServiceRow[] }) {
 
 /* ---------- 4. Why Choose Us bento ---------- */
 
+const FALLBACK_STATS = [
+  { id: "f1", value: "250+", label: "Projects" },
+  { id: "f2", value: "98%", label: "Retention" },
+  { id: "f3", value: "10+", label: "Years" },
+  { id: "f4", value: "24/7", label: "Support" },
+];
+
 function WhyBento({ stats }: { stats: StatRow[] }) {
-  const s = stats.slice(0, 4);
+  const s = stats.length > 0 ? stats.slice(0, 4) : (FALLBACK_STATS as unknown as StatRow[]);
   return (
     <Section tone="sand">
       <SectionHeading eyebrow="Why Choose Us" title="Why Choose AYMOXI LLC" desc="A boutique team of engineers, designers and strategists delivering enterprise-grade results with a hand-crafted touch." tone="sand" />
