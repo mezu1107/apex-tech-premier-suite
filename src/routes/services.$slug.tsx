@@ -151,28 +151,52 @@ function ServiceDetail() {
               </Reveal>
             </div>
             <Reveal delay={200}>
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#2e6b16] to-[#0a2205]">
-                {service.hero_image ? (
-                  <img src={service.hero_image} alt={service.title} className="h-full w-full object-cover" />
-                ) : (
-                  <div className="relative grid h-full w-full place-items-center overflow-hidden" aria-label={`${service.title} performance visual`}>
-                    <div className="service-orbit absolute h-56 w-56 rounded-full border border-copper/25" />
-                    <div className="service-orbit-reverse absolute h-40 w-40 rounded-full border border-white/15" />
-                    <div className="relative z-10 grid h-24 w-24 place-items-center rounded-3xl border border-white/10 bg-white/5 shadow-2xl backdrop-blur-sm">
-                      <Icon className="service-icon-float h-11 w-11 text-copper" />
-                    </div>
-                    <div className="absolute bottom-5 left-5 right-5 grid grid-cols-2 gap-3">
-                      <div className="rounded-xl border border-white/10 bg-white/5 p-3 backdrop-blur-sm">
-                        <span className="flex items-center gap-1 text-xs text-white/60"><TrendingUp className="h-3.5 w-3.5 text-copper" /> {impactLabel}</span>
-                        <strong className="mt-1 block font-display text-xl text-white">0 → 100×</strong>
+              <div className="scene-3d">
+                <div className="card-3d relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#2e6b16] to-[#0a2205]">
+                  {service.hero_image ? (
+                    <img src={service.hero_image} alt={service.title} className="h-full w-full object-cover" />
+                  ) : (
+                    <div
+                      className="relative grid h-full w-full place-items-center overflow-hidden [perspective:1200px]"
+                      aria-label={`${service.title} performance visual`}
+                    >
+                      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(185,229,46,0.22),transparent_55%)]" />
+                      <div className="service-orbit absolute h-52 w-52 rounded-full border border-copper/25 sm:h-60 sm:w-60" />
+                      <div className="service-orbit-reverse absolute h-36 w-36 rounded-full border border-white/15 sm:h-44 sm:w-44" />
+
+                      {/* base isometric plate */}
+                      <div className="plate-3d absolute h-36 w-52 rounded-2xl border border-white/10 bg-white/5 shadow-[0_40px_60px_-30px_rgba(0,0,0,0.8)] backdrop-blur-sm sm:h-40 sm:w-60">
+                        <div className="absolute inset-x-4 top-4 h-1.5 rounded-full bg-white/15" />
+                        <div className="absolute inset-x-4 top-8 h-1.5 w-2/3 rounded-full bg-white/10" />
+                        <div className="absolute bottom-4 left-4 flex items-end gap-1.5">
+                          {[10, 18, 14, 26, 34].map((h, i) => (
+                            <span key={i} className="w-2 rounded-t bg-copper/70" style={{ height: `${h}px` }} />
+                          ))}
+                        </div>
                       </div>
-                      <div className="rounded-xl border border-white/10 bg-white/5 p-3 backdrop-blur-sm">
-                        <span className="flex items-center gap-1 text-xs text-white/60"><Zap className="h-3.5 w-3.5 text-copper" /> Delivery</span>
-                        <strong className="mt-1 block font-display text-xl text-white">Built to scale</strong>
+
+                      {/* floating icon plate */}
+                      <div className="plate-3d-alt relative z-10 grid h-24 w-24 place-items-center rounded-3xl border border-white/15 bg-gradient-to-br from-white/20 to-white/5 shadow-[0_30px_45px_-20px_rgba(0,0,0,0.75)] backdrop-blur-md">
+                        <Icon className="service-icon-float h-11 w-11 text-copper drop-shadow-[0_6px_12px_rgba(0,0,0,0.5)]" />
+                      </div>
+
+                      <div className="absolute bottom-4 left-4 right-4 grid grid-cols-2 gap-2.5 sm:bottom-5 sm:left-5 sm:right-5 sm:gap-3">
+                        <div className="rounded-xl border border-white/10 bg-white/10 p-2.5 shadow-[0_10px_20px_-12px_rgba(0,0,0,0.9)] backdrop-blur-md sm:p-3">
+                          <span className="flex items-center gap-1 text-[11px] text-white/70 sm:text-xs">
+                            <TrendingUp className="h-3.5 w-3.5 text-copper" /> {impactLabel}
+                          </span>
+                          <strong className="mt-1 block font-display text-lg text-white sm:text-xl">0 → 100×</strong>
+                        </div>
+                        <div className="rounded-xl border border-white/10 bg-white/10 p-2.5 shadow-[0_10px_20px_-12px_rgba(0,0,0,0.9)] backdrop-blur-md sm:p-3">
+                          <span className="flex items-center gap-1 text-[11px] text-white/70 sm:text-xs">
+                            <Zap className="h-3.5 w-3.5 text-copper" /> Delivery
+                          </span>
+                          <strong className="mt-1 block font-display text-lg text-white sm:text-xl">Built to scale</strong>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             </Reveal>
           </div>
