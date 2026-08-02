@@ -14,8 +14,8 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header } from "../components/site/Header";
 import { Footer } from "../components/site/Footer";
-import { BackToTop, MobileStickyCTA, ScrollProgress, WhatsAppButton } from "../components/site/Floaters";
-import { AIChatbot } from "../components/site/AIChatbot";
+import { BackToTop, MobileStickyCTA, ScrollProgress } from "../components/site/Floaters";
+import { FloatingActions } from "../components/site/FloatingActions";
 import { TrackingPixels } from "../components/site/TrackingPixels";
 
 function NotFoundComponent() {
@@ -99,7 +99,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.jpg", type: "image/x-icon" },
+      { rel: "icon", type: "image/png", href: "/favicon.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" },
@@ -140,8 +140,7 @@ function RootComponent() {
       </main>
       {!isChromeless && <Footer />}
       {!isChromeless && <BackToTop />}
-      {!isChromeless && <WhatsAppButton />}
-      {!isChromeless && <AIChatbot />}
+      {!isChromeless && <FloatingActions />}
       {!isChromeless && <MobileStickyCTA />}
       {!isChromeless && <div className="h-16 lg:hidden" />}
     </QueryClientProvider>

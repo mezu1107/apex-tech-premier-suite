@@ -40,20 +40,6 @@ export function BackToTop() {
   );
 }
 
-export function WhatsAppButton() {
-  return (
-    <a
-      href={`https://wa.me/${PHONE.replace("+", "")}`}
-      target="_blank"
-      rel="noreferrer"
-      className="pulse-ring fixed bottom-24 left-5 z-40 hidden h-14 w-14 place-items-center rounded-full bg-copper text-espresso shadow-luxury lg:grid"
-      aria-label="Chat on WhatsApp"
-      title={PHONE_DISPLAY}
-    >
-      <MessageCircle className="h-6 w-6" />
-    </a>
-  );
-}
 
 export function MobileStickyCTA() {
   return (

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Bot, Send, X, GripVertical, Sparkles } from "lucide-react";
+import { Send, X, Sparkles } from "lucide-react";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -10,52 +10,21 @@ const SUGGESTIONS = [
   "Book a free consultation",
 ];
 
-export function AIChatbot() {
-  const [open, setOpen] = useState(false);
+export function AIChatbot({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [messages, setMessages] = useState<Msg[]>([
     { role: "assistant", content: "Hi! I'm AYMOXI Assistant 👋 Ask me anything about our services, pricing, or how we can help your business grow." },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-
-  // Draggable floating button
-  const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
-  const dragRef = useRef<{ dx: number; dy: number; moved: boolean } | null>(null);
-  const btnRef = useRef<HTMLButtonElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (pos === null && typeof window !== "undefined") {
-      const isMobile = window.innerWidth < 1024;
-      // Keep the button clear of the mobile sticky CTA bar (~72px) and the WhatsApp/back-to-top stack.
-      const bottomOffset = isMobile ? 108 : 96;
-      setPos({ x: window.innerWidth - 76, y: window.innerHeight - bottomOffset });
-    }
-  }, [pos]);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, loading, open]);
 
-  const onPointerDown = (e: React.PointerEvent) => {
-    if (!btnRef.current || !pos) return;
-    (e.target as HTMLElement).setPointerCapture(e.pointerId);
-    dragRef.current = { dx: e.clientX - pos.x, dy: e.clientY - pos.y, moved: false };
-  };
-  const onPointerMove = (e: React.PointerEvent) => {
-    if (!dragRef.current) return;
-    const nx = e.clientX - dragRef.current.dx;
-    const ny = e.clientY - dragRef.current.dy;
-    if (Math.abs(e.movementX) + Math.abs(e.movementY) > 2) dragRef.current.moved = true;
-    const maxX = window.innerWidth - 60;
-    const maxY = window.innerHeight - 60;
-    setPos({ x: Math.max(8, Math.min(maxX, nx)), y: Math.max(8, Math.min(maxY, ny)) });
-  };
-  const onPointerUp = () => {
-    const moved = dragRef.current?.moved;
-    dragRef.current = null;
-    if (!moved) setOpen((v) => !v);
-  };
+  if (!open) return null;
+
+
 
   async function send(text: string) {
     const clean = text.trim();
@@ -83,41 +52,14 @@ export function AIChatbot() {
     }
   }
 
-  if (!pos) return null;
-
   return (
-    <>
-      {/* Floating draggable button */}
-      <button
-        ref={btnRef}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        aria-label="Open AI Assistant"
-        style={{ left: pos.x, top: pos.y, touchAction: "none" }}
-        className="pulse-ring fixed z-50 grid h-14 w-14 place-items-center rounded-full bg-gradient-to-br from-cocoa to-espresso text-copper shadow-luxury transition hover:scale-105"
-      >
-        {open ? <X className="h-6 w-6" /> : <Bot className="h-6 w-6" />}
-      </button>
-
-      {/* Chat panel */}
-      {open && (
-        <div
-          className="fixed z-50 flex w-[calc(100vw-1.5rem)] max-w-sm flex-col overflow-hidden rounded-3xl border border-espresso/10 bg-white shadow-luxury animate-fade-in"
-          style={{
-            left: Math.min(pos.x, (typeof window !== "undefined" ? window.innerWidth : 400) - 384 - 12),
-            top: Math.max(12, pos.y - 520),
-            height: "min(70vh, 560px)",
-          }}
-        >
-          {/* Header — drag handle */}
-          <div
-            className="flex cursor-grab items-center justify-between gap-2 bg-gradient-to-br from-espresso to-cocoa px-4 py-3 text-white active:cursor-grabbing"
-            onPointerDown={onPointerDown}
-            onPointerMove={onPointerMove}
-            onPointerUp={onPointerUp}
-            style={{ touchAction: "none" }}
-          >
+    <div
+      role="dialog"
+      aria-label="AYMOXI AI Assistant"
+      className="fixed bottom-[9.5rem] right-4 z-50 flex h-[min(70vh,560px)] w-[calc(100vw-2rem)] max-w-sm flex-col overflow-hidden rounded-3xl border border-espresso/10 bg-white shadow-luxury animate-fade-in lg:bottom-24 lg:right-6"
+    >
+      {/* Header */}
+      <div className="flex items-center justify-between gap-2 bg-gradient-to-br from-espresso to-cocoa px-4 py-3 text-white">
             <div className="flex items-center gap-2">
               <div className="grid h-9 w-9 place-items-center rounded-full bg-copper text-espresso">
                 <Sparkles className="h-4 w-4" />
@@ -130,12 +72,12 @@ export function AIChatbot() {
               </div>
             </div>
             <div className="flex items-center gap-1">
-              <GripVertical className="h-4 w-4 text-white/50" />
-              <button onClick={() => setOpen(false)} aria-label="Close" className="rounded-full p-1 hover:bg-white/10">
+              <button onClick={onClose} aria-label="Close" className="rounded-full p-1 hover:bg-white/10">
                 <X className="h-4 w-4" />
               </button>
             </div>
           </div>
+
 
           {/* Messages */}
           <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto bg-sand/40 px-4 py-4">
@@ -200,8 +142,7 @@ export function AIChatbot() {
               <Send className="h-4 w-4" />
             </button>
           </form>
-        </div>
-      )}
-    </>
+    </div>
   );
 }
+
