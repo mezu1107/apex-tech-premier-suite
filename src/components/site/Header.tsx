@@ -41,7 +41,7 @@ export function Header() {
         <Link to="/" className="flex items-center gap-2" aria-label="AYMOXI LLC — Home">
           <Logo className="h-11 w-auto" />
           <span className="hidden font-display text-lg font-extrabold tracking-tight text-espresso sm:inline">
-            aymoxi<span className="ml-1 text-[0.7em] font-semibold text-copper">LLC</span>
+            <span className="ml-1 text-[0.7em] font-semibold text-copper"></span>
           </span>
         </Link>
 
