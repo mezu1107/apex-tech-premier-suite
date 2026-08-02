@@ -16,8 +16,30 @@ export const Route = createFileRoute("/api/chat")({
     handlers: {
       POST: async ({ request }) => {
         try {
-          const body = (await request.json()) as { messages?: ChatMsg[] };
-          const messages = Array.isArray(body.messages) ? body.messages : [];
+          const raw = await request.text();
+          if (raw.length > 20000) return new Response("Payload too large", { status: 413 });
+          let body: { messages?: unknown };
+          try {
+            body = JSON.parse(raw) as { messages?: unknown };
+          } catch {
+            return new Response("Invalid JSON", { status: 400 });
+          }
+          if (!Array.isArray(body.messages) || body.messages.length === 0) {
+            return new Response("Invalid messages", { status: 400 });
+          }
+          if (body.messages.length > 20) {
+            return new Response("Too many messages", { status: 400 });
+          }
+          const messages: ChatMsg[] = [];
+          for (const m of body.messages) {
+            if (typeof m !== "object" || m === null) return new Response("Invalid message", { status: 400 });
+            const { role, content } = m as { role?: unknown; content?: unknown };
+            if (role !== "user" && role !== "assistant") return new Response("Invalid role", { status: 400 });
+            if (typeof content !== "string" || content.trim().length === 0 || content.length > 2000) {
+              return new Response("Invalid message content", { status: 400 });
+            }
+            messages.push({ role, content });
+          }
           const key = process.env.LOVABLE_API_KEY;
           if (!key) return new Response("Missing LOVABLE_API_KEY", { status: 500 });
 
