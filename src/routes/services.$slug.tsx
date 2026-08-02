@@ -211,7 +211,7 @@ function ServiceDetail() {
               <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-cocoa">Overview</span>
               <h2 className="mt-2 font-display text-3xl font-black text-espresso sm:text-4xl">What you get</h2>
               <div className="prose prose-espresso mt-5 max-w-none text-base leading-relaxed text-foreground/75">
-                {(service.long_description ?? service.description).split(/\n{2,}/).map((p, i) => (
+                {(service.long_description ?? service.description).replace(/\\n/g, "\n").split(/\n{2,}/).map((p, i) => (
                   <p key={i} className="mb-4">{p}</p>
                 ))}
               </div>
@@ -363,7 +363,7 @@ function ServiceDetail() {
                   </button>
                   {openFaq === i && item.answer && (
                     <div className="border-t border-espresso/10 bg-white px-5 py-4 text-sm leading-relaxed text-foreground/75">
-                      {item.answer.split(/\n{2,}/).map((p, pi) => <p key={pi} className="mb-2">{p}</p>)}
+                      {item.answer.replace(/\\n/g, "\n").split(/\n{2,}/).map((p, pi) => <p key={pi} className="mb-2">{p}</p>)}
                     </div>
                   )}
                 </div>
