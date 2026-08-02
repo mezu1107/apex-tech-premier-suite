@@ -52,41 +52,14 @@ export function AIChatbot({ open, onClose }: { open: boolean; onClose: () => voi
     }
   }
 
-  if (!pos) return null;
-
   return (
-    <>
-      {/* Floating draggable button */}
-      <button
-        ref={btnRef}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        aria-label="Open AI Assistant"
-        style={{ left: pos.x, top: pos.y, touchAction: "none" }}
-        className="pulse-ring fixed z-50 grid h-14 w-14 place-items-center rounded-full bg-gradient-to-br from-cocoa to-espresso text-copper shadow-luxury transition hover:scale-105"
-      >
-        {open ? <X className="h-6 w-6" /> : <Bot className="h-6 w-6" />}
-      </button>
-
-      {/* Chat panel */}
-      {open && (
-        <div
-          className="fixed z-50 flex w-[calc(100vw-1.5rem)] max-w-sm flex-col overflow-hidden rounded-3xl border border-espresso/10 bg-white shadow-luxury animate-fade-in"
-          style={{
-            left: Math.min(pos.x, (typeof window !== "undefined" ? window.innerWidth : 400) - 384 - 12),
-            top: Math.max(12, pos.y - 520),
-            height: "min(70vh, 560px)",
-          }}
-        >
-          {/* Header — drag handle */}
-          <div
-            className="flex cursor-grab items-center justify-between gap-2 bg-gradient-to-br from-espresso to-cocoa px-4 py-3 text-white active:cursor-grabbing"
-            onPointerDown={onPointerDown}
-            onPointerMove={onPointerMove}
-            onPointerUp={onPointerUp}
-            style={{ touchAction: "none" }}
-          >
+    <div
+      role="dialog"
+      aria-label="AYMOXI AI Assistant"
+      className="fixed bottom-[9.5rem] right-4 z-50 flex h-[min(70vh,560px)] w-[calc(100vw-2rem)] max-w-sm flex-col overflow-hidden rounded-3xl border border-espresso/10 bg-white shadow-luxury animate-fade-in lg:bottom-24 lg:right-6"
+    >
+      {/* Header */}
+      <div className="flex items-center justify-between gap-2 bg-gradient-to-br from-espresso to-cocoa px-4 py-3 text-white">
             <div className="flex items-center gap-2">
               <div className="grid h-9 w-9 place-items-center rounded-full bg-copper text-espresso">
                 <Sparkles className="h-4 w-4" />
@@ -99,12 +72,12 @@ export function AIChatbot({ open, onClose }: { open: boolean; onClose: () => voi
               </div>
             </div>
             <div className="flex items-center gap-1">
-              <GripVertical className="h-4 w-4 text-white/50" />
-              <button onClick={() => setOpen(false)} aria-label="Close" className="rounded-full p-1 hover:bg-white/10">
+              <button onClick={onClose} aria-label="Close" className="rounded-full p-1 hover:bg-white/10">
                 <X className="h-4 w-4" />
               </button>
             </div>
           </div>
+
 
           {/* Messages */}
           <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto bg-sand/40 px-4 py-4">
