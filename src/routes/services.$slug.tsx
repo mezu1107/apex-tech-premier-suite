@@ -272,12 +272,12 @@ function ServiceDetail() {
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {features.map((f, i) => (
                 <Reveal key={i} delay={(i % 3) * 60}>
-                  <div className="flex h-full items-start gap-3 rounded-2xl border border-espresso/10 bg-white p-5 shadow-soft">
+                  <div className="scene-3d h-full"><div className="card-3d flex h-full items-start gap-3 rounded-2xl border border-espresso/10 bg-white p-5">
                     <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-copper/20 text-cocoa">
                       <Check className="h-4 w-4" />
                     </div>
                     <p className="text-sm font-semibold text-espresso">{f}</p>
-                  </div>
+                  </div></div>
                 </Reveal>
               ))}
             </div>
@@ -296,11 +296,11 @@ function ServiceDetail() {
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {processSteps.map((p, i) => (
                 <Reveal key={i} delay={i * 80}>
-                  <div className="h-full rounded-3xl border border-espresso/10 bg-sand/40 p-6">
+                  <div className="scene-3d h-full"><div className="card-3d h-full rounded-3xl border border-espresso/10 bg-white p-6">
                     <span className="font-display text-3xl font-black text-copper">{p.step ?? String(i + 1).padStart(2, "0")}</span>
                     <p className="mt-2 font-display text-lg font-bold text-espresso">{p.title}</p>
                     {p.description && <p className="mt-2 text-sm text-foreground/70">{p.description}</p>}
-                  </div>
+                  </div></div>
                 </Reveal>
               ))}
             </div>
@@ -319,7 +319,7 @@ function ServiceDetail() {
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {pricing.map((tier, i) => (
                 <Reveal key={i} delay={i * 80}>
-                  <div className={`flex h-full flex-col rounded-3xl border p-7 shadow-soft ${tier.featured ? "border-copper bg-espresso text-white" : "border-espresso/10 bg-white"}`}>
+                  <div className="scene-3d h-full"><div className={`card-3d flex h-full flex-col rounded-3xl border p-7 ${tier.featured ? "border-copper bg-espresso text-white" : "border-espresso/10 bg-white"}`}>
                     <p className={`font-display text-lg font-black ${tier.featured ? "text-copper" : "text-espresso"}`}>{tier.name}</p>
                     {tier.description && <p className={`mt-1 text-sm ${tier.featured ? "text-white/70" : "text-foreground/70"}`}>{tier.description}</p>}
                     <div className="mt-4 flex items-baseline gap-1">
@@ -337,7 +337,7 @@ function ServiceDetail() {
                       className={`mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold ${tier.featured ? "bg-copper text-espresso hover:bg-white" : "bg-espresso text-white hover:bg-cocoa"}`}>
                       {tier.cta_label || "Get started"} <ArrowRight className="h-4 w-4" />
                     </a>
-                  </div>
+                  </div></div>
                 </Reveal>
               ))}
             </div>
@@ -386,7 +386,7 @@ function ServiceDetail() {
                 const RIcon = iconMap[r.icon ?? ""] ?? Sparkles;
                 return (
                   <Link key={r.id} to="/services/$slug" params={{ slug: r.slug }}
-                    className="group h-full rounded-3xl border border-espresso/10 bg-white p-6 transition hover:-translate-y-1 hover:shadow-lg">
+                    className="scene-3d group block h-full"><span className="card-3d flex h-full flex-col rounded-3xl border border-espresso/10 bg-white p-6">
                     <div className="grid h-11 w-11 place-items-center rounded-xl bg-espresso text-copper">
                       <RIcon className="h-5 w-5" />
                     </div>
@@ -394,6 +394,7 @@ function ServiceDetail() {
                     <p className="mt-1 line-clamp-2 text-sm text-foreground/65">{r.description}</p>
                     <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-cocoa">
                       Explore <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
+                    </span>
                     </span>
                   </Link>
                 );
