@@ -140,8 +140,7 @@ function RootComponent() {
       </main>
       {!isChromeless && <Footer />}
       {!isChromeless && <BackToTop />}
-      {!isChromeless && <WhatsAppButton />}
-      {!isChromeless && <AIChatbot />}
+      {!isChromeless && <FloatingActions />}
       {!isChromeless && <MobileStickyCTA />}
       {!isChromeless && <div className="h-16 lg:hidden" />}
     </QueryClientProvider>
