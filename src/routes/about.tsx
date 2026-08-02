@@ -38,9 +38,9 @@ function AboutPage() {
   return (
     <>
       <PageHeader
-        eyebrow="About us"
-        title="A boutique studio, engineered for scale."
-        description="AYMOXI LLC is a team of senior engineers, designers and strategists building premium software for the world's most ambitious brands."
+        eyebrow="About AYMOXI LLC"
+        title="Custom Software, AI & Digital Marketing Company"
+        description="AYMOXI LLC is a team of senior engineers, designers and growth strategists building web apps, mobile apps, AI automation and performance marketing for ambitious brands worldwide."
       />
 
       <section className="py-16 lg:py-20">

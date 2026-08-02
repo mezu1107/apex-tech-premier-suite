@@ -151,28 +151,52 @@ function ServiceDetail() {
               </Reveal>
             </div>
             <Reveal delay={200}>
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#2e6b16] to-[#0a2205]">
-                {service.hero_image ? (
-                  <img src={service.hero_image} alt={service.title} className="h-full w-full object-cover" />
-                ) : (
-                  <div className="relative grid h-full w-full place-items-center overflow-hidden" aria-label={`${service.title} performance visual`}>
-                    <div className="service-orbit absolute h-56 w-56 rounded-full border border-copper/25" />
-                    <div className="service-orbit-reverse absolute h-40 w-40 rounded-full border border-white/15" />
-                    <div className="relative z-10 grid h-24 w-24 place-items-center rounded-3xl border border-white/10 bg-white/5 shadow-2xl backdrop-blur-sm">
-                      <Icon className="service-icon-float h-11 w-11 text-copper" />
-                    </div>
-                    <div className="absolute bottom-5 left-5 right-5 grid grid-cols-2 gap-3">
-                      <div className="rounded-xl border border-white/10 bg-white/5 p-3 backdrop-blur-sm">
-                        <span className="flex items-center gap-1 text-xs text-white/60"><TrendingUp className="h-3.5 w-3.5 text-copper" /> {impactLabel}</span>
-                        <strong className="mt-1 block font-display text-xl text-white">0 → 100×</strong>
+              <div className="scene-3d">
+                <div className="card-3d relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#2e6b16] to-[#0a2205]">
+                  {service.hero_image ? (
+                    <img src={service.hero_image} alt={service.title} className="h-full w-full object-cover" />
+                  ) : (
+                    <div
+                      className="relative grid h-full w-full place-items-center overflow-hidden [perspective:1200px]"
+                      aria-label={`${service.title} performance visual`}
+                    >
+                      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(185,229,46,0.22),transparent_55%)]" />
+                      <div className="service-orbit absolute h-52 w-52 rounded-full border border-copper/25 sm:h-60 sm:w-60" />
+                      <div className="service-orbit-reverse absolute h-36 w-36 rounded-full border border-white/15 sm:h-44 sm:w-44" />
+
+                      {/* base isometric plate */}
+                      <div className="plate-3d absolute h-36 w-52 rounded-2xl border border-white/10 bg-white/5 shadow-[0_40px_60px_-30px_rgba(0,0,0,0.8)] backdrop-blur-sm sm:h-40 sm:w-60">
+                        <div className="absolute inset-x-4 top-4 h-1.5 rounded-full bg-white/15" />
+                        <div className="absolute inset-x-4 top-8 h-1.5 w-2/3 rounded-full bg-white/10" />
+                        <div className="absolute bottom-4 left-4 flex items-end gap-1.5">
+                          {[10, 18, 14, 26, 34].map((h, i) => (
+                            <span key={i} className="w-2 rounded-t bg-copper/70" style={{ height: `${h}px` }} />
+                          ))}
+                        </div>
                       </div>
-                      <div className="rounded-xl border border-white/10 bg-white/5 p-3 backdrop-blur-sm">
-                        <span className="flex items-center gap-1 text-xs text-white/60"><Zap className="h-3.5 w-3.5 text-copper" /> Delivery</span>
-                        <strong className="mt-1 block font-display text-xl text-white">Built to scale</strong>
+
+                      {/* floating icon plate */}
+                      <div className="plate-3d-alt relative z-10 grid h-24 w-24 place-items-center rounded-3xl border border-white/15 bg-gradient-to-br from-white/20 to-white/5 shadow-[0_30px_45px_-20px_rgba(0,0,0,0.75)] backdrop-blur-md">
+                        <Icon className="service-icon-float h-11 w-11 text-copper drop-shadow-[0_6px_12px_rgba(0,0,0,0.5)]" />
+                      </div>
+
+                      <div className="absolute bottom-4 left-4 right-4 grid grid-cols-2 gap-2.5 sm:bottom-5 sm:left-5 sm:right-5 sm:gap-3">
+                        <div className="rounded-xl border border-white/10 bg-white/10 p-2.5 shadow-[0_10px_20px_-12px_rgba(0,0,0,0.9)] backdrop-blur-md sm:p-3">
+                          <span className="flex items-center gap-1 text-[11px] text-white/70 sm:text-xs">
+                            <TrendingUp className="h-3.5 w-3.5 text-copper" /> {impactLabel}
+                          </span>
+                          <strong className="mt-1 block font-display text-lg text-white sm:text-xl">0 → 100×</strong>
+                        </div>
+                        <div className="rounded-xl border border-white/10 bg-white/10 p-2.5 shadow-[0_10px_20px_-12px_rgba(0,0,0,0.9)] backdrop-blur-md sm:p-3">
+                          <span className="flex items-center gap-1 text-[11px] text-white/70 sm:text-xs">
+                            <Zap className="h-3.5 w-3.5 text-copper" /> Delivery
+                          </span>
+                          <strong className="mt-1 block font-display text-lg text-white sm:text-xl">Built to scale</strong>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             </Reveal>
           </div>
@@ -187,7 +211,7 @@ function ServiceDetail() {
               <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-cocoa">Overview</span>
               <h2 className="mt-2 font-display text-3xl font-black text-espresso sm:text-4xl">What you get</h2>
               <div className="prose prose-espresso mt-5 max-w-none text-base leading-relaxed text-foreground/75">
-                {(service.long_description ?? service.description).split(/\n{2,}/).map((p, i) => (
+                {(service.long_description ?? service.description).replace(/\\n/g, "\n").split(/\n{2,}/).map((p, i) => (
                   <p key={i} className="mb-4">{p}</p>
                 ))}
               </div>
@@ -248,12 +272,12 @@ function ServiceDetail() {
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {features.map((f, i) => (
                 <Reveal key={i} delay={(i % 3) * 60}>
-                  <div className="flex h-full items-start gap-3 rounded-2xl border border-espresso/10 bg-white p-5 shadow-soft">
+                  <div className="scene-3d h-full"><div className="card-3d flex h-full items-start gap-3 rounded-2xl border border-espresso/10 bg-white p-5">
                     <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-copper/20 text-cocoa">
                       <Check className="h-4 w-4" />
                     </div>
                     <p className="text-sm font-semibold text-espresso">{f}</p>
-                  </div>
+                  </div></div>
                 </Reveal>
               ))}
             </div>
@@ -272,11 +296,11 @@ function ServiceDetail() {
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {processSteps.map((p, i) => (
                 <Reveal key={i} delay={i * 80}>
-                  <div className="h-full rounded-3xl border border-espresso/10 bg-sand/40 p-6">
+                  <div className="scene-3d h-full"><div className="card-3d h-full rounded-3xl border border-espresso/10 bg-white p-6">
                     <span className="font-display text-3xl font-black text-copper">{p.step ?? String(i + 1).padStart(2, "0")}</span>
                     <p className="mt-2 font-display text-lg font-bold text-espresso">{p.title}</p>
                     {p.description && <p className="mt-2 text-sm text-foreground/70">{p.description}</p>}
-                  </div>
+                  </div></div>
                 </Reveal>
               ))}
             </div>
@@ -295,7 +319,7 @@ function ServiceDetail() {
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {pricing.map((tier, i) => (
                 <Reveal key={i} delay={i * 80}>
-                  <div className={`flex h-full flex-col rounded-3xl border p-7 shadow-soft ${tier.featured ? "border-copper bg-espresso text-white" : "border-espresso/10 bg-white"}`}>
+                  <div className="scene-3d h-full"><div className={`card-3d flex h-full flex-col rounded-3xl border p-7 ${tier.featured ? "border-copper bg-espresso text-white" : "border-espresso/10 bg-white"}`}>
                     <p className={`font-display text-lg font-black ${tier.featured ? "text-copper" : "text-espresso"}`}>{tier.name}</p>
                     {tier.description && <p className={`mt-1 text-sm ${tier.featured ? "text-white/70" : "text-foreground/70"}`}>{tier.description}</p>}
                     <div className="mt-4 flex items-baseline gap-1">
@@ -313,7 +337,7 @@ function ServiceDetail() {
                       className={`mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold ${tier.featured ? "bg-copper text-espresso hover:bg-white" : "bg-espresso text-white hover:bg-cocoa"}`}>
                       {tier.cta_label || "Get started"} <ArrowRight className="h-4 w-4" />
                     </a>
-                  </div>
+                  </div></div>
                 </Reveal>
               ))}
             </div>
@@ -339,7 +363,7 @@ function ServiceDetail() {
                   </button>
                   {openFaq === i && item.answer && (
                     <div className="border-t border-espresso/10 bg-white px-5 py-4 text-sm leading-relaxed text-foreground/75">
-                      {item.answer.split(/\n{2,}/).map((p, pi) => <p key={pi} className="mb-2">{p}</p>)}
+                      {item.answer.replace(/\\n/g, "\n").split(/\n{2,}/).map((p, pi) => <p key={pi} className="mb-2">{p}</p>)}
                     </div>
                   )}
                 </div>
@@ -362,7 +386,7 @@ function ServiceDetail() {
                 const RIcon = iconMap[r.icon ?? ""] ?? Sparkles;
                 return (
                   <Link key={r.id} to="/services/$slug" params={{ slug: r.slug }}
-                    className="group h-full rounded-3xl border border-espresso/10 bg-white p-6 transition hover:-translate-y-1 hover:shadow-lg">
+                    className="scene-3d group block h-full"><span className="card-3d flex h-full flex-col rounded-3xl border border-espresso/10 bg-white p-6">
                     <div className="grid h-11 w-11 place-items-center rounded-xl bg-espresso text-copper">
                       <RIcon className="h-5 w-5" />
                     </div>
@@ -370,6 +394,7 @@ function ServiceDetail() {
                     <p className="mt-1 line-clamp-2 text-sm text-foreground/65">{r.description}</p>
                     <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-cocoa">
                       Explore <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
+                    </span>
                     </span>
                   </Link>
                 );
