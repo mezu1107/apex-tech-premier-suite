@@ -48,8 +48,8 @@ function BentoCard({
       ? "bg-[radial-gradient(circle_at_20%_0%,#8cc63f33_0%,transparent_45%),radial-gradient(circle_at_80%_100%,#2e6b1622_0%,transparent_50%),linear-gradient(135deg,#ffffff,#f0f7f5)] text-espresso border-espresso/10"
       : "bg-white text-espresso border-espresso/8";
   return (
-    <div className={`scene-3d ${className}`}>
-      <div className={`card-3d group relative flex h-full flex-col overflow-hidden rounded-3xl border ${bg}`}>
+    <div className="scene-3d h-full">
+      <div className={`card-3d group relative flex flex-col overflow-hidden rounded-3xl border ${bg} ${className}`}>
         {children}
       </div>
     </div>
