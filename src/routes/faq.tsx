@@ -10,11 +10,37 @@ export const Route = createFileRoute("/faq")({
   head: () => ({
     meta: [
       { title: "FAQ — AYMOXI LLC" },
-      { name: "description", content: "Answers to common questions about working with AYMOXI." },
+      { name: "description", content: "Answers to common questions about pricing, timelines, process and support when working with AYMOXI LLC." },
       { property: "og:title", content: "FAQ — AYMOXI LLC" },
+      { property: "og:description", content: "Answers to common questions about pricing, timelines, process and support when working with AYMOXI LLC." },
+      { property: "og:type", content: "website" },
       { property: "og:url", content: "/faq" },
     ],
     links: [{ rel: "canonical", href: "/faq" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            {
+              "@type": "Question",
+              name: "How quickly do you respond to enquiries?",
+              acceptedAnswer: { "@type": "Answer", text: "We reply to every message within one business day." },
+            },
+            {
+              "@type": "Question",
+              name: "What services does AYMOXI LLC offer?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Web and software development, e-commerce, mobile apps, AI automation and digital marketing.",
+              },
+            },
+          ],
+        }),
+      },
+    ],
   }),
   component: FAQPage,
 });
