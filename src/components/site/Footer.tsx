@@ -15,7 +15,7 @@ function NewsletterForm() {
     if (!parsed.success) { setState("error"); setMsg("Enter a valid email."); return; }
     setState("sending");
     const error = await dbInsert("newsletter_subscribers", { email: parsed.data, source: "footer" });
-    if (error && !/duplicate|unique/i.test(error.message)) { setState("error"); setMsg(error.message); return; }
+    if (error && !/duplicate|unique/i.test(error)) { setState("error"); setMsg(error); return; }
     setState("done"); setMsg("You're subscribed!");
     (e.target as HTMLFormElement).reset();
   }
