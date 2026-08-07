@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import { createFileRoute } from "@tanstack/react-router";
 import { useApplyPageSeo } from "@/lib/page-seo";
 import { PageHeader } from "@/components/site/PageHeader";
@@ -11,9 +12,9 @@ export const Route = createFileRoute("/terms")({
       { property: "og:title", content: "Terms & Conditions — AYMOXI LLC" },
       { property: "og:description", content: "The terms and conditions that govern the use of the AYMOXI LLC website, content and professional services." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/terms" },
+      { property: "og:url", content: SITE_URL + "/terms" },
     ],
-    links: [{ rel: "canonical", href: "/terms" }],
+    links: [{ rel: "canonical", href: SITE_URL + "/terms" }],
   }),
   component: TermsPage,
 });

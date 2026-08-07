@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useApplyPageSeo } from "@/lib/page-seo";
 import { Check } from "lucide-react";
@@ -11,9 +12,9 @@ export const Route = createFileRoute("/pricing")({
       { title: "Pricing — AYMOXI LLC" },
       { name: "description", content: "Transparent pricing for Starter, Growth and Enterprise engagements." },
       { property: "og:title", content: "Pricing — AYMOXI LLC" },
-      { property: "og:url", content: "/pricing" },
+      { property: "og:url", content: SITE_URL + "/pricing" },
     ],
-    links: [{ rel: "canonical", href: "/pricing" }],
+    links: [{ rel: "canonical", href: SITE_URL + "/pricing" }],
   }),
   component: PricingPage,
 });

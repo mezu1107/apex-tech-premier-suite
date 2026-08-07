@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import { createFileRoute } from "@tanstack/react-router";
 import { useApplyPageSeo } from "@/lib/page-seo";
 import { HeroSlider } from "@/components/site/HeroSlider";
@@ -10,10 +11,10 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "AYMOXI LLC builds premium websites, mobile apps, AI automation and growth marketing for ambitious businesses worldwide." },
       { property: "og:title", content: "AYMOXI LLC — Premium Software, AI & Digital Marketing" },
       { property: "og:description", content: "AYMOXI LLC builds premium websites, mobile apps, AI automation and growth marketing for ambitious businesses worldwide." },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: SITE_URL + "/" },
       { property: "og:type", content: "website" },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: SITE_URL + "/" }],
   }),
   component: LandingPage,
 });

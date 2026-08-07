@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ArrowRight, Check, Phone, Loader2, ArrowLeft, Sparkles, Code2, Smartphone, Cloud, Shield, Search, Megaphone, Users, Palette, Database, ShoppingCart, ChevronDown, TrendingUp, Zap, type LucideIcon } from "lucide-react";
@@ -61,7 +62,7 @@ export const Route = createFileRoute("/services/$slug")({
       { name: "description", content: description },
       { property: "og:title", content: s?.og_title || title },
       { property: "og:description", content: s?.og_description || description },
-      { property: "og:url", content: url },
+      { property: "og:url", content: SITE_URL + url },
       { property: "og:type", content: "website" },
     ];
     if (s?.meta_keywords) meta.push({ name: "keywords", content: s.meta_keywords });
@@ -72,7 +73,7 @@ export const Route = createFileRoute("/services/$slug")({
     const faqItems = (s?.faq ?? []).filter((f) => f?.question && f?.answer);
     return {
       meta,
-      links: [{ rel: "canonical", href: url }],
+      links: [{ rel: "canonical", href: SITE_URL + url }],
       scripts: [
         {
           type: "application/ld+json",
@@ -83,8 +84,8 @@ export const Route = createFileRoute("/services/$slug")({
             description,
             ...(image ? { image } : {}),
             serviceType: s?.title,
-            provider: { "@type": "Organization", name: "AYMOXI LLC", url: "https://aymoxi.lovable.app" },
-            url: `https://aymoxi.lovable.app${url}`,
+            provider: { "@type": "Organization", name: "AYMOXI LLC", url: "https://www.aymoxi.com" },
+            url: `https://www.aymoxi.com${url}`,
           }),
         },
         ...(faqItems.length

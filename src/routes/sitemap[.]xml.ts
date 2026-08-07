@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 
-const BASE_URL = "https://aymoxi.lovable.app";
+const BASE_URL = "https://www.aymoxi.com";
 
 interface SitemapEntry {
   path: string;
