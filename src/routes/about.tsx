@@ -10,8 +10,10 @@ export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About — AYMOXI LLC" },
-      { name: "description", content: "The story, mission and values behind AYMOXI LLC." },
+      { name: "description", content: "The story, mission, values and team behind AYMOXI LLC — a software, AI and digital marketing partner for ambitious brands." },
       { property: "og:title", content: "About — AYMOXI LLC" },
+      { property: "og:description", content: "The story, mission, values and team behind AYMOXI LLC — a software, AI and digital marketing partner for ambitious brands." },
+      { property: "og:type", content: "website" },
       { property: "og:url", content: "/about" },
     ],
     links: [{ rel: "canonical", href: "/about" }],
