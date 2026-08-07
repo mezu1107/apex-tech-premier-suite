@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import { createFileRoute } from "@tanstack/react-router";
 import { useApplyPageSeo } from "@/lib/page-seo";
 import { PageHeader } from "@/components/site/PageHeader";
@@ -11,9 +12,9 @@ export const Route = createFileRoute("/privacy")({
       { property: "og:title", content: "Privacy Policy — AYMOXI LLC" },
       { property: "og:description", content: "How AYMOXI LLC collects, uses, stores and protects your personal data across our website and services." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/privacy" },
+      { property: "og:url", content: SITE_URL + "/privacy" },
     ],
-    links: [{ rel: "canonical", href: "/privacy" }],
+    links: [{ rel: "canonical", href: SITE_URL + "/privacy" }],
   }),
   component: PrivacyPage,
 });

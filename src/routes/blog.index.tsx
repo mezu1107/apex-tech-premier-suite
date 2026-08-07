@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Search, Calendar, ArrowRight } from "lucide-react";
@@ -14,9 +15,9 @@ export const Route = createFileRoute("/blog/")({
       { property: "og:title", content: "Blog — AYMOXI LLC" },
       { property: "og:description", content: "Insights, guides and field notes on software engineering, AI automation, product design and digital marketing from the AYMOXI team." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/blog" },
+      { property: "og:url", content: SITE_URL + "/blog" },
     ],
-    links: [{ rel: "canonical", href: "/blog" }],
+    links: [{ rel: "canonical", href: SITE_URL + "/blog" }],
   }),
   component: BlogPage,
 });

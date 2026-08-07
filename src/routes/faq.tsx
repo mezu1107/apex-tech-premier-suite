@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import { createFileRoute } from "@tanstack/react-router";
 import { useApplyPageSeo } from "@/lib/page-seo";
 import { useMemo, useState } from "react";
@@ -14,9 +15,9 @@ export const Route = createFileRoute("/faq")({
       { property: "og:title", content: "FAQ — AYMOXI LLC" },
       { property: "og:description", content: "Answers to common questions about pricing, timelines, process and support when working with AYMOXI LLC." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/faq" },
+      { property: "og:url", content: SITE_URL + "/faq" },
     ],
-    links: [{ rel: "canonical", href: "/faq" }],
+    links: [{ rel: "canonical", href: SITE_URL + "/faq" }],
     scripts: [
       {
         type: "application/ld+json",

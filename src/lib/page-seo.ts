@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { dbSelectOne } from "@/lib/rest";
 
 export type PageSeo = {
   path: string;
@@ -43,11 +43,11 @@ export function useApplyPageSeo(path: string) {
   useEffect(() => {
     let cancelled = false;
     async function run() {
-      const { data } = await supabase
-        .from("page_seo")
-        .select("path,meta_title,meta_description,meta_keywords,og_title,og_description,og_image,canonical_url,noindex")
-        .eq("path", path)
-        .maybeSingle();
+      const data = await dbSelectOne<PageSeo>("page_seo", {
+        select:
+          "path,meta_title,meta_description,meta_keywords,og_title,og_description,og_image,canonical_url,noindex",
+        eq: { path },
+      });
       if (cancelled || !data) return;
       const seo = data as PageSeo;
 

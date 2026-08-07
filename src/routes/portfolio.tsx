@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import { createFileRoute } from "@tanstack/react-router";
 import { useApplyPageSeo } from "@/lib/page-seo";
 import { useMemo, useState } from "react";
@@ -12,9 +13,9 @@ export const Route = createFileRoute("/portfolio")({
       { title: "Portfolio — AYMOXI LLC" },
       { name: "description", content: "Selected work: websites, mobile apps, AI and enterprise platforms." },
       { property: "og:title", content: "Portfolio — AYMOXI LLC" },
-      { property: "og:url", content: "/portfolio" },
+      { property: "og:url", content: SITE_URL + "/portfolio" },
     ],
-    links: [{ rel: "canonical", href: "/portfolio" }],
+    links: [{ rel: "canonical", href: SITE_URL + "/portfolio" }],
   }),
   component: PortfolioPage,
 });

@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -38,7 +39,7 @@ export const Route = createFileRoute("/blog/$slug")({
       { name: "description", content: description },
       { property: "og:title", content: p?.og_title || title },
       { property: "og:description", content: p?.og_description || description },
-      { property: "og:url", content: url },
+      { property: "og:url", content: SITE_URL + url },
       { property: "og:type", content: "article" },
     ];
     if (p?.meta_keywords) meta.push({ name: "keywords", content: p.meta_keywords });
@@ -48,7 +49,7 @@ export const Route = createFileRoute("/blog/$slug")({
     }
     return {
       meta,
-      links: [{ rel: "canonical", href: url }],
+      links: [{ rel: "canonical", href: SITE_URL + url }],
       scripts: [
         {
           type: "application/ld+json",
@@ -61,7 +62,7 @@ export const Route = createFileRoute("/blog/$slug")({
             ...(p?.published_at ? { datePublished: p.published_at } : {}),
             author: { "@type": p?.author ? "Person" : "Organization", name: p?.author || "AYMOXI LLC" },
             publisher: { "@type": "Organization", name: "AYMOXI LLC" },
-            mainEntityOfPage: `https://aymoxi.lovable.app${url}`,
+            mainEntityOfPage: `https://www.aymoxi.com${url}`,
           }),
         },
       ],

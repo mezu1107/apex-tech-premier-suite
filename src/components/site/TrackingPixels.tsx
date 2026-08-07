@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useRouterState } from "@tanstack/react-router";
-import { supabase } from "@/integrations/supabase/client";
+import { dbSelect } from "@/lib/rest";
 
 export type PixelRow = {
   id: string;
@@ -176,12 +176,14 @@ export function TrackingPixels() {
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const { data } = await (supabase.from as any)("tracking_pixels")
-        .select("id, provider, pixel_id, verification_code, head_code, body_code, enabled")
-        .eq("enabled", true)
-        .order("sort_order", { ascending: true });
-      if (cancelled || !data) return;
+      const data = await dbSelect<PixelRow>("tracking_pixels", {
+        select: "id, provider, pixel_id, verification_code, head_code, body_code, enabled",
+        eq: { enabled: true },
+        order: { column: "sort_order", ascending: true },
+      });
+      if (cancelled || !data.length) return;
       pixels.current = data as PixelRow[];
+
       pixels.current.forEach(installPixel);
       ready.current = true;
     })();

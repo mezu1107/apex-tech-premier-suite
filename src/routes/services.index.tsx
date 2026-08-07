@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useApplyPageSeo } from "@/lib/page-seo";
 import { ArrowRight, Check, Sparkles, Code2, Smartphone, Cloud, Shield, Search, Megaphone, Users, Palette, Database, ShoppingCart, type LucideIcon } from "lucide-react";
@@ -13,9 +14,9 @@ export const Route = createFileRoute("/services/")({
       { property: "og:title", content: "Services — AYMOXI LLC" },
       { property: "og:description", content: "Web, mobile, AI, cloud, security, marketing and SEO services from AYMOXI LLC." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/services" },
+      { property: "og:url", content: SITE_URL + "/services" },
     ],
-    links: [{ rel: "canonical", href: "/services" }],
+    links: [{ rel: "canonical", href: SITE_URL + "/services" }],
   }),
   component: ServicesPage,
 });

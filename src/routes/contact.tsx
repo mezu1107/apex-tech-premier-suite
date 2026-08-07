@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import { createFileRoute } from "@tanstack/react-router";
 import { useApplyPageSeo } from "@/lib/page-seo";
 import { useState, type FormEvent } from "react";
@@ -12,9 +13,9 @@ export const Route = createFileRoute("/contact")({
       { title: "Contact — AYMOXI LLC" },
       { name: "description", content: "Book a free consultation or send us a message." },
       { property: "og:title", content: "Contact — AYMOXI LLC" },
-      { property: "og:url", content: "/contact" },
+      { property: "og:url", content: SITE_URL + "/contact" },
     ],
-    links: [{ rel: "canonical", href: "/contact" }],
+    links: [{ rel: "canonical", href: SITE_URL + "/contact" }],
   }),
   component: ContactPage,
 });

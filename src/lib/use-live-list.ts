@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { dbSelect } from "@/lib/rest";
 
+/**
+ * Public-site list reader. Uses the lightweight REST client (no supabase-js in
+ * the public bundle) and refreshes when the tab regains focus so admin edits
+ * show up without a realtime websocket.
+ */
 export function useLiveList<T extends { id: string }>(
   table: string,
   opts: { orderBy?: { column: string; ascending?: boolean }; filterPublished?: boolean } = {},
@@ -13,30 +18,24 @@ export function useLiveList<T extends { id: string }>(
     let cancelled = false;
 
     async function load() {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let q: any = (supabase.from as any)(table).select("*");
-      if (filterPublished) q = q.eq("published", true);
-      if (orderBy) q = q.order(orderBy.column, { ascending: orderBy.ascending ?? true });
-      const { data } = await q;
+      const data = await dbSelect<T>(table, {
+        eq: filterPublished ? { published: true } : undefined,
+        order: orderBy,
+      });
       if (!cancelled) {
-        setRows(((data as T[] | null) ?? []));
+        setRows(data);
         setLoading(false);
       }
     }
     load();
 
-    const channel = supabase
-      .channel(`live-${table}`)
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table },
-        () => load(),
-      )
-      .subscribe();
-
+    const onFocus = () => {
+      if (document.visibilityState === "visible") load();
+    };
+    document.addEventListener("visibilitychange", onFocus);
     return () => {
       cancelled = true;
-      supabase.removeChannel(channel);
+      document.removeEventListener("visibilitychange", onFocus);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [table]);

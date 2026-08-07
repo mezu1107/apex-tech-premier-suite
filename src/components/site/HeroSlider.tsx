@@ -94,6 +94,11 @@ export function HeroSlider() {
           <img
             src={s.bg}
             alt=""
+            width={1920}
+            height={1080}
+            loading={i === 0 ? "eager" : "lazy"}
+            fetchPriority={i === 0 ? "high" : "low"}
+            decoding={i === 0 ? "sync" : "async"}
             className={`h-full w-full object-cover transition-transform duration-[7000ms] ease-out ${
               i === idx ? "scale-110" : "scale-100"
             }`}

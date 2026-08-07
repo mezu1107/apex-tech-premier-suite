@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import { createFileRoute } from "@tanstack/react-router";
 import { useApplyPageSeo } from "@/lib/page-seo";
 import { MapPin, Clock, Heart, Zap, Globe, Coffee } from "lucide-react";
@@ -10,9 +11,9 @@ export const Route = createFileRoute("/careers")({
       { title: "Careers — AYMOXI LLC" },
       { name: "description", content: "Open roles and life at AYMOXI LLC." },
       { property: "og:title", content: "Careers — AYMOXI LLC" },
-      { property: "og:url", content: "/careers" },
+      { property: "og:url", content: SITE_URL + "/careers" },
     ],
-    links: [{ rel: "canonical", href: "/careers" }],
+    links: [{ rel: "canonical", href: SITE_URL + "/careers" }],
   }),
   component: CareersPage,
 });

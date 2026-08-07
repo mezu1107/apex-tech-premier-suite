@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import { createFileRoute } from "@tanstack/react-router";
 import { useApplyPageSeo } from "@/lib/page-seo";
 import { Linkedin, Twitter, Mail } from "lucide-react";
@@ -11,9 +12,9 @@ export const Route = createFileRoute("/team")({
       { title: "Leadership — AYMOXI LLC" },
       { name: "description", content: "Meet the founders leading AYMOXI LLC — Shafqat Rasool and Noman." },
       { property: "og:title", content: "Leadership — AYMOXI LLC" },
-      { property: "og:url", content: "/team" },
+      { property: "og:url", content: SITE_URL + "/team" },
     ],
-    links: [{ rel: "canonical", href: "/team" }],
+    links: [{ rel: "canonical", href: SITE_URL + "/team" }],
   }),
   component: TeamPage,
 });
