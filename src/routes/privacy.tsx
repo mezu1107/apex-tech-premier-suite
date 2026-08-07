@@ -7,7 +7,10 @@ export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
       { title: "Privacy Policy — AYMOXI LLC" },
-      { name: "description", content: "How AYMOXI LLC collects, uses and protects your data." },
+      { name: "description", content: "How AYMOXI LLC collects, uses, stores and protects your personal data across our website and services." },
+      { property: "og:title", content: "Privacy Policy — AYMOXI LLC" },
+      { property: "og:description", content: "How AYMOXI LLC collects, uses, stores and protects your personal data across our website and services." },
+      { property: "og:type", content: "website" },
       { property: "og:url", content: "/privacy" },
     ],
     links: [{ rel: "canonical", href: "/privacy" }],
