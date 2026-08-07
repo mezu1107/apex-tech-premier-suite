@@ -94,15 +94,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "AYMOXI LLC — Premium Software, AI & Digital Marketing" },
       { name: "twitter:description", content: "AYMOXI LLC builds premium websites, mobile apps, AI automation and growth marketing for ambitious businesses worldwide." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5cf8e153-d4c5-4239-baaf-25de8738d935/id-preview-68459d0c--b993533d-5164-47da-bf10-c44cf44e30b4.lovable.app-1784289810988.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5cf8e153-d4c5-4239-baaf-25de8738d935/id-preview-68459d0c--b993533d-5164-47da-bf10-c44cf44e30b4.lovable.app-1784289810988.png" },
+      { property: "og:image", content: SITE_OG_IMAGE },
+      { property: "og:image:alt", content: "AYMOXI LLC logo" },
+      { name: "twitter:image", content: SITE_OG_IMAGE },
+      { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+      { rel: "manifest", href: "/site.webmanifest" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" },
+      { rel: "preload", as: "image", href: "/logo.png", fetchpriority: "high" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap",
+      },
     ],
     scripts: [
       {
@@ -110,9 +118,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
+          "@id": `${SITE_URL}/#organization`,
           name: "AYMOXI LLC",
-          url: "https://www.aymoxi.com",
-          logo: "https://www.aymoxi.com/favicon.png",
+          url: SITE_URL,
+          logo: { "@type": "ImageObject", url: SITE_LOGO, width: 256, height: 256 },
+          image: SITE_LOGO,
           description:
             "AYMOXI LLC builds premium websites, mobile apps, AI automation and growth marketing for ambitious businesses worldwide.",
           telephone: "+1 720 794 1888",
@@ -122,6 +132,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             addressLocality: "Faisalabad",
             addressCountry: "PK",
           },
+          founder: { "@type": "Person", name: "Shafqat Rasool" },
         }),
       },
       {
@@ -129,11 +140,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebSite",
+          "@id": `${SITE_URL}/#website`,
           name: "AYMOXI LLC",
-          url: "https://www.aymoxi.com",
+          url: SITE_URL,
+          publisher: { "@id": `${SITE_URL}/#organization` },
         }),
       },
     ],
+
   }),
   shellComponent: RootShell,
   component: RootComponent,
