@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useRouterState } from "@tanstack/react-router";
-import { supabase } from "@/integrations/supabase/client";
+import { dbSelect } from "@/lib/rest";
 
 export type PixelRow = {
   id: string;

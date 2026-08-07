@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, Loader2, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
 import { z } from "zod";
-import { supabase } from "@/integrations/supabase/client";
+import { dbInsert } from "@/lib/rest";
 import { Logo } from "./Logo";
 
 function NewsletterForm() {
@@ -14,7 +14,7 @@ function NewsletterForm() {
     const parsed = z.string().trim().email().max(255).safeParse(email);
     if (!parsed.success) { setState("error"); setMsg("Enter a valid email."); return; }
     setState("sending");
-    const { error } = await supabase.from("newsletter_subscribers").insert({ email: parsed.data, source: "footer" });
+    const error = await dbInsert("newsletter_subscribers", { email: parsed.data, source: "footer" });
     if (error && !/duplicate|unique/i.test(error.message)) { setState("error"); setMsg(error.message); return; }
     setState("done"); setMsg("You're subscribed!");
     (e.target as HTMLFormElement).reset();
