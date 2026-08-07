@@ -60,17 +60,17 @@ function TeamPage() {
                       </div>
                       <div className="absolute right-4 top-4 flex translate-y-2 gap-2 opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
                         {m.linkedin_url && (
-                          <a href={m.linkedin_url} target="_blank" rel="noreferrer" className="grid h-9 w-9 place-items-center rounded-full bg-cream/95 text-espresso hover:bg-copper">
+                          <a href={m.linkedin_url} target="_blank" rel="noreferrer" aria-label={`${m.name} on LinkedIn`} className="grid h-9 w-9 place-items-center rounded-full bg-cream/95 text-espresso hover:bg-copper">
                             <Linkedin className="h-4 w-4" />
                           </a>
                         )}
                         {m.twitter_url && (
-                          <a href={m.twitter_url} target="_blank" rel="noreferrer" className="grid h-9 w-9 place-items-center rounded-full bg-cream/95 text-espresso hover:bg-copper">
+                          <a href={m.twitter_url} target="_blank" rel="noreferrer" aria-label={`${m.name} on Twitter`} className="grid h-9 w-9 place-items-center rounded-full bg-cream/95 text-espresso hover:bg-copper">
                             <Twitter className="h-4 w-4" />
                           </a>
                         )}
                         {m.email && (
-                          <a href={`mailto:${m.email}`} className="grid h-9 w-9 place-items-center rounded-full bg-cream/95 text-espresso hover:bg-copper">
+                          <a href={`mailto:${m.email}`} aria-label={`Email ${m.name}`} className="grid h-9 w-9 place-items-center rounded-full bg-cream/95 text-espresso hover:bg-copper">
                             <Mail className="h-4 w-4" />
                           </a>
                         )}

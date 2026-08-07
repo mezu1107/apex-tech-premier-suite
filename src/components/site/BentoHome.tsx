@@ -157,7 +157,7 @@ function ServicesBento({ services }: { services: ServiceRow[] }) {
                 <h3 className={`mt-5 font-display text-xl font-black leading-tight ${dark ? "" : "text-espresso"}`}>{s.title}</h3>
                 <p className={`mt-2 text-sm leading-relaxed ${dark ? "text-white/70" : g === "lime" ? "text-espresso/75" : "text-foreground/70"}`}>{s.description}</p>
                 <Link to="/services/$slug" params={{ slug: (s as ServiceRow & { slug: string }).slug }} className={`mt-6 inline-flex items-center gap-1.5 text-sm font-bold ${dark ? "text-white/90" : "text-cocoa"}`}>
-                  Learn more <ArrowUpRight className="h-4 w-4" />
+                  Explore {s.title} <ArrowUpRight className="h-4 w-4" />
                 </Link>
               </BentoCard>
             </Reveal>
@@ -294,7 +294,7 @@ function WhyBento({ stats }: { stats: StatRow[] }) {
                 <p className="font-display text-xl font-black text-white">24/7 dedicated support</p>
                 <p className="mt-1 text-sm text-white/70">SLA-backed engineering support across time zones — always a human, never a ticket queue.</p>
                 <div className="mt-4 flex flex-wrap gap-2">
-                  <Link to="/about" className="inline-flex items-center gap-1.5 rounded-full bg-copper px-4 py-2 text-xs font-bold text-espresso hover:bg-white">Learn more</Link>
+                  <Link to="/about" className="inline-flex items-center gap-1.5 rounded-full bg-copper px-4 py-2 text-xs font-bold text-espresso hover:bg-white">Read our full story</Link>
                   <a href={`tel:${PHONE.replace(/\s/g, "")}`} className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs font-bold text-white hover:bg-white/10">
                     <Phone className="h-3.5 w-3.5" /> {PHONE}
                   </a>
@@ -395,7 +395,7 @@ function FeaturedServicesGrid() {
               <p className="mt-5 font-display text-lg font-black text-espresso">{f.title}</p>
               <p className="mt-1 text-sm text-foreground/65">{f.desc}</p>
               <Link to="/services" className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-cocoa">
-                Learn more <ArrowUpRight className="h-3.5 w-3.5" />
+                See all {f.title} services <ArrowUpRight className="h-3.5 w-3.5" />
               </Link>
             </div>
           </Reveal>

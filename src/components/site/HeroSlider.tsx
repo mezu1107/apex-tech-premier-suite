@@ -118,11 +118,19 @@ export function HeroSlider() {
                 <span className="inline-flex items-center gap-2 rounded-full border border-copper/40 bg-white/10 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-copper backdrop-blur-md sm:text-xs">
                   <Icon className="h-3.5 w-3.5" /> {s.tag}
                 </span>
-                <h1 className="mt-5 font-display text-4xl font-extrabold leading-[1.05] text-white sm:text-5xl md:text-6xl lg:text-7xl">
-                  {s.title}
-                  <br />
-                  {i === idx ? <Typewriter words={s.typewriter} /> : <span>{s.typewriter[0]}</span>}
-                </h1>
+                {i === idx ? (
+                  <h1 className="mt-5 font-display text-4xl font-extrabold leading-[1.05] text-white sm:text-5xl md:text-6xl lg:text-7xl">
+                    {s.title}
+                    <br />
+                    <Typewriter words={s.typewriter} />
+                  </h1>
+                ) : (
+                  <p aria-hidden="true" className="mt-5 font-display text-4xl font-extrabold leading-[1.05] text-white sm:text-5xl md:text-6xl lg:text-7xl">
+                    {s.title}
+                    <br />
+                    <span>{s.typewriter[0]}</span>
+                  </p>
+                )}
                 <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/85 sm:text-base md:text-lg">
                   {s.subtitle}
                 </p>
