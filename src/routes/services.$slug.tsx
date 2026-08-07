@@ -69,7 +69,42 @@ export const Route = createFileRoute("/services/$slug")({
       meta.push({ property: "og:image", content: image });
       meta.push({ name: "twitter:image", content: image });
     }
-    return { meta, links: [{ rel: "canonical", href: url }] };
+    const faqItems = (s?.faq ?? []).filter((f) => f?.question && f?.answer);
+    return {
+      meta,
+      links: [{ rel: "canonical", href: url }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name: s?.title ?? title,
+            description,
+            ...(image ? { image } : {}),
+            serviceType: s?.title,
+            provider: { "@type": "Organization", name: "AYMOXI LLC", url: "https://aymoxi.lovable.app" },
+            url: `https://aymoxi.lovable.app${url}`,
+          }),
+        },
+        ...(faqItems.length
+          ? [
+              {
+                type: "application/ld+json",
+                children: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "FAQPage",
+                  mainEntity: faqItems.map((f) => ({
+                    "@type": "Question",
+                    name: f.question,
+                    acceptedAnswer: { "@type": "Answer", text: f.answer },
+                  })),
+                }),
+              },
+            ]
+          : []),
+      ],
+    };
   },
   component: ServiceDetail,
   pendingComponent: () => (
