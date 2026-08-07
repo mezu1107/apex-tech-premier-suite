@@ -46,7 +46,26 @@ export const Route = createFileRoute("/blog/$slug")({
       meta.push({ property: "og:image", content: image });
       meta.push({ name: "twitter:image", content: image });
     }
-    return { meta, links: [{ rel: "canonical", href: url }] };
+    return {
+      meta,
+      links: [{ rel: "canonical", href: url }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: p?.title ?? title,
+            description,
+            ...(image ? { image } : {}),
+            ...(p?.published_at ? { datePublished: p.published_at } : {}),
+            author: { "@type": p?.author ? "Person" : "Organization", name: p?.author || "AYMOXI LLC" },
+            publisher: { "@type": "Organization", name: "AYMOXI LLC" },
+            mainEntityOfPage: `https://aymoxi.lovable.app${url}`,
+          }),
+        },
+      ],
+    };
   },
   component: BlogPost,
   pendingComponent: () => (
