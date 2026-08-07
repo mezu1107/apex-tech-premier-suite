@@ -104,6 +104,36 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "AYMOXI LLC",
+          url: "https://aymoxi.lovable.app",
+          logo: "https://aymoxi.lovable.app/favicon.png",
+          description:
+            "AYMOXI LLC builds premium websites, mobile apps, AI automation and growth marketing for ambitious businesses worldwide.",
+          telephone: "+1 720 794 1888",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "2nd Floor, Malik Plaza, Hassan Road, Jaranwala",
+            addressLocality: "Faisalabad",
+            addressCountry: "PK",
+          },
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "AYMOXI LLC",
+          url: "https://aymoxi.lovable.app",
+        }),
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
