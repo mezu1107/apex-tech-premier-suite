@@ -7,7 +7,10 @@ export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
       { title: "Terms & Conditions — AYMOXI LLC" },
-      { name: "description", content: "The terms that govern the use of our website and services." },
+      { name: "description", content: "The terms and conditions that govern the use of the AYMOXI LLC website, content and professional services." },
+      { property: "og:title", content: "Terms & Conditions — AYMOXI LLC" },
+      { property: "og:description", content: "The terms and conditions that govern the use of the AYMOXI LLC website, content and professional services." },
+      { property: "og:type", content: "website" },
       { property: "og:url", content: "/terms" },
     ],
     links: [{ rel: "canonical", href: "/terms" }],
