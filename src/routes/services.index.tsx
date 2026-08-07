@@ -11,6 +11,8 @@ export const Route = createFileRoute("/services/")({
       { title: "Services — AYMOXI LLC" },
       { name: "description", content: "Web, mobile, AI, cloud, security, marketing and SEO services from AYMOXI LLC." },
       { property: "og:title", content: "Services — AYMOXI LLC" },
+      { property: "og:description", content: "Web, mobile, AI, cloud, security, marketing and SEO services from AYMOXI LLC." },
+      { property: "og:type", content: "website" },
       { property: "og:url", content: "/services" },
     ],
     links: [{ rel: "canonical", href: "/services" }],
