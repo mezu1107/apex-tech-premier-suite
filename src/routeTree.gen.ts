@@ -40,6 +40,7 @@ import { Route as AuthenticatedAdminStatsRouteImport } from './routes/_authentic
 import { Route as AuthenticatedAdminServicesRouteImport } from './routes/_authenticated/admin.services'
 import { Route as AuthenticatedAdminSeoRouteImport } from './routes/_authenticated/admin.seo'
 import { Route as AuthenticatedAdminQuotesRouteImport } from './routes/_authenticated/admin.quotes'
+import { Route as AuthenticatedAdminProposalsRouteImport } from './routes/_authenticated/admin.proposals'
 import { Route as AuthenticatedAdminProcessRouteImport } from './routes/_authenticated/admin.process'
 import { Route as AuthenticatedAdminPricingRouteImport } from './routes/_authenticated/admin.pricing'
 import { Route as AuthenticatedAdminPortfolioRouteImport } from './routes/_authenticated/admin.portfolio'
@@ -210,6 +211,12 @@ const AuthenticatedAdminQuotesRoute =
     path: '/quotes',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminProposalsRoute =
+  AuthenticatedAdminProposalsRouteImport.update({
+    id: '/proposals',
+    path: '/proposals',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminProcessRoute =
   AuthenticatedAdminProcessRouteImport.update({
     id: '/process',
@@ -315,6 +322,7 @@ export interface FileRoutesByFullPath {
   '/admin/portfolio': typeof AuthenticatedAdminPortfolioRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/admin/process': typeof AuthenticatedAdminProcessRoute
+  '/admin/proposals': typeof AuthenticatedAdminProposalsRoute
   '/admin/quotes': typeof AuthenticatedAdminQuotesRoute
   '/admin/seo': typeof AuthenticatedAdminSeoRoute
   '/admin/services': typeof AuthenticatedAdminServicesRoute
@@ -357,6 +365,7 @@ export interface FileRoutesByTo {
   '/admin/portfolio': typeof AuthenticatedAdminPortfolioRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/admin/process': typeof AuthenticatedAdminProcessRoute
+  '/admin/proposals': typeof AuthenticatedAdminProposalsRoute
   '/admin/quotes': typeof AuthenticatedAdminQuotesRoute
   '/admin/seo': typeof AuthenticatedAdminSeoRoute
   '/admin/services': typeof AuthenticatedAdminServicesRoute
@@ -403,6 +412,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/portfolio': typeof AuthenticatedAdminPortfolioRoute
   '/_authenticated/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/_authenticated/admin/process': typeof AuthenticatedAdminProcessRoute
+  '/_authenticated/admin/proposals': typeof AuthenticatedAdminProposalsRoute
   '/_authenticated/admin/quotes': typeof AuthenticatedAdminQuotesRoute
   '/_authenticated/admin/seo': typeof AuthenticatedAdminSeoRoute
   '/_authenticated/admin/services': typeof AuthenticatedAdminServicesRoute
@@ -449,6 +459,7 @@ export interface FileRouteTypes {
     | '/admin/portfolio'
     | '/admin/pricing'
     | '/admin/process'
+    | '/admin/proposals'
     | '/admin/quotes'
     | '/admin/seo'
     | '/admin/services'
@@ -491,6 +502,7 @@ export interface FileRouteTypes {
     | '/admin/portfolio'
     | '/admin/pricing'
     | '/admin/process'
+    | '/admin/proposals'
     | '/admin/quotes'
     | '/admin/seo'
     | '/admin/services'
@@ -536,6 +548,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/portfolio'
     | '/_authenticated/admin/pricing'
     | '/_authenticated/admin/process'
+    | '/_authenticated/admin/proposals'
     | '/_authenticated/admin/quotes'
     | '/_authenticated/admin/seo'
     | '/_authenticated/admin/services'
@@ -788,6 +801,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminQuotesRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/proposals': {
+      id: '/_authenticated/admin/proposals'
+      path: '/proposals'
+      fullPath: '/admin/proposals'
+      preLoaderRoute: typeof AuthenticatedAdminProposalsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/process': {
       id: '/_authenticated/admin/process'
       path: '/process'
@@ -888,6 +908,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminPortfolioRoute: typeof AuthenticatedAdminPortfolioRoute
   AuthenticatedAdminPricingRoute: typeof AuthenticatedAdminPricingRoute
   AuthenticatedAdminProcessRoute: typeof AuthenticatedAdminProcessRoute
+  AuthenticatedAdminProposalsRoute: typeof AuthenticatedAdminProposalsRoute
   AuthenticatedAdminQuotesRoute: typeof AuthenticatedAdminQuotesRoute
   AuthenticatedAdminSeoRoute: typeof AuthenticatedAdminSeoRoute
   AuthenticatedAdminServicesRoute: typeof AuthenticatedAdminServicesRoute
@@ -910,6 +931,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminPortfolioRoute: AuthenticatedAdminPortfolioRoute,
   AuthenticatedAdminPricingRoute: AuthenticatedAdminPricingRoute,
   AuthenticatedAdminProcessRoute: AuthenticatedAdminProcessRoute,
+  AuthenticatedAdminProposalsRoute: AuthenticatedAdminProposalsRoute,
   AuthenticatedAdminQuotesRoute: AuthenticatedAdminQuotesRoute,
   AuthenticatedAdminSeoRoute: AuthenticatedAdminSeoRoute,
   AuthenticatedAdminServicesRoute: AuthenticatedAdminServicesRoute,
