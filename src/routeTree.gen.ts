@@ -20,8 +20,10 @@ import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CareersRouteImport } from './routes/careers'
+import { Route as CalculatorRouteImport } from './routes/calculator'
 import { Route as BookRouteImport } from './routes/book'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuditRouteImport } from './routes/audit'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
@@ -38,13 +40,16 @@ import { Route as AuthenticatedAdminStatsRouteImport } from './routes/_authentic
 import { Route as AuthenticatedAdminServicesRouteImport } from './routes/_authenticated/admin.services'
 import { Route as AuthenticatedAdminSeoRouteImport } from './routes/_authenticated/admin.seo'
 import { Route as AuthenticatedAdminQuotesRouteImport } from './routes/_authenticated/admin.quotes'
+import { Route as AuthenticatedAdminProposalsRouteImport } from './routes/_authenticated/admin.proposals'
 import { Route as AuthenticatedAdminProcessRouteImport } from './routes/_authenticated/admin.process'
 import { Route as AuthenticatedAdminPricingRouteImport } from './routes/_authenticated/admin.pricing'
 import { Route as AuthenticatedAdminPortfolioRouteImport } from './routes/_authenticated/admin.portfolio'
 import { Route as AuthenticatedAdminPixelsRouteImport } from './routes/_authenticated/admin.pixels'
 import { Route as AuthenticatedAdminNewsletterRouteImport } from './routes/_authenticated/admin.newsletter'
 import { Route as AuthenticatedAdminMessagesRouteImport } from './routes/_authenticated/admin.messages'
+import { Route as AuthenticatedAdminInvoicesRouteImport } from './routes/_authenticated/admin.invoices'
 import { Route as AuthenticatedAdminFaqsRouteImport } from './routes/_authenticated/admin.faqs'
+import { Route as AuthenticatedAdminCrmRouteImport } from './routes/_authenticated/admin.crm'
 import { Route as AuthenticatedAdminClientsRouteImport } from './routes/_authenticated/admin.clients'
 import { Route as AuthenticatedAdminCasesRouteImport } from './routes/_authenticated/admin.cases'
 import { Route as AuthenticatedAdminBookingsRouteImport } from './routes/_authenticated/admin.bookings'
@@ -105,6 +110,11 @@ const CareersRoute = CareersRouteImport.update({
   path: '/careers',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CalculatorRoute = CalculatorRouteImport.update({
+  id: '/calculator',
+  path: '/calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BookRoute = BookRouteImport.update({
   id: '/book',
   path: '/book',
@@ -113,6 +123,11 @@ const BookRoute = BookRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuditRoute = AuditRouteImport.update({
+  id: '/audit',
+  path: '/audit',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -197,6 +212,12 @@ const AuthenticatedAdminQuotesRoute =
     path: '/quotes',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminProposalsRoute =
+  AuthenticatedAdminProposalsRouteImport.update({
+    id: '/proposals',
+    path: '/proposals',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminProcessRoute =
   AuthenticatedAdminProcessRouteImport.update({
     id: '/process',
@@ -233,9 +254,20 @@ const AuthenticatedAdminMessagesRoute =
     path: '/messages',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminInvoicesRoute =
+  AuthenticatedAdminInvoicesRouteImport.update({
+    id: '/invoices',
+    path: '/invoices',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminFaqsRoute = AuthenticatedAdminFaqsRouteImport.update({
   id: '/faqs',
   path: '/faqs',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminCrmRoute = AuthenticatedAdminCrmRouteImport.update({
+  id: '/crm',
+  path: '/crm',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
 const AuthenticatedAdminClientsRoute =
@@ -264,8 +296,10 @@ const AuthenticatedAdminBlogRoute = AuthenticatedAdminBlogRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/audit': typeof AuditRoute
   '/auth': typeof AuthRoute
   '/book': typeof BookRoute
+  '/calculator': typeof CalculatorRoute
   '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
@@ -287,13 +321,16 @@ export interface FileRoutesByFullPath {
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/admin/cases': typeof AuthenticatedAdminCasesRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
+  '/admin/crm': typeof AuthenticatedAdminCrmRoute
   '/admin/faqs': typeof AuthenticatedAdminFaqsRoute
+  '/admin/invoices': typeof AuthenticatedAdminInvoicesRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/admin/newsletter': typeof AuthenticatedAdminNewsletterRoute
   '/admin/pixels': typeof AuthenticatedAdminPixelsRoute
   '/admin/portfolio': typeof AuthenticatedAdminPortfolioRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/admin/process': typeof AuthenticatedAdminProcessRoute
+  '/admin/proposals': typeof AuthenticatedAdminProposalsRoute
   '/admin/quotes': typeof AuthenticatedAdminQuotesRoute
   '/admin/seo': typeof AuthenticatedAdminSeoRoute
   '/admin/services': typeof AuthenticatedAdminServicesRoute
@@ -305,8 +342,10 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/audit': typeof AuditRoute
   '/auth': typeof AuthRoute
   '/book': typeof BookRoute
+  '/calculator': typeof CalculatorRoute
   '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
@@ -326,13 +365,16 @@ export interface FileRoutesByTo {
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/admin/cases': typeof AuthenticatedAdminCasesRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
+  '/admin/crm': typeof AuthenticatedAdminCrmRoute
   '/admin/faqs': typeof AuthenticatedAdminFaqsRoute
+  '/admin/invoices': typeof AuthenticatedAdminInvoicesRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/admin/newsletter': typeof AuthenticatedAdminNewsletterRoute
   '/admin/pixels': typeof AuthenticatedAdminPixelsRoute
   '/admin/portfolio': typeof AuthenticatedAdminPortfolioRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/admin/process': typeof AuthenticatedAdminProcessRoute
+  '/admin/proposals': typeof AuthenticatedAdminProposalsRoute
   '/admin/quotes': typeof AuthenticatedAdminQuotesRoute
   '/admin/seo': typeof AuthenticatedAdminSeoRoute
   '/admin/services': typeof AuthenticatedAdminServicesRoute
@@ -346,8 +388,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
+  '/audit': typeof AuditRoute
   '/auth': typeof AuthRoute
   '/book': typeof BookRoute
+  '/calculator': typeof CalculatorRoute
   '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
@@ -369,13 +413,16 @@ export interface FileRoutesById {
   '/_authenticated/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/_authenticated/admin/cases': typeof AuthenticatedAdminCasesRoute
   '/_authenticated/admin/clients': typeof AuthenticatedAdminClientsRoute
+  '/_authenticated/admin/crm': typeof AuthenticatedAdminCrmRoute
   '/_authenticated/admin/faqs': typeof AuthenticatedAdminFaqsRoute
+  '/_authenticated/admin/invoices': typeof AuthenticatedAdminInvoicesRoute
   '/_authenticated/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/_authenticated/admin/newsletter': typeof AuthenticatedAdminNewsletterRoute
   '/_authenticated/admin/pixels': typeof AuthenticatedAdminPixelsRoute
   '/_authenticated/admin/portfolio': typeof AuthenticatedAdminPortfolioRoute
   '/_authenticated/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/_authenticated/admin/process': typeof AuthenticatedAdminProcessRoute
+  '/_authenticated/admin/proposals': typeof AuthenticatedAdminProposalsRoute
   '/_authenticated/admin/quotes': typeof AuthenticatedAdminQuotesRoute
   '/_authenticated/admin/seo': typeof AuthenticatedAdminSeoRoute
   '/_authenticated/admin/services': typeof AuthenticatedAdminServicesRoute
@@ -389,8 +436,10 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/audit'
     | '/auth'
     | '/book'
+    | '/calculator'
     | '/careers'
     | '/contact'
     | '/faq'
@@ -412,13 +461,16 @@ export interface FileRouteTypes {
     | '/admin/bookings'
     | '/admin/cases'
     | '/admin/clients'
+    | '/admin/crm'
     | '/admin/faqs'
+    | '/admin/invoices'
     | '/admin/messages'
     | '/admin/newsletter'
     | '/admin/pixels'
     | '/admin/portfolio'
     | '/admin/pricing'
     | '/admin/process'
+    | '/admin/proposals'
     | '/admin/quotes'
     | '/admin/seo'
     | '/admin/services'
@@ -430,8 +482,10 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/audit'
     | '/auth'
     | '/book'
+    | '/calculator'
     | '/careers'
     | '/contact'
     | '/faq'
@@ -451,13 +505,16 @@ export interface FileRouteTypes {
     | '/admin/bookings'
     | '/admin/cases'
     | '/admin/clients'
+    | '/admin/crm'
     | '/admin/faqs'
+    | '/admin/invoices'
     | '/admin/messages'
     | '/admin/newsletter'
     | '/admin/pixels'
     | '/admin/portfolio'
     | '/admin/pricing'
     | '/admin/process'
+    | '/admin/proposals'
     | '/admin/quotes'
     | '/admin/seo'
     | '/admin/services'
@@ -470,8 +527,10 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/about'
+    | '/audit'
     | '/auth'
     | '/book'
+    | '/calculator'
     | '/careers'
     | '/contact'
     | '/faq'
@@ -493,13 +552,16 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/bookings'
     | '/_authenticated/admin/cases'
     | '/_authenticated/admin/clients'
+    | '/_authenticated/admin/crm'
     | '/_authenticated/admin/faqs'
+    | '/_authenticated/admin/invoices'
     | '/_authenticated/admin/messages'
     | '/_authenticated/admin/newsletter'
     | '/_authenticated/admin/pixels'
     | '/_authenticated/admin/portfolio'
     | '/_authenticated/admin/pricing'
     | '/_authenticated/admin/process'
+    | '/_authenticated/admin/proposals'
     | '/_authenticated/admin/quotes'
     | '/_authenticated/admin/seo'
     | '/_authenticated/admin/services'
@@ -513,8 +575,10 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
+  AuditRoute: typeof AuditRoute
   AuthRoute: typeof AuthRoute
   BookRoute: typeof BookRoute
+  CalculatorRoute: typeof CalculatorRoute
   CareersRoute: typeof CareersRoute
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
@@ -610,6 +674,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CareersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/calculator': {
+      id: '/calculator'
+      path: '/calculator'
+      fullPath: '/calculator'
+      preLoaderRoute: typeof CalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/book': {
       id: '/book'
       path: '/book'
@@ -622,6 +693,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/audit': {
+      id: '/audit'
+      path: '/audit'
+      fullPath: '/audit'
+      preLoaderRoute: typeof AuditRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -736,6 +814,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminQuotesRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/proposals': {
+      id: '/_authenticated/admin/proposals'
+      path: '/proposals'
+      fullPath: '/admin/proposals'
+      preLoaderRoute: typeof AuthenticatedAdminProposalsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/process': {
       id: '/_authenticated/admin/process'
       path: '/process'
@@ -778,11 +863,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminMessagesRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/invoices': {
+      id: '/_authenticated/admin/invoices'
+      path: '/invoices'
+      fullPath: '/admin/invoices'
+      preLoaderRoute: typeof AuthenticatedAdminInvoicesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/faqs': {
       id: '/_authenticated/admin/faqs'
       path: '/faqs'
       fullPath: '/admin/faqs'
       preLoaderRoute: typeof AuthenticatedAdminFaqsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/crm': {
+      id: '/_authenticated/admin/crm'
+      path: '/crm'
+      fullPath: '/admin/crm'
+      preLoaderRoute: typeof AuthenticatedAdminCrmRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/admin/clients': {
@@ -821,13 +920,16 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminBookingsRoute: typeof AuthenticatedAdminBookingsRoute
   AuthenticatedAdminCasesRoute: typeof AuthenticatedAdminCasesRoute
   AuthenticatedAdminClientsRoute: typeof AuthenticatedAdminClientsRoute
+  AuthenticatedAdminCrmRoute: typeof AuthenticatedAdminCrmRoute
   AuthenticatedAdminFaqsRoute: typeof AuthenticatedAdminFaqsRoute
+  AuthenticatedAdminInvoicesRoute: typeof AuthenticatedAdminInvoicesRoute
   AuthenticatedAdminMessagesRoute: typeof AuthenticatedAdminMessagesRoute
   AuthenticatedAdminNewsletterRoute: typeof AuthenticatedAdminNewsletterRoute
   AuthenticatedAdminPixelsRoute: typeof AuthenticatedAdminPixelsRoute
   AuthenticatedAdminPortfolioRoute: typeof AuthenticatedAdminPortfolioRoute
   AuthenticatedAdminPricingRoute: typeof AuthenticatedAdminPricingRoute
   AuthenticatedAdminProcessRoute: typeof AuthenticatedAdminProcessRoute
+  AuthenticatedAdminProposalsRoute: typeof AuthenticatedAdminProposalsRoute
   AuthenticatedAdminQuotesRoute: typeof AuthenticatedAdminQuotesRoute
   AuthenticatedAdminSeoRoute: typeof AuthenticatedAdminSeoRoute
   AuthenticatedAdminServicesRoute: typeof AuthenticatedAdminServicesRoute
@@ -842,13 +944,16 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminBookingsRoute: AuthenticatedAdminBookingsRoute,
   AuthenticatedAdminCasesRoute: AuthenticatedAdminCasesRoute,
   AuthenticatedAdminClientsRoute: AuthenticatedAdminClientsRoute,
+  AuthenticatedAdminCrmRoute: AuthenticatedAdminCrmRoute,
   AuthenticatedAdminFaqsRoute: AuthenticatedAdminFaqsRoute,
+  AuthenticatedAdminInvoicesRoute: AuthenticatedAdminInvoicesRoute,
   AuthenticatedAdminMessagesRoute: AuthenticatedAdminMessagesRoute,
   AuthenticatedAdminNewsletterRoute: AuthenticatedAdminNewsletterRoute,
   AuthenticatedAdminPixelsRoute: AuthenticatedAdminPixelsRoute,
   AuthenticatedAdminPortfolioRoute: AuthenticatedAdminPortfolioRoute,
   AuthenticatedAdminPricingRoute: AuthenticatedAdminPricingRoute,
   AuthenticatedAdminProcessRoute: AuthenticatedAdminProcessRoute,
+  AuthenticatedAdminProposalsRoute: AuthenticatedAdminProposalsRoute,
   AuthenticatedAdminQuotesRoute: AuthenticatedAdminQuotesRoute,
   AuthenticatedAdminSeoRoute: AuthenticatedAdminSeoRoute,
   AuthenticatedAdminServicesRoute: AuthenticatedAdminServicesRoute,
@@ -890,8 +995,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
+  AuditRoute: AuditRoute,
   AuthRoute: AuthRoute,
   BookRoute: BookRoute,
+  CalculatorRoute: CalculatorRoute,
   CareersRoute: CareersRoute,
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
@@ -910,13 +1017,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
