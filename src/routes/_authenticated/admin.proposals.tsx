@@ -14,8 +14,8 @@ export const Route = createFileRoute("/_authenticated/admin/proposals")({
         { name: "client_email", label: "Client email", type: "text" },
         { name: "currency", label: "Currency", type: "select", options: ["USD", "PKR", "EUR", "GBP"] },
         {
-          name: "items", label: "Line items", type: "repeater",
-          fields: [
+          name: "items", label: "Line items", type: "repeater", itemLabel: "Item",
+          subFields: [
             { name: "name", label: "Item", type: "text" },
             { name: "detail", label: "Detail", type: "text" },
             { name: "qty", label: "Qty", type: "number" },
