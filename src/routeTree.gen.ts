@@ -32,6 +32,7 @@ import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ClientsIndexRouteImport } from './routes/clients.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
+import { Route as ClientsProjectsRouteImport } from './routes/clients.projects'
 import { Route as ClientsDashboardRouteImport } from './routes/clients.dashboard'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
@@ -171,6 +172,11 @@ const ServicesSlugRoute = ServicesSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => ServicesRoute,
+} as any)
+const ClientsProjectsRoute = ClientsProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => ClientsRoute,
 } as any)
 const ClientsDashboardRoute = ClientsDashboardRouteImport.update({
   id: '/dashboard',
@@ -334,6 +340,7 @@ export interface FileRoutesByFullPath {
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/clients/dashboard': typeof ClientsDashboardRoute
+  '/clients/projects': typeof ClientsProjectsRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/clients/': typeof ClientsIndexRoute
@@ -380,6 +387,7 @@ export interface FileRoutesByTo {
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/clients/dashboard': typeof ClientsDashboardRoute
+  '/clients/projects': typeof ClientsProjectsRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog': typeof BlogIndexRoute
   '/clients': typeof ClientsIndexRoute
@@ -431,6 +439,7 @@ export interface FileRoutesById {
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/clients/dashboard': typeof ClientsDashboardRoute
+  '/clients/projects': typeof ClientsProjectsRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/clients/': typeof ClientsIndexRoute
@@ -482,6 +491,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/blog/$slug'
     | '/clients/dashboard'
+    | '/clients/projects'
     | '/services/$slug'
     | '/blog/'
     | '/clients/'
@@ -528,6 +538,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/blog/$slug'
     | '/clients/dashboard'
+    | '/clients/projects'
     | '/services/$slug'
     | '/blog'
     | '/clients'
@@ -578,6 +589,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/blog/$slug'
     | '/clients/dashboard'
+    | '/clients/projects'
     | '/services/$slug'
     | '/blog/'
     | '/clients/'
@@ -792,6 +804,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/services/$slug'
       preLoaderRoute: typeof ServicesSlugRouteImport
       parentRoute: typeof ServicesRoute
+    }
+    '/clients/projects': {
+      id: '/clients/projects'
+      path: '/projects'
+      fullPath: '/clients/projects'
+      preLoaderRoute: typeof ClientsProjectsRouteImport
+      parentRoute: typeof ClientsRoute
     }
     '/clients/dashboard': {
       id: '/clients/dashboard'
@@ -1035,11 +1054,13 @@ const AuthenticatedRouteRouteWithChildren =
 
 interface ClientsRouteChildren {
   ClientsDashboardRoute: typeof ClientsDashboardRoute
+  ClientsProjectsRoute: typeof ClientsProjectsRoute
   ClientsIndexRoute: typeof ClientsIndexRoute
 }
 
 const ClientsRouteChildren: ClientsRouteChildren = {
   ClientsDashboardRoute: ClientsDashboardRoute,
+  ClientsProjectsRoute: ClientsProjectsRoute,
   ClientsIndexRoute: ClientsIndexRoute,
 }
 
