@@ -174,7 +174,7 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const isChromeless = pathname.startsWith("/admin") || pathname.startsWith("/auth");
+  const isChromeless = pathname.startsWith("/admin") || pathname.startsWith("/auth") || pathname.startsWith("/clients");
 
   return (
     <QueryClientProvider client={queryClient}>

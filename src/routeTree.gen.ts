@@ -55,6 +55,7 @@ import { Route as AuthenticatedAdminProposalsRouteImport } from './routes/_authe
 import { Route as AuthenticatedAdminProcessRouteImport } from './routes/_authenticated/admin.process'
 import { Route as AuthenticatedAdminPricingRouteImport } from './routes/_authenticated/admin.pricing'
 import { Route as AuthenticatedAdminPortfolioRouteImport } from './routes/_authenticated/admin.portfolio'
+import { Route as AuthenticatedAdminPortalRouteImport } from './routes/_authenticated/admin.portal'
 import { Route as AuthenticatedAdminPixelsRouteImport } from './routes/_authenticated/admin.pixels'
 import { Route as AuthenticatedAdminNewsletterRouteImport } from './routes/_authenticated/admin.newsletter'
 import { Route as AuthenticatedAdminMessagesRouteImport } from './routes/_authenticated/admin.messages'
@@ -302,6 +303,12 @@ const AuthenticatedAdminPortfolioRoute =
     path: '/portfolio',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminPortalRoute =
+  AuthenticatedAdminPortalRouteImport.update({
+    id: '/portal',
+    path: '/portal',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminPixelsRoute =
   AuthenticatedAdminPixelsRouteImport.update({
     id: '/pixels',
@@ -404,6 +411,7 @@ export interface FileRoutesByFullPath {
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/admin/newsletter': typeof AuthenticatedAdminNewsletterRoute
   '/admin/pixels': typeof AuthenticatedAdminPixelsRoute
+  '/admin/portal': typeof AuthenticatedAdminPortalRoute
   '/admin/portfolio': typeof AuthenticatedAdminPortfolioRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/admin/process': typeof AuthenticatedAdminProcessRoute
@@ -458,6 +466,7 @@ export interface FileRoutesByTo {
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/admin/newsletter': typeof AuthenticatedAdminNewsletterRoute
   '/admin/pixels': typeof AuthenticatedAdminPixelsRoute
+  '/admin/portal': typeof AuthenticatedAdminPortalRoute
   '/admin/portfolio': typeof AuthenticatedAdminPortfolioRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/admin/process': typeof AuthenticatedAdminProcessRoute
@@ -517,6 +526,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/_authenticated/admin/newsletter': typeof AuthenticatedAdminNewsletterRoute
   '/_authenticated/admin/pixels': typeof AuthenticatedAdminPixelsRoute
+  '/_authenticated/admin/portal': typeof AuthenticatedAdminPortalRoute
   '/_authenticated/admin/portfolio': typeof AuthenticatedAdminPortfolioRoute
   '/_authenticated/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/_authenticated/admin/process': typeof AuthenticatedAdminProcessRoute
@@ -576,6 +586,7 @@ export interface FileRouteTypes {
     | '/admin/messages'
     | '/admin/newsletter'
     | '/admin/pixels'
+    | '/admin/portal'
     | '/admin/portfolio'
     | '/admin/pricing'
     | '/admin/process'
@@ -630,6 +641,7 @@ export interface FileRouteTypes {
     | '/admin/messages'
     | '/admin/newsletter'
     | '/admin/pixels'
+    | '/admin/portal'
     | '/admin/portfolio'
     | '/admin/pricing'
     | '/admin/process'
@@ -688,6 +700,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/messages'
     | '/_authenticated/admin/newsletter'
     | '/_authenticated/admin/pixels'
+    | '/_authenticated/admin/portal'
     | '/_authenticated/admin/portfolio'
     | '/_authenticated/admin/pricing'
     | '/_authenticated/admin/process'
@@ -1050,6 +1063,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminPortfolioRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/portal': {
+      id: '/_authenticated/admin/portal'
+      path: '/portal'
+      fullPath: '/admin/portal'
+      preLoaderRoute: typeof AuthenticatedAdminPortalRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/pixels': {
       id: '/_authenticated/admin/pixels'
       path: '/pixels'
@@ -1134,6 +1154,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminMessagesRoute: typeof AuthenticatedAdminMessagesRoute
   AuthenticatedAdminNewsletterRoute: typeof AuthenticatedAdminNewsletterRoute
   AuthenticatedAdminPixelsRoute: typeof AuthenticatedAdminPixelsRoute
+  AuthenticatedAdminPortalRoute: typeof AuthenticatedAdminPortalRoute
   AuthenticatedAdminPortfolioRoute: typeof AuthenticatedAdminPortfolioRoute
   AuthenticatedAdminPricingRoute: typeof AuthenticatedAdminPricingRoute
   AuthenticatedAdminProcessRoute: typeof AuthenticatedAdminProcessRoute
@@ -1158,6 +1179,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminMessagesRoute: AuthenticatedAdminMessagesRoute,
   AuthenticatedAdminNewsletterRoute: AuthenticatedAdminNewsletterRoute,
   AuthenticatedAdminPixelsRoute: AuthenticatedAdminPixelsRoute,
+  AuthenticatedAdminPortalRoute: AuthenticatedAdminPortalRoute,
   AuthenticatedAdminPortfolioRoute: AuthenticatedAdminPortfolioRoute,
   AuthenticatedAdminPricingRoute: AuthenticatedAdminPricingRoute,
   AuthenticatedAdminProcessRoute: AuthenticatedAdminProcessRoute,
