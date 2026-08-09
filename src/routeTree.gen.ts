@@ -29,6 +29,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
+import { Route as ClientsIndexRouteImport } from './routes/clients.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
@@ -154,6 +155,11 @@ const ServicesIndexRoute = ServicesIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => ServicesRoute,
+} as any)
+const ClientsIndexRoute = ClientsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ClientsRoute,
 } as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
@@ -307,7 +313,7 @@ export interface FileRoutesByFullPath {
   '/book': typeof BookRoute
   '/calculator': typeof CalculatorRoute
   '/careers': typeof CareersRoute
-  '/clients': typeof ClientsRoute
+  '/clients': typeof ClientsRouteWithChildren
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/portfolio': typeof PortfolioRoute
@@ -323,6 +329,7 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog/': typeof BlogIndexRoute
+  '/clients/': typeof ClientsIndexRoute
   '/services/': typeof ServicesIndexRoute
   '/admin/blog': typeof AuthenticatedAdminBlogRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
@@ -354,7 +361,6 @@ export interface FileRoutesByTo {
   '/book': typeof BookRoute
   '/calculator': typeof CalculatorRoute
   '/careers': typeof CareersRoute
-  '/clients': typeof ClientsRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/portfolio': typeof PortfolioRoute
@@ -368,6 +374,7 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof BlogSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog': typeof BlogIndexRoute
+  '/clients': typeof ClientsIndexRoute
   '/services': typeof ServicesIndexRoute
   '/admin/blog': typeof AuthenticatedAdminBlogRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
@@ -401,7 +408,7 @@ export interface FileRoutesById {
   '/book': typeof BookRoute
   '/calculator': typeof CalculatorRoute
   '/careers': typeof CareersRoute
-  '/clients': typeof ClientsRoute
+  '/clients': typeof ClientsRouteWithChildren
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/portfolio': typeof PortfolioRoute
@@ -417,6 +424,7 @@ export interface FileRoutesById {
   '/blog/$slug': typeof BlogSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog/': typeof BlogIndexRoute
+  '/clients/': typeof ClientsIndexRoute
   '/services/': typeof ServicesIndexRoute
   '/_authenticated/admin/blog': typeof AuthenticatedAdminBlogRoute
   '/_authenticated/admin/bookings': typeof AuthenticatedAdminBookingsRoute
@@ -466,6 +474,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/services/$slug'
     | '/blog/'
+    | '/clients/'
     | '/services/'
     | '/admin/blog'
     | '/admin/bookings'
@@ -497,7 +506,6 @@ export interface FileRouteTypes {
     | '/book'
     | '/calculator'
     | '/careers'
-    | '/clients'
     | '/contact'
     | '/faq'
     | '/portfolio'
@@ -511,6 +519,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/services/$slug'
     | '/blog'
+    | '/clients'
     | '/services'
     | '/admin/blog'
     | '/admin/bookings'
@@ -559,6 +568,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/services/$slug'
     | '/blog/'
+    | '/clients/'
     | '/services/'
     | '/_authenticated/admin/blog'
     | '/_authenticated/admin/bookings'
@@ -592,7 +602,7 @@ export interface RootRouteChildren {
   BookRoute: typeof BookRoute
   CalculatorRoute: typeof CalculatorRoute
   CareersRoute: typeof CareersRoute
-  ClientsRoute: typeof ClientsRoute
+  ClientsRoute: typeof ClientsRouteWithChildren
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
   PortfolioRoute: typeof PortfolioRoute
@@ -749,6 +759,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/services/'
       preLoaderRoute: typeof ServicesIndexRouteImport
       parentRoute: typeof ServicesRoute
+    }
+    '/clients/': {
+      id: '/clients/'
+      path: '/'
+      fullPath: '/clients/'
+      preLoaderRoute: typeof ClientsIndexRouteImport
+      parentRoute: typeof ClientsRoute
     }
     '/blog/': {
       id: '/blog/'
@@ -997,6 +1014,17 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface ClientsRouteChildren {
+  ClientsIndexRoute: typeof ClientsIndexRoute
+}
+
+const ClientsRouteChildren: ClientsRouteChildren = {
+  ClientsIndexRoute: ClientsIndexRoute,
+}
+
+const ClientsRouteWithChildren =
+  ClientsRoute._addFileChildren(ClientsRouteChildren)
+
 interface ServicesRouteChildren {
   ServicesSlugRoute: typeof ServicesSlugRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
@@ -1020,7 +1048,7 @@ const rootRouteChildren: RootRouteChildren = {
   BookRoute: BookRoute,
   CalculatorRoute: CalculatorRoute,
   CareersRoute: CareersRoute,
-  ClientsRoute: ClientsRoute,
+  ClientsRoute: ClientsRouteWithChildren,
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
   PortfolioRoute: PortfolioRoute,
