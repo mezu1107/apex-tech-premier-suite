@@ -33,7 +33,9 @@ import { Route as ClientsIndexRouteImport } from './routes/clients.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as ClientsTasksRouteImport } from './routes/clients.tasks'
+import { Route as ClientsSupportRouteImport } from './routes/clients.support'
 import { Route as ClientsProjectsRouteImport } from './routes/clients.projects'
+import { Route as ClientsProfileRouteImport } from './routes/clients.profile'
 import { Route as ClientsNotificationsRouteImport } from './routes/clients.notifications'
 import { Route as ClientsMessagesRouteImport } from './routes/clients.messages'
 import { Route as ClientsDocumentsRouteImport } from './routes/clients.documents'
@@ -183,9 +185,19 @@ const ClientsTasksRoute = ClientsTasksRouteImport.update({
   path: '/tasks',
   getParentRoute: () => ClientsRoute,
 } as any)
+const ClientsSupportRoute = ClientsSupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => ClientsRoute,
+} as any)
 const ClientsProjectsRoute = ClientsProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
+  getParentRoute: () => ClientsRoute,
+} as any)
+const ClientsProfileRoute = ClientsProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => ClientsRoute,
 } as any)
 const ClientsNotificationsRoute = ClientsNotificationsRouteImport.update({
@@ -374,7 +386,9 @@ export interface FileRoutesByFullPath {
   '/clients/documents': typeof ClientsDocumentsRoute
   '/clients/messages': typeof ClientsMessagesRoute
   '/clients/notifications': typeof ClientsNotificationsRoute
+  '/clients/profile': typeof ClientsProfileRoute
   '/clients/projects': typeof ClientsProjectsRoute
+  '/clients/support': typeof ClientsSupportRoute
   '/clients/tasks': typeof ClientsTasksRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog/': typeof BlogIndexRoute
@@ -426,7 +440,9 @@ export interface FileRoutesByTo {
   '/clients/documents': typeof ClientsDocumentsRoute
   '/clients/messages': typeof ClientsMessagesRoute
   '/clients/notifications': typeof ClientsNotificationsRoute
+  '/clients/profile': typeof ClientsProfileRoute
   '/clients/projects': typeof ClientsProjectsRoute
+  '/clients/support': typeof ClientsSupportRoute
   '/clients/tasks': typeof ClientsTasksRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog': typeof BlogIndexRoute
@@ -483,7 +499,9 @@ export interface FileRoutesById {
   '/clients/documents': typeof ClientsDocumentsRoute
   '/clients/messages': typeof ClientsMessagesRoute
   '/clients/notifications': typeof ClientsNotificationsRoute
+  '/clients/profile': typeof ClientsProfileRoute
   '/clients/projects': typeof ClientsProjectsRoute
+  '/clients/support': typeof ClientsSupportRoute
   '/clients/tasks': typeof ClientsTasksRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog/': typeof BlogIndexRoute
@@ -540,7 +558,9 @@ export interface FileRouteTypes {
     | '/clients/documents'
     | '/clients/messages'
     | '/clients/notifications'
+    | '/clients/profile'
     | '/clients/projects'
+    | '/clients/support'
     | '/clients/tasks'
     | '/services/$slug'
     | '/blog/'
@@ -592,7 +612,9 @@ export interface FileRouteTypes {
     | '/clients/documents'
     | '/clients/messages'
     | '/clients/notifications'
+    | '/clients/profile'
     | '/clients/projects'
+    | '/clients/support'
     | '/clients/tasks'
     | '/services/$slug'
     | '/blog'
@@ -648,7 +670,9 @@ export interface FileRouteTypes {
     | '/clients/documents'
     | '/clients/messages'
     | '/clients/notifications'
+    | '/clients/profile'
     | '/clients/projects'
+    | '/clients/support'
     | '/clients/tasks'
     | '/services/$slug'
     | '/blog/'
@@ -872,11 +896,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ClientsTasksRouteImport
       parentRoute: typeof ClientsRoute
     }
+    '/clients/support': {
+      id: '/clients/support'
+      path: '/support'
+      fullPath: '/clients/support'
+      preLoaderRoute: typeof ClientsSupportRouteImport
+      parentRoute: typeof ClientsRoute
+    }
     '/clients/projects': {
       id: '/clients/projects'
       path: '/projects'
       fullPath: '/clients/projects'
       preLoaderRoute: typeof ClientsProjectsRouteImport
+      parentRoute: typeof ClientsRoute
+    }
+    '/clients/profile': {
+      id: '/clients/profile'
+      path: '/profile'
+      fullPath: '/clients/profile'
+      preLoaderRoute: typeof ClientsProfileRouteImport
       parentRoute: typeof ClientsRoute
     }
     '/clients/notifications': {
@@ -1153,7 +1191,9 @@ interface ClientsRouteChildren {
   ClientsDocumentsRoute: typeof ClientsDocumentsRoute
   ClientsMessagesRoute: typeof ClientsMessagesRoute
   ClientsNotificationsRoute: typeof ClientsNotificationsRoute
+  ClientsProfileRoute: typeof ClientsProfileRoute
   ClientsProjectsRoute: typeof ClientsProjectsRoute
+  ClientsSupportRoute: typeof ClientsSupportRoute
   ClientsTasksRoute: typeof ClientsTasksRoute
   ClientsIndexRoute: typeof ClientsIndexRoute
 }
@@ -1164,7 +1204,9 @@ const ClientsRouteChildren: ClientsRouteChildren = {
   ClientsDocumentsRoute: ClientsDocumentsRoute,
   ClientsMessagesRoute: ClientsMessagesRoute,
   ClientsNotificationsRoute: ClientsNotificationsRoute,
+  ClientsProfileRoute: ClientsProfileRoute,
   ClientsProjectsRoute: ClientsProjectsRoute,
+  ClientsSupportRoute: ClientsSupportRoute,
   ClientsTasksRoute: ClientsTasksRoute,
   ClientsIndexRoute: ClientsIndexRoute,
 }
