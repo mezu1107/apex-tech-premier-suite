@@ -19,6 +19,7 @@ import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ClientsRouteImport } from './routes/clients'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as CalculatorRouteImport } from './routes/calculator'
 import { Route as BookRouteImport } from './routes/book'
@@ -103,6 +104,11 @@ const FaqRoute = FaqRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClientsRoute = ClientsRouteImport.update({
+  id: '/clients',
+  path: '/clients',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CareersRoute = CareersRouteImport.update({
@@ -301,6 +307,7 @@ export interface FileRoutesByFullPath {
   '/book': typeof BookRoute
   '/calculator': typeof CalculatorRoute
   '/careers': typeof CareersRoute
+  '/clients': typeof ClientsRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/portfolio': typeof PortfolioRoute
@@ -347,6 +354,7 @@ export interface FileRoutesByTo {
   '/book': typeof BookRoute
   '/calculator': typeof CalculatorRoute
   '/careers': typeof CareersRoute
+  '/clients': typeof ClientsRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/portfolio': typeof PortfolioRoute
@@ -393,6 +401,7 @@ export interface FileRoutesById {
   '/book': typeof BookRoute
   '/calculator': typeof CalculatorRoute
   '/careers': typeof CareersRoute
+  '/clients': typeof ClientsRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/portfolio': typeof PortfolioRoute
@@ -441,6 +450,7 @@ export interface FileRouteTypes {
     | '/book'
     | '/calculator'
     | '/careers'
+    | '/clients'
     | '/contact'
     | '/faq'
     | '/portfolio'
@@ -487,6 +497,7 @@ export interface FileRouteTypes {
     | '/book'
     | '/calculator'
     | '/careers'
+    | '/clients'
     | '/contact'
     | '/faq'
     | '/portfolio'
@@ -532,6 +543,7 @@ export interface FileRouteTypes {
     | '/book'
     | '/calculator'
     | '/careers'
+    | '/clients'
     | '/contact'
     | '/faq'
     | '/portfolio'
@@ -580,6 +592,7 @@ export interface RootRouteChildren {
   BookRoute: typeof BookRoute
   CalculatorRoute: typeof CalculatorRoute
   CareersRoute: typeof CareersRoute
+  ClientsRoute: typeof ClientsRoute
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
   PortfolioRoute: typeof PortfolioRoute
@@ -665,6 +678,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/clients': {
+      id: '/clients'
+      path: '/clients'
+      fullPath: '/clients'
+      preLoaderRoute: typeof ClientsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/careers': {
@@ -1000,6 +1020,7 @@ const rootRouteChildren: RootRouteChildren = {
   BookRoute: BookRoute,
   CalculatorRoute: CalculatorRoute,
   CareersRoute: CareersRoute,
+  ClientsRoute: ClientsRoute,
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
   PortfolioRoute: PortfolioRoute,
@@ -1017,13 +1038,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
