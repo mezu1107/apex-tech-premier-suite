@@ -19,6 +19,7 @@ import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ClientsRouteImport } from './routes/clients'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as CalculatorRouteImport } from './routes/calculator'
 import { Route as BookRouteImport } from './routes/book'
@@ -28,8 +29,18 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
+import { Route as ClientsIndexRouteImport } from './routes/clients.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
+import { Route as ClientsTasksRouteImport } from './routes/clients.tasks'
+import { Route as ClientsSupportRouteImport } from './routes/clients.support'
+import { Route as ClientsProjectsRouteImport } from './routes/clients.projects'
+import { Route as ClientsProfileRouteImport } from './routes/clients.profile'
+import { Route as ClientsNotificationsRouteImport } from './routes/clients.notifications'
+import { Route as ClientsMessagesRouteImport } from './routes/clients.messages'
+import { Route as ClientsDocumentsRouteImport } from './routes/clients.documents'
+import { Route as ClientsDashboardRouteImport } from './routes/clients.dashboard'
+import { Route as ClientsBillingRouteImport } from './routes/clients.billing'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
@@ -44,6 +55,7 @@ import { Route as AuthenticatedAdminProposalsRouteImport } from './routes/_authe
 import { Route as AuthenticatedAdminProcessRouteImport } from './routes/_authenticated/admin.process'
 import { Route as AuthenticatedAdminPricingRouteImport } from './routes/_authenticated/admin.pricing'
 import { Route as AuthenticatedAdminPortfolioRouteImport } from './routes/_authenticated/admin.portfolio'
+import { Route as AuthenticatedAdminPortalRouteImport } from './routes/_authenticated/admin.portal'
 import { Route as AuthenticatedAdminPixelsRouteImport } from './routes/_authenticated/admin.pixels'
 import { Route as AuthenticatedAdminNewsletterRouteImport } from './routes/_authenticated/admin.newsletter'
 import { Route as AuthenticatedAdminMessagesRouteImport } from './routes/_authenticated/admin.messages'
@@ -105,6 +117,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ClientsRoute = ClientsRouteImport.update({
+  id: '/clients',
+  path: '/clients',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CareersRoute = CareersRouteImport.update({
   id: '/careers',
   path: '/careers',
@@ -149,6 +166,11 @@ const ServicesIndexRoute = ServicesIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ServicesRoute,
 } as any)
+const ClientsIndexRoute = ClientsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ClientsRoute,
+} as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
@@ -158,6 +180,51 @@ const ServicesSlugRoute = ServicesSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => ServicesRoute,
+} as any)
+const ClientsTasksRoute = ClientsTasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
+  getParentRoute: () => ClientsRoute,
+} as any)
+const ClientsSupportRoute = ClientsSupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => ClientsRoute,
+} as any)
+const ClientsProjectsRoute = ClientsProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => ClientsRoute,
+} as any)
+const ClientsProfileRoute = ClientsProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => ClientsRoute,
+} as any)
+const ClientsNotificationsRoute = ClientsNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => ClientsRoute,
+} as any)
+const ClientsMessagesRoute = ClientsMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => ClientsRoute,
+} as any)
+const ClientsDocumentsRoute = ClientsDocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
+  getParentRoute: () => ClientsRoute,
+} as any)
+const ClientsDashboardRoute = ClientsDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => ClientsRoute,
+} as any)
+const ClientsBillingRoute = ClientsBillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => ClientsRoute,
 } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/blog/$slug',
@@ -236,6 +303,12 @@ const AuthenticatedAdminPortfolioRoute =
     path: '/portfolio',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminPortalRoute =
+  AuthenticatedAdminPortalRouteImport.update({
+    id: '/portal',
+    path: '/portal',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminPixelsRoute =
   AuthenticatedAdminPixelsRouteImport.update({
     id: '/pixels',
@@ -301,6 +374,7 @@ export interface FileRoutesByFullPath {
   '/book': typeof BookRoute
   '/calculator': typeof CalculatorRoute
   '/careers': typeof CareersRoute
+  '/clients': typeof ClientsRouteWithChildren
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/portfolio': typeof PortfolioRoute
@@ -314,8 +388,18 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/clients/billing': typeof ClientsBillingRoute
+  '/clients/dashboard': typeof ClientsDashboardRoute
+  '/clients/documents': typeof ClientsDocumentsRoute
+  '/clients/messages': typeof ClientsMessagesRoute
+  '/clients/notifications': typeof ClientsNotificationsRoute
+  '/clients/profile': typeof ClientsProfileRoute
+  '/clients/projects': typeof ClientsProjectsRoute
+  '/clients/support': typeof ClientsSupportRoute
+  '/clients/tasks': typeof ClientsTasksRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog/': typeof BlogIndexRoute
+  '/clients/': typeof ClientsIndexRoute
   '/services/': typeof ServicesIndexRoute
   '/admin/blog': typeof AuthenticatedAdminBlogRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
@@ -327,6 +411,7 @@ export interface FileRoutesByFullPath {
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/admin/newsletter': typeof AuthenticatedAdminNewsletterRoute
   '/admin/pixels': typeof AuthenticatedAdminPixelsRoute
+  '/admin/portal': typeof AuthenticatedAdminPortalRoute
   '/admin/portfolio': typeof AuthenticatedAdminPortfolioRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/admin/process': typeof AuthenticatedAdminProcessRoute
@@ -358,8 +443,18 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/clients/billing': typeof ClientsBillingRoute
+  '/clients/dashboard': typeof ClientsDashboardRoute
+  '/clients/documents': typeof ClientsDocumentsRoute
+  '/clients/messages': typeof ClientsMessagesRoute
+  '/clients/notifications': typeof ClientsNotificationsRoute
+  '/clients/profile': typeof ClientsProfileRoute
+  '/clients/projects': typeof ClientsProjectsRoute
+  '/clients/support': typeof ClientsSupportRoute
+  '/clients/tasks': typeof ClientsTasksRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog': typeof BlogIndexRoute
+  '/clients': typeof ClientsIndexRoute
   '/services': typeof ServicesIndexRoute
   '/admin/blog': typeof AuthenticatedAdminBlogRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
@@ -371,6 +466,7 @@ export interface FileRoutesByTo {
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/admin/newsletter': typeof AuthenticatedAdminNewsletterRoute
   '/admin/pixels': typeof AuthenticatedAdminPixelsRoute
+  '/admin/portal': typeof AuthenticatedAdminPortalRoute
   '/admin/portfolio': typeof AuthenticatedAdminPortfolioRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/admin/process': typeof AuthenticatedAdminProcessRoute
@@ -393,6 +489,7 @@ export interface FileRoutesById {
   '/book': typeof BookRoute
   '/calculator': typeof CalculatorRoute
   '/careers': typeof CareersRoute
+  '/clients': typeof ClientsRouteWithChildren
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/portfolio': typeof PortfolioRoute
@@ -406,8 +503,18 @@ export interface FileRoutesById {
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/clients/billing': typeof ClientsBillingRoute
+  '/clients/dashboard': typeof ClientsDashboardRoute
+  '/clients/documents': typeof ClientsDocumentsRoute
+  '/clients/messages': typeof ClientsMessagesRoute
+  '/clients/notifications': typeof ClientsNotificationsRoute
+  '/clients/profile': typeof ClientsProfileRoute
+  '/clients/projects': typeof ClientsProjectsRoute
+  '/clients/support': typeof ClientsSupportRoute
+  '/clients/tasks': typeof ClientsTasksRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog/': typeof BlogIndexRoute
+  '/clients/': typeof ClientsIndexRoute
   '/services/': typeof ServicesIndexRoute
   '/_authenticated/admin/blog': typeof AuthenticatedAdminBlogRoute
   '/_authenticated/admin/bookings': typeof AuthenticatedAdminBookingsRoute
@@ -419,6 +526,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/_authenticated/admin/newsletter': typeof AuthenticatedAdminNewsletterRoute
   '/_authenticated/admin/pixels': typeof AuthenticatedAdminPixelsRoute
+  '/_authenticated/admin/portal': typeof AuthenticatedAdminPortalRoute
   '/_authenticated/admin/portfolio': typeof AuthenticatedAdminPortfolioRoute
   '/_authenticated/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/_authenticated/admin/process': typeof AuthenticatedAdminProcessRoute
@@ -441,6 +549,7 @@ export interface FileRouteTypes {
     | '/book'
     | '/calculator'
     | '/careers'
+    | '/clients'
     | '/contact'
     | '/faq'
     | '/portfolio'
@@ -454,8 +563,18 @@ export interface FileRouteTypes {
     | '/admin'
     | '/api/chat'
     | '/blog/$slug'
+    | '/clients/billing'
+    | '/clients/dashboard'
+    | '/clients/documents'
+    | '/clients/messages'
+    | '/clients/notifications'
+    | '/clients/profile'
+    | '/clients/projects'
+    | '/clients/support'
+    | '/clients/tasks'
     | '/services/$slug'
     | '/blog/'
+    | '/clients/'
     | '/services/'
     | '/admin/blog'
     | '/admin/bookings'
@@ -467,6 +586,7 @@ export interface FileRouteTypes {
     | '/admin/messages'
     | '/admin/newsletter'
     | '/admin/pixels'
+    | '/admin/portal'
     | '/admin/portfolio'
     | '/admin/pricing'
     | '/admin/process'
@@ -498,8 +618,18 @@ export interface FileRouteTypes {
     | '/terms'
     | '/api/chat'
     | '/blog/$slug'
+    | '/clients/billing'
+    | '/clients/dashboard'
+    | '/clients/documents'
+    | '/clients/messages'
+    | '/clients/notifications'
+    | '/clients/profile'
+    | '/clients/projects'
+    | '/clients/support'
+    | '/clients/tasks'
     | '/services/$slug'
     | '/blog'
+    | '/clients'
     | '/services'
     | '/admin/blog'
     | '/admin/bookings'
@@ -511,6 +641,7 @@ export interface FileRouteTypes {
     | '/admin/messages'
     | '/admin/newsletter'
     | '/admin/pixels'
+    | '/admin/portal'
     | '/admin/portfolio'
     | '/admin/pricing'
     | '/admin/process'
@@ -532,6 +663,7 @@ export interface FileRouteTypes {
     | '/book'
     | '/calculator'
     | '/careers'
+    | '/clients'
     | '/contact'
     | '/faq'
     | '/portfolio'
@@ -545,8 +677,18 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/api/chat'
     | '/blog/$slug'
+    | '/clients/billing'
+    | '/clients/dashboard'
+    | '/clients/documents'
+    | '/clients/messages'
+    | '/clients/notifications'
+    | '/clients/profile'
+    | '/clients/projects'
+    | '/clients/support'
+    | '/clients/tasks'
     | '/services/$slug'
     | '/blog/'
+    | '/clients/'
     | '/services/'
     | '/_authenticated/admin/blog'
     | '/_authenticated/admin/bookings'
@@ -558,6 +700,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/messages'
     | '/_authenticated/admin/newsletter'
     | '/_authenticated/admin/pixels'
+    | '/_authenticated/admin/portal'
     | '/_authenticated/admin/portfolio'
     | '/_authenticated/admin/pricing'
     | '/_authenticated/admin/process'
@@ -580,6 +723,7 @@ export interface RootRouteChildren {
   BookRoute: typeof BookRoute
   CalculatorRoute: typeof CalculatorRoute
   CareersRoute: typeof CareersRoute
+  ClientsRoute: typeof ClientsRouteWithChildren
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
   PortfolioRoute: typeof PortfolioRoute
@@ -667,6 +811,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/clients': {
+      id: '/clients'
+      path: '/clients'
+      fullPath: '/clients'
+      preLoaderRoute: typeof ClientsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/careers': {
       id: '/careers'
       path: '/careers'
@@ -730,6 +881,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesIndexRouteImport
       parentRoute: typeof ServicesRoute
     }
+    '/clients/': {
+      id: '/clients/'
+      path: '/'
+      fullPath: '/clients/'
+      preLoaderRoute: typeof ClientsIndexRouteImport
+      parentRoute: typeof ClientsRoute
+    }
     '/blog/': {
       id: '/blog/'
       path: '/blog'
@@ -743,6 +901,69 @@ declare module '@tanstack/react-router' {
       fullPath: '/services/$slug'
       preLoaderRoute: typeof ServicesSlugRouteImport
       parentRoute: typeof ServicesRoute
+    }
+    '/clients/tasks': {
+      id: '/clients/tasks'
+      path: '/tasks'
+      fullPath: '/clients/tasks'
+      preLoaderRoute: typeof ClientsTasksRouteImport
+      parentRoute: typeof ClientsRoute
+    }
+    '/clients/support': {
+      id: '/clients/support'
+      path: '/support'
+      fullPath: '/clients/support'
+      preLoaderRoute: typeof ClientsSupportRouteImport
+      parentRoute: typeof ClientsRoute
+    }
+    '/clients/projects': {
+      id: '/clients/projects'
+      path: '/projects'
+      fullPath: '/clients/projects'
+      preLoaderRoute: typeof ClientsProjectsRouteImport
+      parentRoute: typeof ClientsRoute
+    }
+    '/clients/profile': {
+      id: '/clients/profile'
+      path: '/profile'
+      fullPath: '/clients/profile'
+      preLoaderRoute: typeof ClientsProfileRouteImport
+      parentRoute: typeof ClientsRoute
+    }
+    '/clients/notifications': {
+      id: '/clients/notifications'
+      path: '/notifications'
+      fullPath: '/clients/notifications'
+      preLoaderRoute: typeof ClientsNotificationsRouteImport
+      parentRoute: typeof ClientsRoute
+    }
+    '/clients/messages': {
+      id: '/clients/messages'
+      path: '/messages'
+      fullPath: '/clients/messages'
+      preLoaderRoute: typeof ClientsMessagesRouteImport
+      parentRoute: typeof ClientsRoute
+    }
+    '/clients/documents': {
+      id: '/clients/documents'
+      path: '/documents'
+      fullPath: '/clients/documents'
+      preLoaderRoute: typeof ClientsDocumentsRouteImport
+      parentRoute: typeof ClientsRoute
+    }
+    '/clients/dashboard': {
+      id: '/clients/dashboard'
+      path: '/dashboard'
+      fullPath: '/clients/dashboard'
+      preLoaderRoute: typeof ClientsDashboardRouteImport
+      parentRoute: typeof ClientsRoute
+    }
+    '/clients/billing': {
+      id: '/clients/billing'
+      path: '/billing'
+      fullPath: '/clients/billing'
+      preLoaderRoute: typeof ClientsBillingRouteImport
+      parentRoute: typeof ClientsRoute
     }
     '/blog/$slug': {
       id: '/blog/$slug'
@@ -842,6 +1063,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminPortfolioRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/portal': {
+      id: '/_authenticated/admin/portal'
+      path: '/portal'
+      fullPath: '/admin/portal'
+      preLoaderRoute: typeof AuthenticatedAdminPortalRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/pixels': {
       id: '/_authenticated/admin/pixels'
       path: '/pixels'
@@ -926,6 +1154,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminMessagesRoute: typeof AuthenticatedAdminMessagesRoute
   AuthenticatedAdminNewsletterRoute: typeof AuthenticatedAdminNewsletterRoute
   AuthenticatedAdminPixelsRoute: typeof AuthenticatedAdminPixelsRoute
+  AuthenticatedAdminPortalRoute: typeof AuthenticatedAdminPortalRoute
   AuthenticatedAdminPortfolioRoute: typeof AuthenticatedAdminPortfolioRoute
   AuthenticatedAdminPricingRoute: typeof AuthenticatedAdminPricingRoute
   AuthenticatedAdminProcessRoute: typeof AuthenticatedAdminProcessRoute
@@ -950,6 +1179,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminMessagesRoute: AuthenticatedAdminMessagesRoute,
   AuthenticatedAdminNewsletterRoute: AuthenticatedAdminNewsletterRoute,
   AuthenticatedAdminPixelsRoute: AuthenticatedAdminPixelsRoute,
+  AuthenticatedAdminPortalRoute: AuthenticatedAdminPortalRoute,
   AuthenticatedAdminPortfolioRoute: AuthenticatedAdminPortfolioRoute,
   AuthenticatedAdminPricingRoute: AuthenticatedAdminPricingRoute,
   AuthenticatedAdminProcessRoute: AuthenticatedAdminProcessRoute,
@@ -977,6 +1207,35 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface ClientsRouteChildren {
+  ClientsBillingRoute: typeof ClientsBillingRoute
+  ClientsDashboardRoute: typeof ClientsDashboardRoute
+  ClientsDocumentsRoute: typeof ClientsDocumentsRoute
+  ClientsMessagesRoute: typeof ClientsMessagesRoute
+  ClientsNotificationsRoute: typeof ClientsNotificationsRoute
+  ClientsProfileRoute: typeof ClientsProfileRoute
+  ClientsProjectsRoute: typeof ClientsProjectsRoute
+  ClientsSupportRoute: typeof ClientsSupportRoute
+  ClientsTasksRoute: typeof ClientsTasksRoute
+  ClientsIndexRoute: typeof ClientsIndexRoute
+}
+
+const ClientsRouteChildren: ClientsRouteChildren = {
+  ClientsBillingRoute: ClientsBillingRoute,
+  ClientsDashboardRoute: ClientsDashboardRoute,
+  ClientsDocumentsRoute: ClientsDocumentsRoute,
+  ClientsMessagesRoute: ClientsMessagesRoute,
+  ClientsNotificationsRoute: ClientsNotificationsRoute,
+  ClientsProfileRoute: ClientsProfileRoute,
+  ClientsProjectsRoute: ClientsProjectsRoute,
+  ClientsSupportRoute: ClientsSupportRoute,
+  ClientsTasksRoute: ClientsTasksRoute,
+  ClientsIndexRoute: ClientsIndexRoute,
+}
+
+const ClientsRouteWithChildren =
+  ClientsRoute._addFileChildren(ClientsRouteChildren)
+
 interface ServicesRouteChildren {
   ServicesSlugRoute: typeof ServicesSlugRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
@@ -1000,6 +1259,7 @@ const rootRouteChildren: RootRouteChildren = {
   BookRoute: BookRoute,
   CalculatorRoute: CalculatorRoute,
   CareersRoute: CareersRoute,
+  ClientsRoute: ClientsRouteWithChildren,
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
   PortfolioRoute: PortfolioRoute,
