@@ -19,16 +19,15 @@ import {
   Database,
   ShoppingCart,
   ChevronDown,
-  TrendingUp,
-  Zap,
   type LucideIcon,
 } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
 import { Reveal } from "@/components/site/Reveal";
+import { PrismaticVisual } from "@/components/site/PrismaticVisual";
+import { Button } from "@/components/ui/button";
+import { PHONE_PK, PHONE_PK_DISPLAY } from "@/lib/site";
 
-const PHONE = "+923173712950";
-const PHONE_DISP = "+92 317 371 2950";
 
 const iconMap: Record<string, LucideIcon> = {
   Code2,
@@ -348,136 +347,57 @@ function ServiceDetail() {
           HERO
       ========================================================= */}
 
-      <section className="relative overflow-hidden bg-espresso pt-32 pb-20 !text-white">
-        <div className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-cocoa/15 blur-3xl" />
+      <section className="service-detail-hero relative overflow-hidden border-b border-border bg-background pt-32 pb-16 lg:pt-40 lg:pb-20">
+        <div className="subpage-header-grid pointer-events-none absolute inset-0" />
+        <div className="pointer-events-none absolute right-0 top-0 h-96 w-96 rounded-full bg-primary/10 blur-3xl" />
 
-        <div className="relative mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
+        <div className="relative mx-auto max-w-7xl px-5 sm:px-6 lg:px-10">
           <Reveal>
             <Link
               to="/services"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold !text-white/70 transition hover:!text-copper"
+              className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground transition hover:text-primary"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
               All Services
             </Link>
           </Reveal>
 
-          <div className="mt-6 grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-center">
+          <div className="mt-7 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(420px,0.9fr)] lg:items-center lg:gap-16">
             <div>
               <Reveal>
-                <div className="grid h-14 w-14 place-items-center rounded-2xl bg-[#2F8FFF]/15 !text-[#2F8FFF]">
-                  <Icon className="h-6 w-6" />
+                <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-background/75 px-3.5 py-1.5 shadow-soft backdrop-blur-md">
+                  <span className="h-2 w-2 rounded-full bg-primary" />
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Specialist service</span>
                 </div>
               </Reveal>
 
               <Reveal delay={80}>
-                <h1 className="mt-5 font-display text-4xl font-black leading-tight !text-white sm:text-5xl">
+                <h1 className="mt-5 max-w-3xl font-display text-5xl font-black leading-[0.98] text-espresso sm:text-6xl lg:text-7xl">
                   {service.title}
                 </h1>
               </Reveal>
 
               <Reveal delay={160}>
-                <p className="mt-4 max-w-2xl text-base leading-relaxed !text-white/75 sm:text-lg">
+                <p className="mt-6 max-w-2xl text-base leading-relaxed text-body-text sm:text-lg">
                   {service.description}
                 </p>
               </Reveal>
 
               <Reveal delay={220}>
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <Link
-                    to="/contact"
-                    className="inline-flex items-center gap-2 rounded-xl bg-cocoa px-6 py-3 text-sm font-bold !text-white transition hover:bg-copper"
-                  >
-                    Start a project
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
+                  <Button asChild size="lg" className="h-12 rounded-xl px-6 font-bold shadow-luxury">
+                    <Link to="/contact">Start a project <ArrowRight /></Link>
+                  </Button>
 
-                  <a
-                    href={`tel:${PHONE}`}
-                    className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/8 px-6 py-3 text-sm font-semibold !text-white transition hover:bg-white/15"
-                  >
-                    <Phone className="h-4 w-4" />
-                    {PHONE_DISP}
-                  </a>
+                  <Button asChild variant="outline" size="lg" className="h-12 rounded-xl bg-background/75 px-6 font-semibold backdrop-blur-md">
+                    <a href={`tel:${PHONE_PK}`}><Phone />{PHONE_PK_DISPLAY}</a>
+                  </Button>
                 </div>
               </Reveal>
             </div>
 
-            {/* Hero visual */}
             <Reveal delay={200}>
-              <div className="scene-3d">
-                <div className="card-3d relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-[#DCEAF5] !bg-gradient-to-br from-[#0B1726] to-[#0B2D50]">
-                  {service.hero_image ? (
-                    <img
-                      src={service.hero_image}
-                      alt={service.title}
-                      className="h-full w-full object-cover"
-                    />
-                  ) : (
-                    <div
-                      className="relative grid h-full w-full place-items-center overflow-hidden [perspective:1200px]"
-                      aria-label={`${service.title} performance visual`}
-                    >
-                      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(185,229,46,0.22),transparent_55%)]" />
-
-                      <div className="service-orbit absolute h-52 w-52 rounded-full border border-copper/25 sm:h-60 sm:w-60" />
-
-                      <div className="service-orbit-reverse absolute h-36 w-36 rounded-full border border-white/15 sm:h-44 sm:w-44" />
-
-                      {/* Isometric plate */}
-                      <div className="plate-3d absolute h-36 w-52 rounded-2xl border border-white/10 bg-white/5 shadow-[0_40px_60px_-30px_rgba(0,0,0,0.8)] backdrop-blur-sm sm:h-40 sm:w-60">
-                        <div className="absolute inset-x-4 top-4 h-1.5 rounded-full bg-white/15" />
-
-                        <div className="absolute inset-x-4 top-8 h-1.5 w-2/3 rounded-full bg-white/10" />
-
-                        <div className="absolute bottom-4 left-4 flex items-end gap-1.5">
-                          {[10, 18, 14, 26, 34].map(
-                            (h, i) => (
-                              <span
-                                key={i}
-                                className="w-2 rounded-t bg-copper/70"
-                                style={{
-                                  height: `${h}px`,
-                                }}
-                              />
-                            ),
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Floating icon */}
-                      <div className="plate-3d-alt relative z-10 grid h-24 w-24 place-items-center rounded-3xl border border-white/15 bg-gradient-to-br from-white/20 to-white/5 shadow-[0_30px_45px_-20px_rgba(0,0,0,0.75)] backdrop-blur-md">
-                        <Icon className="service-icon-float h-11 w-11 !text-copper drop-shadow-[0_6px_12px_rgba(0,0,0,0.5)]" />
-                      </div>
-
-                      {/* Hero stats */}
-                      <div className="absolute bottom-4 left-4 right-4 grid grid-cols-2 gap-2.5 sm:bottom-5 sm:left-5 sm:right-5 sm:gap-3">
-                        <div className="rounded-xl border border-white/10 bg-white/10 p-2.5 shadow-[0_10px_20px_-12px_rgba(0,0,0,0.9)] backdrop-blur-md sm:p-3">
-                          <span className="flex items-center gap-1 text-[11px] !text-white/70 sm:text-xs">
-                            <TrendingUp className="h-3.5 w-3.5 !text-copper" />
-                            {impactLabel}
-                          </span>
-
-                          <strong className="mt-1 block font-display text-lg !text-white sm:text-xl">
-                            0 → 100×
-                          </strong>
-                        </div>
-
-                        <div className="rounded-xl border border-white/10 bg-white/10 p-2.5 shadow-[0_10px_20px_-12px_rgba(0,0,0,0.9)] backdrop-blur-md sm:p-3">
-                          <span className="flex items-center gap-1 text-[11px] !text-white/70 sm:text-xs">
-                            <Zap className="h-3.5 w-3.5 !text-copper" />
-                            Delivery
-                          </span>
-
-                          <strong className="mt-1 block font-display text-lg !text-white sm:text-xl">
-                            Built to scale
-                          </strong>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
+              <PrismaticVisual icon={Icon} image={service.hero_image} title={service.title} eyebrow={impactLabel} status="Built to scale" />
             </Reveal>
           </div>
         </div>

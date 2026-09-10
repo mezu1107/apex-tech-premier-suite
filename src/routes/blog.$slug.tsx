@@ -2,8 +2,9 @@ import { SITE_URL } from "@/lib/site";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowLeft, Calendar, User, Loader2, ArrowRight } from "lucide-react";
+import { ArrowLeft, Calendar, User, Loader2, ArrowRight, BookOpen } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
+import { PrismaticVisual } from "@/components/site/PrismaticVisual";
 
 type Post = {
   id: string; title: string; slug: string; excerpt: string | null; content: string | null;
@@ -114,34 +115,31 @@ function BlogPost() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-[#0B1726] pt-32 pb-16 text-white">
-        <div className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-[#2F8FFF]/15 blur-3xl" />
-        <div className="relative mx-auto max-w-4xl px-5 sm:px-6 lg:px-8">
-          <Link to="/blog" className="inline-flex items-center gap-1.5 text-xs font-semibold text-white/65 transition hover:text-[#8DD3FF]">
+      <section className="relative overflow-hidden border-b border-border bg-background pt-32 pb-16 lg:pt-40 lg:pb-20">
+        <div className="subpage-header-grid pointer-events-none absolute inset-0" />
+        <div className="pointer-events-none absolute right-0 top-0 h-96 w-96 rounded-full bg-primary/10 blur-3xl" />
+        <div className="relative mx-auto grid max-w-7xl gap-12 px-5 sm:px-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(380px,0.8fr)] lg:items-center lg:px-10">
+          <div>
+          <Link to="/blog" className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground transition hover:text-primary">
             <ArrowLeft className="h-3.5 w-3.5" /> All articles
           </Link>
-          <div className="mt-6 flex flex-wrap items-center gap-3 text-xs text-white/65">
+          <div className="mt-7 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
             {(post.tags ?? []).slice(0, 2).map((t) => (
-              <span key={t} className="rounded-full border border-white/15 bg-white/10 px-2.5 py-1 font-semibold uppercase tracking-widest text-white/80">{t}</span>
+              <span key={t} className="rounded-full border border-primary/20 bg-background/75 px-3 py-1 font-bold uppercase tracking-[0.15em] text-primary shadow-soft backdrop-blur-md">{t}</span>
             ))}
             {post.published_at && (
               <span className="inline-flex items-center gap-1"><Calendar className="h-3 w-3" /> {new Date(post.published_at).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}</span>
             )}
             {post.author && <span className="inline-flex items-center gap-1"><User className="h-3 w-3" /> {post.author}</span>}
           </div>
-          {/* Full-white heading on dark bg */}
-          <h1 className="mt-4 font-display text-4xl font-black leading-tight text-white sm:text-5xl">{post.title}</h1>
-          {post.excerpt && <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/75">{post.excerpt}</p>}
+          <h1 className="mt-5 font-display text-4xl font-black leading-[1.02] text-espresso sm:text-5xl lg:text-6xl">{post.title}</h1>
+          {post.excerpt && <p className="mt-5 max-w-2xl text-base leading-relaxed text-body-text sm:text-lg">{post.excerpt}</p>}
+          </div>
+          <Reveal delay={160}>
+            <PrismaticVisual icon={BookOpen} image={post.cover_url} title={post.title} eyebrow="Editorial insight" status="Ready to explore" />
+          </Reveal>
         </div>
       </section>
-
-      {post.cover_url && (
-        <div className="mx-auto -mt-10 max-w-5xl px-5 sm:px-6 lg:px-8">
-          <div className="overflow-hidden rounded-3xl border border-espresso/10 shadow-luxury">
-            <img src={post.cover_url} alt={post.title} className="h-auto w-full object-cover" />
-          </div>
-        </div>
-      )}
 
       <article className="bg-white py-16">
         <div className="mx-auto max-w-3xl px-5 sm:px-6 lg:px-8">
