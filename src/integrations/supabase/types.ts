@@ -10,55 +10,10 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.15"
+    PostgrestVersion: "14.5"
   }
   public: {
     Tables: {
-      about_blocks: {
-        Row: {
-          body: string | null
-          created_at: string
-          eyebrow: string | null
-          id: string
-          image_url: string | null
-          items: string[]
-          layout: string
-          published: boolean
-          section_key: string
-          sort_order: number
-          title: string
-          updated_at: string
-        }
-        Insert: {
-          body?: string | null
-          created_at?: string
-          eyebrow?: string | null
-          id?: string
-          image_url?: string | null
-          items?: string[]
-          layout?: string
-          published?: boolean
-          section_key: string
-          sort_order?: number
-          title: string
-          updated_at?: string
-        }
-        Update: {
-          body?: string | null
-          created_at?: string
-          eyebrow?: string | null
-          id?: string
-          image_url?: string | null
-          items?: string[]
-          layout?: string
-          published?: boolean
-          section_key?: string
-          sort_order?: number
-          title?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
       analytics_events: {
         Row: {
           created_at: string
@@ -86,39 +41,6 @@ export type Database = {
           path?: string
           referrer?: string | null
           session_id?: string | null
-        }
-        Relationships: []
-      }
-      badges: {
-        Row: {
-          created_at: string
-          icon: string
-          id: string
-          label: string
-          published: boolean
-          sort_order: number
-          sublabel: string | null
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          icon?: string
-          id?: string
-          label: string
-          published?: boolean
-          sort_order?: number
-          sublabel?: string | null
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          icon?: string
-          id?: string
-          label?: string
-          published?: boolean
-          sort_order?: number
-          sublabel?: string | null
-          updated_at?: string
         }
         Relationships: []
       }
@@ -1616,64 +1538,43 @@ export type Database = {
       }
       team_members: {
         Row: {
-          achievements: string[]
           bio: string
           created_at: string
           email: string | null
-          experience: string | null
-          expertise: string[]
           id: string
           linkedin_url: string | null
-          location: string | null
-          long_bio: string | null
           name: string
-          phone: string | null
           photo_url: string | null
           published: boolean
           role_title: string
-          slug: string | null
           sort_order: number
           twitter_url: string | null
           updated_at: string
         }
         Insert: {
-          achievements?: string[]
           bio?: string
           created_at?: string
           email?: string | null
-          experience?: string | null
-          expertise?: string[]
           id?: string
           linkedin_url?: string | null
-          location?: string | null
-          long_bio?: string | null
           name: string
-          phone?: string | null
           photo_url?: string | null
           published?: boolean
           role_title?: string
-          slug?: string | null
           sort_order?: number
           twitter_url?: string | null
           updated_at?: string
         }
         Update: {
-          achievements?: string[]
           bio?: string
           created_at?: string
           email?: string | null
-          experience?: string | null
-          expertise?: string[]
           id?: string
           linkedin_url?: string | null
-          location?: string | null
-          long_bio?: string | null
           name?: string
-          phone?: string | null
           photo_url?: string | null
           published?: boolean
           role_title?: string
-          slug?: string | null
           sort_order?: number
           twitter_url?: string | null
           updated_at?: string
@@ -1813,12 +1714,12 @@ export type Tables<
   DefaultSchemaTableNameOrOptions extends
     | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
         DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -1842,11 +1743,11 @@ export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -1867,11 +1768,11 @@ export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -1892,11 +1793,11 @@ export type Enums<
   DefaultSchemaEnumNameOrOptions extends
     | keyof DefaultSchema["Enums"]
     | { schema: keyof DatabaseWithoutInternals },
-  EnumName extends DefaultSchemaEnumNameOrOptions extends {
+  EnumName extends (DefaultSchemaEnumNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaEnumNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -1909,11 +1810,11 @@ export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
     | keyof DefaultSchema["CompositeTypes"]
     | { schema: keyof DatabaseWithoutInternals },
-  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+  CompositeTypeName extends (PublicCompositeTypeNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
-    : never = never,
+    : never) = never,
 > = PublicCompositeTypeNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
