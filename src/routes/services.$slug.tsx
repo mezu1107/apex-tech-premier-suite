@@ -463,11 +463,11 @@ function ServiceDetail() {
               </Link>
 
               <a
-                href={`tel:${PHONE}`}
+                href={`tel:${PHONE_PK}`}
                 className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-border px-5 py-3 text-sm font-semibold !text-espresso transition hover:bg-sand"
               >
                 <Phone className="h-4 w-4" />
-                {PHONE_DISP}
+                {PHONE_PK_DISPLAY}
               </a>
             </div>
           </Reveal>
@@ -507,11 +507,11 @@ function ServiceDetail() {
                 </Link>
 
                 <a
-                  href={`tel:${PHONE}`}
+                  href={`tel:${PHONE_PK}`}
                   className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/8 px-6 py-3 text-sm font-semibold !text-white transition hover:bg-white/15"
                 >
                   <Phone className="h-4 w-4" />
-                  {PHONE_DISP}
+                  {PHONE_PK_DISPLAY}
                 </a>
               </div>
             </Reveal>
