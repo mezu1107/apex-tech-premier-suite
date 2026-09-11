@@ -1342,7 +1342,14 @@ export type Database = {
           featured: boolean
           features: string[]
           gradient: string
+          hero_eyebrow: string | null
+          hero_headline: string | null
           hero_image: string | null
+          hero_media_type: string
+          hero_media_url: string | null
+          hero_stat_label: string | null
+          hero_status: string | null
+          hero_subheadline: string | null
           icon: string
           id: string
           long_description: string | null
@@ -1369,7 +1376,14 @@ export type Database = {
           featured?: boolean
           features?: string[]
           gradient?: string
+          hero_eyebrow?: string | null
+          hero_headline?: string | null
           hero_image?: string | null
+          hero_media_type?: string
+          hero_media_url?: string | null
+          hero_stat_label?: string | null
+          hero_status?: string | null
+          hero_subheadline?: string | null
           icon?: string
           id?: string
           long_description?: string | null
@@ -1396,7 +1410,14 @@ export type Database = {
           featured?: boolean
           features?: string[]
           gradient?: string
+          hero_eyebrow?: string | null
+          hero_headline?: string | null
           hero_image?: string | null
+          hero_media_type?: string
+          hero_media_url?: string | null
+          hero_stat_label?: string | null
+          hero_status?: string | null
+          hero_subheadline?: string | null
           icon?: string
           id?: string
           long_description?: string | null
