@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Plus, Pencil, Trash2, Loader2, X, Save, Upload, ImageIcon, GripVertical } from "lucide-react";
 
-export type FieldType = "text" | "textarea" | "number" | "boolean" | "tags" | "select" | "image" | "repeater";
+export type FieldType = "text" | "textarea" | "number" | "boolean" | "tags" | "select" | "image" | "media" | "repeater";
 
 export interface FieldDef {
   name: string;
