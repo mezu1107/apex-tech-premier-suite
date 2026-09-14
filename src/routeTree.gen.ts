@@ -26,6 +26,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as QuoteRouteImport } from './routes/quote'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as StaffRouteImport } from './routes/staff'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
@@ -44,6 +45,7 @@ import { Route as ClientsSupportRouteImport } from './routes/clients.support'
 import { Route as ClientsTasksRouteImport } from './routes/clients.tasks'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
+import { Route as StaffIndexRouteImport } from './routes/staff.index'
 import { Route as TeamIndexRouteImport } from './routes/team.index'
 import { Route as TeamSlugRouteImport } from './routes/team.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
@@ -155,6 +157,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StaffRoute = StaffRouteImport.update({
+  id: '/staff',
+  path: '/staff',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TeamRoute = TeamRouteImport.update({
   id: '/team',
   path: '/team',
@@ -244,6 +251,11 @@ const ServicesSlugRoute = ServicesSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => ServicesRoute,
+} as any)
+const StaffIndexRoute = StaffIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => StaffRoute,
 } as any)
 const TeamIndexRoute = TeamIndexRouteImport.update({
   id: '/',
@@ -408,6 +420,7 @@ export interface FileRoutesByFullPath {
   '/quote': typeof QuoteRoute
   '/services': typeof ServicesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/staff': typeof StaffRouteWithChildren
   '/team': typeof TeamRouteWithChildren
   '/terms': typeof TermsRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
@@ -427,6 +440,7 @@ export interface FileRoutesByFullPath {
   '/blog/': typeof BlogIndexRoute
   '/clients/': typeof ClientsIndexRoute
   '/services/': typeof ServicesIndexRoute
+  '/staff/': typeof StaffIndexRoute
   '/team/': typeof TeamIndexRoute
   '/admin/about': typeof AuthenticatedAdminAboutRoute
   '/admin/badges': typeof AuthenticatedAdminBadgesRoute
@@ -485,6 +499,7 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogIndexRoute
   '/clients': typeof ClientsIndexRoute
   '/services': typeof ServicesIndexRoute
+  '/staff': typeof StaffIndexRoute
   '/team': typeof TeamIndexRoute
   '/admin/about': typeof AuthenticatedAdminAboutRoute
   '/admin/badges': typeof AuthenticatedAdminBadgesRoute
@@ -530,6 +545,7 @@ export interface FileRoutesById {
   '/quote': typeof QuoteRoute
   '/services': typeof ServicesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/staff': typeof StaffRouteWithChildren
   '/team': typeof TeamRouteWithChildren
   '/terms': typeof TermsRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
@@ -549,6 +565,7 @@ export interface FileRoutesById {
   '/blog/': typeof BlogIndexRoute
   '/clients/': typeof ClientsIndexRoute
   '/services/': typeof ServicesIndexRoute
+  '/staff/': typeof StaffIndexRoute
   '/team/': typeof TeamIndexRoute
   '/_authenticated/admin/about': typeof AuthenticatedAdminAboutRoute
   '/_authenticated/admin/badges': typeof AuthenticatedAdminBadgesRoute
@@ -594,6 +611,7 @@ export interface FileRouteTypes {
     | '/quote'
     | '/services'
     | '/sitemap.xml'
+    | '/staff'
     | '/team'
     | '/terms'
     | '/admin'
@@ -613,6 +631,7 @@ export interface FileRouteTypes {
     | '/blog/'
     | '/clients/'
     | '/services/'
+    | '/staff/'
     | '/team/'
     | '/admin/about'
     | '/admin/badges'
@@ -671,6 +690,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/clients'
     | '/services'
+    | '/staff'
     | '/team'
     | '/admin/about'
     | '/admin/badges'
@@ -715,6 +735,7 @@ export interface FileRouteTypes {
     | '/quote'
     | '/services'
     | '/sitemap.xml'
+    | '/staff'
     | '/team'
     | '/terms'
     | '/_authenticated/admin'
@@ -734,6 +755,7 @@ export interface FileRouteTypes {
     | '/blog/'
     | '/clients/'
     | '/services/'
+    | '/staff/'
     | '/team/'
     | '/_authenticated/admin/about'
     | '/_authenticated/admin/badges'
@@ -779,6 +801,7 @@ export interface RootRouteChildren {
   QuoteRoute: typeof QuoteRoute
   ServicesRoute: typeof ServicesRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  StaffRoute: typeof StaffRouteWithChildren
   TeamRoute: typeof TeamRouteWithChildren
   TermsRoute: typeof TermsRoute
   ApiChatRoute: typeof ApiChatRoute
@@ -907,6 +930,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/staff': {
+      id: '/staff'
+      path: '/staff'
+      fullPath: '/staff'
+      preLoaderRoute: typeof StaffRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/team': {
       id: '/team'
       path: '/team'
@@ -1032,6 +1062,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/services/$slug'
       preLoaderRoute: typeof ServicesSlugRouteImport
       parentRoute: typeof ServicesRoute
+    }
+    '/staff/': {
+      id: '/staff/'
+      path: '/'
+      fullPath: '/staff/'
+      preLoaderRoute: typeof StaffIndexRouteImport
+      parentRoute: typeof StaffRoute
     }
     '/team/': {
       id: '/team/'
@@ -1329,6 +1366,16 @@ const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
   ServicesRouteChildren,
 )
 
+interface StaffRouteChildren {
+  StaffIndexRoute: typeof StaffIndexRoute
+}
+
+const StaffRouteChildren: StaffRouteChildren = {
+  StaffIndexRoute: StaffIndexRoute,
+}
+
+const StaffRouteWithChildren = StaffRoute._addFileChildren(StaffRouteChildren)
+
 interface TeamRouteChildren {
   TeamSlugRoute: typeof TeamSlugRoute
   TeamIndexRoute: typeof TeamIndexRoute
@@ -1359,6 +1406,7 @@ const rootRouteChildren: RootRouteChildren = {
   QuoteRoute: QuoteRoute,
   ServicesRoute: ServicesRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  StaffRoute: StaffRouteWithChildren,
   TeamRoute: TeamRouteWithChildren,
   TermsRoute: TermsRoute,
   ApiChatRoute: ApiChatRoute,
