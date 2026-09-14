@@ -1483,6 +1483,286 @@ export type Database = {
         }
         Relationships: []
       }
+      staff_activities: {
+        Row: {
+          action: string
+          actor: string
+          created_at: string
+          description: string | null
+          id: string
+          staff_id: string
+        }
+        Insert: {
+          action: string
+          actor?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          staff_id: string
+        }
+        Update: {
+          action?: string
+          actor?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          staff_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "staff_activities_staff_id_fkey"
+            columns: ["staff_id"]
+            isOneToOne: false
+            referencedRelation: "staff_members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      staff_documents: {
+        Row: {
+          created_at: string
+          description: string | null
+          file_type: string | null
+          id: string
+          name: string
+          staff_id: string
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          file_type?: string | null
+          id?: string
+          name: string
+          staff_id: string
+          updated_at?: string
+          url: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          file_type?: string | null
+          id?: string
+          name?: string
+          staff_id?: string
+          updated_at?: string
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "staff_documents_staff_id_fkey"
+            columns: ["staff_id"]
+            isOneToOne: false
+            referencedRelation: "staff_members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      staff_members: {
+        Row: {
+          active: boolean
+          avatar_url: string | null
+          created_at: string
+          department: string | null
+          email: string
+          id: string
+          job_title: string | null
+          modules: string[]
+          name: string
+          phone: string | null
+          role: string
+          team_member_id: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          active?: boolean
+          avatar_url?: string | null
+          created_at?: string
+          department?: string | null
+          email: string
+          id?: string
+          job_title?: string | null
+          modules?: string[]
+          name: string
+          phone?: string | null
+          role?: string
+          team_member_id?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          active?: boolean
+          avatar_url?: string | null
+          created_at?: string
+          department?: string | null
+          email?: string
+          id?: string
+          job_title?: string | null
+          modules?: string[]
+          name?: string
+          phone?: string | null
+          role?: string
+          team_member_id?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "staff_members_team_member_id_fkey"
+            columns: ["team_member_id"]
+            isOneToOne: false
+            referencedRelation: "team_members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      staff_messages: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          important: boolean
+          is_read: boolean
+          sender: string
+          staff_id: string
+          subject: string
+          updated_at: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          important?: boolean
+          is_read?: boolean
+          sender?: string
+          staff_id: string
+          subject: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          important?: boolean
+          is_read?: boolean
+          sender?: string
+          staff_id?: string
+          subject?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "staff_messages_staff_id_fkey"
+            columns: ["staff_id"]
+            isOneToOne: false
+            referencedRelation: "staff_members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      staff_notifications: {
+        Row: {
+          body: string | null
+          created_at: string
+          id: string
+          is_read: boolean
+          kind: string
+          link: string | null
+          staff_id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          body?: string | null
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          kind?: string
+          link?: string | null
+          staff_id: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string | null
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          kind?: string
+          link?: string | null
+          staff_id?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "staff_notifications_staff_id_fkey"
+            columns: ["staff_id"]
+            isOneToOne: false
+            referencedRelation: "staff_members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      staff_tasks: {
+        Row: {
+          created_at: string
+          description: string | null
+          due_date: string | null
+          id: string
+          priority: string
+          progress: number
+          project_id: string | null
+          staff_id: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          priority?: string
+          progress?: number
+          project_id?: string | null
+          staff_id: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          priority?: string
+          progress?: number
+          project_id?: string | null
+          staff_id?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "staff_tasks_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "staff_tasks_staff_id_fkey"
+            columns: ["staff_id"]
+            isOneToOne: false
+            referencedRelation: "staff_members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       stats: {
         Row: {
           created_at: string
@@ -1717,6 +1997,7 @@ export type Database = {
         Returns: boolean
       }
       is_my_client: { Args: { _client_id: string }; Returns: boolean }
+      is_my_staff: { Args: { _staff_id: string }; Returns: boolean }
     }
     Enums: {
       app_role: "admin" | "user"
