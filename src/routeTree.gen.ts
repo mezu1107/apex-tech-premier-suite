@@ -46,6 +46,13 @@ import { Route as ClientsTasksRouteImport } from './routes/clients.tasks'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as StaffIndexRouteImport } from './routes/staff.index'
+import { Route as StaffDashboardRouteImport } from './routes/staff.dashboard'
+import { Route as StaffDocumentsRouteImport } from './routes/staff.documents'
+import { Route as StaffMessagesRouteImport } from './routes/staff.messages'
+import { Route as StaffNotificationsRouteImport } from './routes/staff.notifications'
+import { Route as StaffProfileRouteImport } from './routes/staff.profile'
+import { Route as StaffProjectsRouteImport } from './routes/staff.projects'
+import { Route as StaffTasksRouteImport } from './routes/staff.tasks'
 import { Route as TeamIndexRouteImport } from './routes/team.index'
 import { Route as TeamSlugRouteImport } from './routes/team.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
@@ -69,6 +76,7 @@ import { Route as AuthenticatedAdminProposalsRouteImport } from './routes/_authe
 import { Route as AuthenticatedAdminQuotesRouteImport } from './routes/_authenticated/admin.quotes'
 import { Route as AuthenticatedAdminSeoRouteImport } from './routes/_authenticated/admin.seo'
 import { Route as AuthenticatedAdminServicesRouteImport } from './routes/_authenticated/admin.services'
+import { Route as AuthenticatedAdminStaffRouteImport } from './routes/_authenticated/admin.staff'
 import { Route as AuthenticatedAdminStatsRouteImport } from './routes/_authenticated/admin.stats'
 import { Route as AuthenticatedAdminTeamRouteImport } from './routes/_authenticated/admin.team'
 import { Route as AuthenticatedAdminTestimonialsRouteImport } from './routes/_authenticated/admin.testimonials'
@@ -257,6 +265,41 @@ const StaffIndexRoute = StaffIndexRouteImport.update({
   path: '/',
   getParentRoute: () => StaffRoute,
 } as any)
+const StaffDashboardRoute = StaffDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffDocumentsRoute = StaffDocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffMessagesRoute = StaffMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffNotificationsRoute = StaffNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffProfileRoute = StaffProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffProjectsRoute = StaffProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffTasksRoute = StaffTasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
+  getParentRoute: () => StaffRoute,
+} as any)
 const TeamIndexRoute = TeamIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -386,6 +429,11 @@ const AuthenticatedAdminServicesRoute =
     path: '/services',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminStaffRoute = AuthenticatedAdminStaffRouteImport.update({
+  id: '/staff',
+  path: '/staff',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
 const AuthenticatedAdminStatsRoute = AuthenticatedAdminStatsRouteImport.update({
   id: '/stats',
   path: '/stats',
@@ -436,6 +484,13 @@ export interface FileRoutesByFullPath {
   '/clients/support': typeof ClientsSupportRoute
   '/clients/tasks': typeof ClientsTasksRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/staff/dashboard': typeof StaffDashboardRoute
+  '/staff/documents': typeof StaffDocumentsRoute
+  '/staff/messages': typeof StaffMessagesRoute
+  '/staff/notifications': typeof StaffNotificationsRoute
+  '/staff/profile': typeof StaffProfileRoute
+  '/staff/projects': typeof StaffProjectsRoute
+  '/staff/tasks': typeof StaffTasksRoute
   '/team/$slug': typeof TeamSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/clients/': typeof ClientsIndexRoute
@@ -462,6 +517,7 @@ export interface FileRoutesByFullPath {
   '/admin/quotes': typeof AuthenticatedAdminQuotesRoute
   '/admin/seo': typeof AuthenticatedAdminSeoRoute
   '/admin/services': typeof AuthenticatedAdminServicesRoute
+  '/admin/staff': typeof AuthenticatedAdminStaffRoute
   '/admin/stats': typeof AuthenticatedAdminStatsRoute
   '/admin/team': typeof AuthenticatedAdminTeamRoute
   '/admin/testimonials': typeof AuthenticatedAdminTestimonialsRoute
@@ -495,6 +551,13 @@ export interface FileRoutesByTo {
   '/clients/support': typeof ClientsSupportRoute
   '/clients/tasks': typeof ClientsTasksRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/staff/dashboard': typeof StaffDashboardRoute
+  '/staff/documents': typeof StaffDocumentsRoute
+  '/staff/messages': typeof StaffMessagesRoute
+  '/staff/notifications': typeof StaffNotificationsRoute
+  '/staff/profile': typeof StaffProfileRoute
+  '/staff/projects': typeof StaffProjectsRoute
+  '/staff/tasks': typeof StaffTasksRoute
   '/team/$slug': typeof TeamSlugRoute
   '/blog': typeof BlogIndexRoute
   '/clients': typeof ClientsIndexRoute
@@ -521,6 +584,7 @@ export interface FileRoutesByTo {
   '/admin/quotes': typeof AuthenticatedAdminQuotesRoute
   '/admin/seo': typeof AuthenticatedAdminSeoRoute
   '/admin/services': typeof AuthenticatedAdminServicesRoute
+  '/admin/staff': typeof AuthenticatedAdminStaffRoute
   '/admin/stats': typeof AuthenticatedAdminStatsRoute
   '/admin/team': typeof AuthenticatedAdminTeamRoute
   '/admin/testimonials': typeof AuthenticatedAdminTestimonialsRoute
@@ -561,6 +625,13 @@ export interface FileRoutesById {
   '/clients/support': typeof ClientsSupportRoute
   '/clients/tasks': typeof ClientsTasksRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/staff/dashboard': typeof StaffDashboardRoute
+  '/staff/documents': typeof StaffDocumentsRoute
+  '/staff/messages': typeof StaffMessagesRoute
+  '/staff/notifications': typeof StaffNotificationsRoute
+  '/staff/profile': typeof StaffProfileRoute
+  '/staff/projects': typeof StaffProjectsRoute
+  '/staff/tasks': typeof StaffTasksRoute
   '/team/$slug': typeof TeamSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/clients/': typeof ClientsIndexRoute
@@ -587,6 +658,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/quotes': typeof AuthenticatedAdminQuotesRoute
   '/_authenticated/admin/seo': typeof AuthenticatedAdminSeoRoute
   '/_authenticated/admin/services': typeof AuthenticatedAdminServicesRoute
+  '/_authenticated/admin/staff': typeof AuthenticatedAdminStaffRoute
   '/_authenticated/admin/stats': typeof AuthenticatedAdminStatsRoute
   '/_authenticated/admin/team': typeof AuthenticatedAdminTeamRoute
   '/_authenticated/admin/testimonials': typeof AuthenticatedAdminTestimonialsRoute
@@ -627,6 +699,13 @@ export interface FileRouteTypes {
     | '/clients/support'
     | '/clients/tasks'
     | '/services/$slug'
+    | '/staff/dashboard'
+    | '/staff/documents'
+    | '/staff/messages'
+    | '/staff/notifications'
+    | '/staff/profile'
+    | '/staff/projects'
+    | '/staff/tasks'
     | '/team/$slug'
     | '/blog/'
     | '/clients/'
@@ -653,6 +732,7 @@ export interface FileRouteTypes {
     | '/admin/quotes'
     | '/admin/seo'
     | '/admin/services'
+    | '/admin/staff'
     | '/admin/stats'
     | '/admin/team'
     | '/admin/testimonials'
@@ -686,6 +766,13 @@ export interface FileRouteTypes {
     | '/clients/support'
     | '/clients/tasks'
     | '/services/$slug'
+    | '/staff/dashboard'
+    | '/staff/documents'
+    | '/staff/messages'
+    | '/staff/notifications'
+    | '/staff/profile'
+    | '/staff/projects'
+    | '/staff/tasks'
     | '/team/$slug'
     | '/blog'
     | '/clients'
@@ -712,6 +799,7 @@ export interface FileRouteTypes {
     | '/admin/quotes'
     | '/admin/seo'
     | '/admin/services'
+    | '/admin/staff'
     | '/admin/stats'
     | '/admin/team'
     | '/admin/testimonials'
@@ -751,6 +839,13 @@ export interface FileRouteTypes {
     | '/clients/support'
     | '/clients/tasks'
     | '/services/$slug'
+    | '/staff/dashboard'
+    | '/staff/documents'
+    | '/staff/messages'
+    | '/staff/notifications'
+    | '/staff/profile'
+    | '/staff/projects'
+    | '/staff/tasks'
     | '/team/$slug'
     | '/blog/'
     | '/clients/'
@@ -777,6 +872,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/quotes'
     | '/_authenticated/admin/seo'
     | '/_authenticated/admin/services'
+    | '/_authenticated/admin/staff'
     | '/_authenticated/admin/stats'
     | '/_authenticated/admin/team'
     | '/_authenticated/admin/testimonials'
@@ -1070,6 +1166,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StaffIndexRouteImport
       parentRoute: typeof StaffRoute
     }
+    '/staff/dashboard': {
+      id: '/staff/dashboard'
+      path: '/dashboard'
+      fullPath: '/staff/dashboard'
+      preLoaderRoute: typeof StaffDashboardRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/documents': {
+      id: '/staff/documents'
+      path: '/documents'
+      fullPath: '/staff/documents'
+      preLoaderRoute: typeof StaffDocumentsRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/messages': {
+      id: '/staff/messages'
+      path: '/messages'
+      fullPath: '/staff/messages'
+      preLoaderRoute: typeof StaffMessagesRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/notifications': {
+      id: '/staff/notifications'
+      path: '/notifications'
+      fullPath: '/staff/notifications'
+      preLoaderRoute: typeof StaffNotificationsRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/profile': {
+      id: '/staff/profile'
+      path: '/profile'
+      fullPath: '/staff/profile'
+      preLoaderRoute: typeof StaffProfileRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/projects': {
+      id: '/staff/projects'
+      path: '/projects'
+      fullPath: '/staff/projects'
+      preLoaderRoute: typeof StaffProjectsRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/tasks': {
+      id: '/staff/tasks'
+      path: '/tasks'
+      fullPath: '/staff/tasks'
+      preLoaderRoute: typeof StaffTasksRouteImport
+      parentRoute: typeof StaffRoute
+    }
     '/team/': {
       id: '/team/'
       path: '/'
@@ -1231,6 +1376,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminServicesRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/staff': {
+      id: '/_authenticated/admin/staff'
+      path: '/staff'
+      fullPath: '/admin/staff'
+      preLoaderRoute: typeof AuthenticatedAdminStaffRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/stats': {
       id: '/_authenticated/admin/stats'
       path: '/stats'
@@ -1276,6 +1428,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminQuotesRoute: typeof AuthenticatedAdminQuotesRoute
   AuthenticatedAdminSeoRoute: typeof AuthenticatedAdminSeoRoute
   AuthenticatedAdminServicesRoute: typeof AuthenticatedAdminServicesRoute
+  AuthenticatedAdminStaffRoute: typeof AuthenticatedAdminStaffRoute
   AuthenticatedAdminStatsRoute: typeof AuthenticatedAdminStatsRoute
   AuthenticatedAdminTeamRoute: typeof AuthenticatedAdminTeamRoute
   AuthenticatedAdminTestimonialsRoute: typeof AuthenticatedAdminTestimonialsRoute
@@ -1303,6 +1456,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminQuotesRoute: AuthenticatedAdminQuotesRoute,
   AuthenticatedAdminSeoRoute: AuthenticatedAdminSeoRoute,
   AuthenticatedAdminServicesRoute: AuthenticatedAdminServicesRoute,
+  AuthenticatedAdminStaffRoute: AuthenticatedAdminStaffRoute,
   AuthenticatedAdminStatsRoute: AuthenticatedAdminStatsRoute,
   AuthenticatedAdminTeamRoute: AuthenticatedAdminTeamRoute,
   AuthenticatedAdminTestimonialsRoute: AuthenticatedAdminTestimonialsRoute,
@@ -1367,10 +1521,24 @@ const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
 )
 
 interface StaffRouteChildren {
+  StaffDashboardRoute: typeof StaffDashboardRoute
+  StaffDocumentsRoute: typeof StaffDocumentsRoute
+  StaffMessagesRoute: typeof StaffMessagesRoute
+  StaffNotificationsRoute: typeof StaffNotificationsRoute
+  StaffProfileRoute: typeof StaffProfileRoute
+  StaffProjectsRoute: typeof StaffProjectsRoute
+  StaffTasksRoute: typeof StaffTasksRoute
   StaffIndexRoute: typeof StaffIndexRoute
 }
 
 const StaffRouteChildren: StaffRouteChildren = {
+  StaffDashboardRoute: StaffDashboardRoute,
+  StaffDocumentsRoute: StaffDocumentsRoute,
+  StaffMessagesRoute: StaffMessagesRoute,
+  StaffNotificationsRoute: StaffNotificationsRoute,
+  StaffProfileRoute: StaffProfileRoute,
+  StaffProjectsRoute: StaffProjectsRoute,
+  StaffTasksRoute: StaffTasksRoute,
   StaffIndexRoute: StaffIndexRoute,
 }
 
