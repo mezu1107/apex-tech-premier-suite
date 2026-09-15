@@ -46,6 +46,12 @@ import { Route as ClientsTasksRouteImport } from './routes/clients.tasks'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as StaffIndexRouteImport } from './routes/staff.index'
+import { Route as StaffDashboardRouteImport } from './routes/staff.dashboard'
+import { Route as StaffDocumentsRouteImport } from './routes/staff.documents'
+import { Route as StaffMessagesRouteImport } from './routes/staff.messages'
+import { Route as StaffNotificationsRouteImport } from './routes/staff.notifications'
+import { Route as StaffProfileRouteImport } from './routes/staff.profile'
+import { Route as StaffTasksRouteImport } from './routes/staff.tasks'
 import { Route as TeamIndexRouteImport } from './routes/team.index'
 import { Route as TeamSlugRouteImport } from './routes/team.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
@@ -257,6 +263,36 @@ const StaffIndexRoute = StaffIndexRouteImport.update({
   path: '/',
   getParentRoute: () => StaffRoute,
 } as any)
+const StaffDashboardRoute = StaffDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffDocumentsRoute = StaffDocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffMessagesRoute = StaffMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffNotificationsRoute = StaffNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffProfileRoute = StaffProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffTasksRoute = StaffTasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
+  getParentRoute: () => StaffRoute,
+} as any)
 const TeamIndexRoute = TeamIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -436,6 +472,12 @@ export interface FileRoutesByFullPath {
   '/clients/support': typeof ClientsSupportRoute
   '/clients/tasks': typeof ClientsTasksRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/staff/dashboard': typeof StaffDashboardRoute
+  '/staff/documents': typeof StaffDocumentsRoute
+  '/staff/messages': typeof StaffMessagesRoute
+  '/staff/notifications': typeof StaffNotificationsRoute
+  '/staff/profile': typeof StaffProfileRoute
+  '/staff/tasks': typeof StaffTasksRoute
   '/team/$slug': typeof TeamSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/clients/': typeof ClientsIndexRoute
@@ -495,6 +537,12 @@ export interface FileRoutesByTo {
   '/clients/support': typeof ClientsSupportRoute
   '/clients/tasks': typeof ClientsTasksRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/staff/dashboard': typeof StaffDashboardRoute
+  '/staff/documents': typeof StaffDocumentsRoute
+  '/staff/messages': typeof StaffMessagesRoute
+  '/staff/notifications': typeof StaffNotificationsRoute
+  '/staff/profile': typeof StaffProfileRoute
+  '/staff/tasks': typeof StaffTasksRoute
   '/team/$slug': typeof TeamSlugRoute
   '/blog': typeof BlogIndexRoute
   '/clients': typeof ClientsIndexRoute
@@ -561,6 +609,12 @@ export interface FileRoutesById {
   '/clients/support': typeof ClientsSupportRoute
   '/clients/tasks': typeof ClientsTasksRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/staff/dashboard': typeof StaffDashboardRoute
+  '/staff/documents': typeof StaffDocumentsRoute
+  '/staff/messages': typeof StaffMessagesRoute
+  '/staff/notifications': typeof StaffNotificationsRoute
+  '/staff/profile': typeof StaffProfileRoute
+  '/staff/tasks': typeof StaffTasksRoute
   '/team/$slug': typeof TeamSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/clients/': typeof ClientsIndexRoute
@@ -627,6 +681,12 @@ export interface FileRouteTypes {
     | '/clients/support'
     | '/clients/tasks'
     | '/services/$slug'
+    | '/staff/dashboard'
+    | '/staff/documents'
+    | '/staff/messages'
+    | '/staff/notifications'
+    | '/staff/profile'
+    | '/staff/tasks'
     | '/team/$slug'
     | '/blog/'
     | '/clients/'
@@ -686,6 +746,12 @@ export interface FileRouteTypes {
     | '/clients/support'
     | '/clients/tasks'
     | '/services/$slug'
+    | '/staff/dashboard'
+    | '/staff/documents'
+    | '/staff/messages'
+    | '/staff/notifications'
+    | '/staff/profile'
+    | '/staff/tasks'
     | '/team/$slug'
     | '/blog'
     | '/clients'
@@ -751,6 +817,12 @@ export interface FileRouteTypes {
     | '/clients/support'
     | '/clients/tasks'
     | '/services/$slug'
+    | '/staff/dashboard'
+    | '/staff/documents'
+    | '/staff/messages'
+    | '/staff/notifications'
+    | '/staff/profile'
+    | '/staff/tasks'
     | '/team/$slug'
     | '/blog/'
     | '/clients/'
@@ -1070,6 +1142,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StaffIndexRouteImport
       parentRoute: typeof StaffRoute
     }
+    '/staff/dashboard': {
+      id: '/staff/dashboard'
+      path: '/dashboard'
+      fullPath: '/staff/dashboard'
+      preLoaderRoute: typeof StaffDashboardRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/documents': {
+      id: '/staff/documents'
+      path: '/documents'
+      fullPath: '/staff/documents'
+      preLoaderRoute: typeof StaffDocumentsRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/messages': {
+      id: '/staff/messages'
+      path: '/messages'
+      fullPath: '/staff/messages'
+      preLoaderRoute: typeof StaffMessagesRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/notifications': {
+      id: '/staff/notifications'
+      path: '/notifications'
+      fullPath: '/staff/notifications'
+      preLoaderRoute: typeof StaffNotificationsRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/profile': {
+      id: '/staff/profile'
+      path: '/profile'
+      fullPath: '/staff/profile'
+      preLoaderRoute: typeof StaffProfileRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/tasks': {
+      id: '/staff/tasks'
+      path: '/tasks'
+      fullPath: '/staff/tasks'
+      preLoaderRoute: typeof StaffTasksRouteImport
+      parentRoute: typeof StaffRoute
+    }
     '/team/': {
       id: '/team/'
       path: '/'
@@ -1367,10 +1481,22 @@ const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
 )
 
 interface StaffRouteChildren {
+  StaffDashboardRoute: typeof StaffDashboardRoute
+  StaffDocumentsRoute: typeof StaffDocumentsRoute
+  StaffMessagesRoute: typeof StaffMessagesRoute
+  StaffNotificationsRoute: typeof StaffNotificationsRoute
+  StaffProfileRoute: typeof StaffProfileRoute
+  StaffTasksRoute: typeof StaffTasksRoute
   StaffIndexRoute: typeof StaffIndexRoute
 }
 
 const StaffRouteChildren: StaffRouteChildren = {
+  StaffDashboardRoute: StaffDashboardRoute,
+  StaffDocumentsRoute: StaffDocumentsRoute,
+  StaffMessagesRoute: StaffMessagesRoute,
+  StaffNotificationsRoute: StaffNotificationsRoute,
+  StaffProfileRoute: StaffProfileRoute,
+  StaffTasksRoute: StaffTasksRoute,
   StaffIndexRoute: StaffIndexRoute,
 }
 
