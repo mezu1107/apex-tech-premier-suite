@@ -9,6 +9,8 @@ export interface StaffMember {
   job_title: string | null;
   role: string;
   department: string | null;
+  department_slug?: string | null;
+  am_id?: string | null;
   phone: string | null;
   avatar_url: string | null;
   modules: string[];
@@ -31,7 +33,7 @@ export function useStaffMember() {
     setEmail(auth.user.email ?? null);
     const { data } = await supabase
       .from("staff_members")
-      .select("id, user_id, name, email, job_title, role, department, phone, avatar_url, modules, active")
+      .select("id, user_id, name, email, job_title, role, department, department_slug, am_id, phone, avatar_url, modules, active")
       .eq("user_id", auth.user.id)
       .maybeSingle();
     setStaff((data as StaffMember) ?? null);
