@@ -13,8 +13,6 @@ const nav: { to: string; label: string; icon: typeof LayoutDashboard; exact?: bo
   { to: "/admin/portal", label: "Client Portal", icon: Users },
   { to: "/admin/staff", label: "Team Portal", icon: Users },
   { to: "/admin/crm", label: "CRM Pipeline", icon: GitBranch },
-  { to: "/admin/app-settings", label: "App Branding & Icon", icon: Radar },
-  { to: "/admin/audit", label: "Audit & Security Logs", icon: ShieldCheck },
 
   { to: "/admin/proposals", label: "Proposals", icon: FileSignature },
   { to: "/admin/invoices", label: "Invoices", icon: FileText },

@@ -13,6 +13,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { SITE_URL, SITE_LOGO, SITE_OG_IMAGE, PHONE_PK_DISPLAY } from "../lib/site";
 
+import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header } from "../components/site/Header";
 import { Footer } from "../components/site/Footer";
 import { BackToTop, MobileStickyCTA, ScrollProgress } from "../components/site/Floaters";
@@ -53,6 +54,10 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
   const [recovering, setRecovering] = useState(false);
+
+  useEffect(() => {
+    reportLovableError(error, { boundary: "tanstack_root_error_component" });
+  }, [error]);
 
   // Auto-recover once from transient first-load failures instead of showing an error page.
   useEffect(() => {

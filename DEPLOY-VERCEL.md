@@ -31,10 +31,11 @@ Add these in Vercel → Project → Settings → Environment Variables
 | `VITE_SUPABASE_PROJECT_ID` | same value as in `.env` |
 | `SUPABASE_URL` | same value as in `.env` |
 | `SUPABASE_PUBLISHABLE_KEY` | same value as in `.env` |
-| `CHATBOT_API_KEY` | your AI Chatbot API key |
+| `LOVABLE_API_KEY` | your Lovable AI Gateway key |
 
-`CHATBOT_API_KEY` is required for the AI chatbot service. Without it
-on Vercel the chatbot falls back to the "email us" message. Add your API key and paste it
+`LOVABLE_API_KEY` is injected automatically on Lovable hosting only. Without it
+on Vercel the chatbot falls back to the "email us" message — that is the exact
+symptom of the missing key. Copy the key from the Lovable project and paste it
 here, then **redeploy** (env vars are only applied to new deployments).
 
 ## 3. Redeploy

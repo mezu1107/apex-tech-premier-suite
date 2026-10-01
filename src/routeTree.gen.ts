@@ -19,7 +19,6 @@ import { Route as CalculatorRouteImport } from './routes/calculator'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as ClientsRouteImport } from './routes/clients'
 import { Route as ContactRouteImport } from './routes/contact'
-import { Route as DirectorsRouteImport } from './routes/directors'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as PricingRouteImport } from './routes/pricing'
@@ -44,8 +43,6 @@ import { Route as ClientsProfileRouteImport } from './routes/clients.profile'
 import { Route as ClientsProjectsRouteImport } from './routes/clients.projects'
 import { Route as ClientsSupportRouteImport } from './routes/clients.support'
 import { Route as ClientsTasksRouteImport } from './routes/clients.tasks'
-import { Route as DirectorsIndexRouteImport } from './routes/directors.index'
-import { Route as DirectorsSlugRouteImport } from './routes/directors.$slug'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as StaffIndexRouteImport } from './routes/staff.index'
@@ -60,8 +57,6 @@ import { Route as TeamIndexRouteImport } from './routes/team.index'
 import { Route as TeamSlugRouteImport } from './routes/team.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminAboutRouteImport } from './routes/_authenticated/admin.about'
-import { Route as AuthenticatedAdminAppSettingsRouteImport } from './routes/_authenticated/admin.app-settings'
-import { Route as AuthenticatedAdminAuditRouteImport } from './routes/_authenticated/admin.audit'
 import { Route as AuthenticatedAdminBadgesRouteImport } from './routes/_authenticated/admin.badges'
 import { Route as AuthenticatedAdminBlogRouteImport } from './routes/_authenticated/admin.blog'
 import { Route as AuthenticatedAdminBookingsRouteImport } from './routes/_authenticated/admin.bookings'
@@ -133,11 +128,6 @@ const ClientsRoute = ClientsRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DirectorsRoute = DirectorsRouteImport.update({
-  id: '/directors',
-  path: '/directors',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -260,16 +250,6 @@ const ClientsTasksRoute = ClientsTasksRouteImport.update({
   path: '/tasks',
   getParentRoute: () => ClientsRoute,
 } as any)
-const DirectorsIndexRoute = DirectorsIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => DirectorsRoute,
-} as any)
-const DirectorsSlugRoute = DirectorsSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => DirectorsRoute,
-} as any)
 const ServicesIndexRoute = ServicesIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -338,17 +318,6 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
 const AuthenticatedAdminAboutRoute = AuthenticatedAdminAboutRouteImport.update({
   id: '/about',
   path: '/about',
-  getParentRoute: () => AuthenticatedAdminRoute,
-} as any)
-const AuthenticatedAdminAppSettingsRoute =
-  AuthenticatedAdminAppSettingsRouteImport.update({
-    id: '/app-settings',
-    path: '/app-settings',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminAuditRoute = AuthenticatedAdminAuditRouteImport.update({
-  id: '/audit',
-  path: '/audit',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
 const AuthenticatedAdminBadgesRoute =
@@ -492,7 +461,6 @@ export interface FileRoutesByFullPath {
   '/careers': typeof CareersRoute
   '/clients': typeof ClientsRouteWithChildren
   '/contact': typeof ContactRoute
-  '/directors': typeof DirectorsRouteWithChildren
   '/faq': typeof FaqRoute
   '/portfolio': typeof PortfolioRoute
   '/pricing': typeof PricingRoute
@@ -515,7 +483,6 @@ export interface FileRoutesByFullPath {
   '/clients/projects': typeof ClientsProjectsRoute
   '/clients/support': typeof ClientsSupportRoute
   '/clients/tasks': typeof ClientsTasksRoute
-  '/directors/$slug': typeof DirectorsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/staff/dashboard': typeof StaffDashboardRoute
   '/staff/documents': typeof StaffDocumentsRoute
@@ -527,13 +494,10 @@ export interface FileRoutesByFullPath {
   '/team/$slug': typeof TeamSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/clients/': typeof ClientsIndexRoute
-  '/directors/': typeof DirectorsIndexRoute
   '/services/': typeof ServicesIndexRoute
   '/staff/': typeof StaffIndexRoute
   '/team/': typeof TeamIndexRoute
   '/admin/about': typeof AuthenticatedAdminAboutRoute
-  '/admin/app-settings': typeof AuthenticatedAdminAppSettingsRoute
-  '/admin/audit': typeof AuthenticatedAdminAuditRoute
   '/admin/badges': typeof AuthenticatedAdminBadgesRoute
   '/admin/blog': typeof AuthenticatedAdminBlogRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
@@ -586,7 +550,6 @@ export interface FileRoutesByTo {
   '/clients/projects': typeof ClientsProjectsRoute
   '/clients/support': typeof ClientsSupportRoute
   '/clients/tasks': typeof ClientsTasksRoute
-  '/directors/$slug': typeof DirectorsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/staff/dashboard': typeof StaffDashboardRoute
   '/staff/documents': typeof StaffDocumentsRoute
@@ -598,13 +561,10 @@ export interface FileRoutesByTo {
   '/team/$slug': typeof TeamSlugRoute
   '/blog': typeof BlogIndexRoute
   '/clients': typeof ClientsIndexRoute
-  '/directors': typeof DirectorsIndexRoute
   '/services': typeof ServicesIndexRoute
   '/staff': typeof StaffIndexRoute
   '/team': typeof TeamIndexRoute
   '/admin/about': typeof AuthenticatedAdminAboutRoute
-  '/admin/app-settings': typeof AuthenticatedAdminAppSettingsRoute
-  '/admin/audit': typeof AuthenticatedAdminAuditRoute
   '/admin/badges': typeof AuthenticatedAdminBadgesRoute
   '/admin/blog': typeof AuthenticatedAdminBlogRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
@@ -642,7 +602,6 @@ export interface FileRoutesById {
   '/careers': typeof CareersRoute
   '/clients': typeof ClientsRouteWithChildren
   '/contact': typeof ContactRoute
-  '/directors': typeof DirectorsRouteWithChildren
   '/faq': typeof FaqRoute
   '/portfolio': typeof PortfolioRoute
   '/pricing': typeof PricingRoute
@@ -665,7 +624,6 @@ export interface FileRoutesById {
   '/clients/projects': typeof ClientsProjectsRoute
   '/clients/support': typeof ClientsSupportRoute
   '/clients/tasks': typeof ClientsTasksRoute
-  '/directors/$slug': typeof DirectorsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/staff/dashboard': typeof StaffDashboardRoute
   '/staff/documents': typeof StaffDocumentsRoute
@@ -677,13 +635,10 @@ export interface FileRoutesById {
   '/team/$slug': typeof TeamSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/clients/': typeof ClientsIndexRoute
-  '/directors/': typeof DirectorsIndexRoute
   '/services/': typeof ServicesIndexRoute
   '/staff/': typeof StaffIndexRoute
   '/team/': typeof TeamIndexRoute
   '/_authenticated/admin/about': typeof AuthenticatedAdminAboutRoute
-  '/_authenticated/admin/app-settings': typeof AuthenticatedAdminAppSettingsRoute
-  '/_authenticated/admin/audit': typeof AuthenticatedAdminAuditRoute
   '/_authenticated/admin/badges': typeof AuthenticatedAdminBadgesRoute
   '/_authenticated/admin/blog': typeof AuthenticatedAdminBlogRoute
   '/_authenticated/admin/bookings': typeof AuthenticatedAdminBookingsRoute
@@ -721,7 +676,6 @@ export interface FileRouteTypes {
     | '/careers'
     | '/clients'
     | '/contact'
-    | '/directors'
     | '/faq'
     | '/portfolio'
     | '/pricing'
@@ -744,7 +698,6 @@ export interface FileRouteTypes {
     | '/clients/projects'
     | '/clients/support'
     | '/clients/tasks'
-    | '/directors/$slug'
     | '/services/$slug'
     | '/staff/dashboard'
     | '/staff/documents'
@@ -756,13 +709,10 @@ export interface FileRouteTypes {
     | '/team/$slug'
     | '/blog/'
     | '/clients/'
-    | '/directors/'
     | '/services/'
     | '/staff/'
     | '/team/'
     | '/admin/about'
-    | '/admin/app-settings'
-    | '/admin/audit'
     | '/admin/badges'
     | '/admin/blog'
     | '/admin/bookings'
@@ -815,7 +765,6 @@ export interface FileRouteTypes {
     | '/clients/projects'
     | '/clients/support'
     | '/clients/tasks'
-    | '/directors/$slug'
     | '/services/$slug'
     | '/staff/dashboard'
     | '/staff/documents'
@@ -827,13 +776,10 @@ export interface FileRouteTypes {
     | '/team/$slug'
     | '/blog'
     | '/clients'
-    | '/directors'
     | '/services'
     | '/staff'
     | '/team'
     | '/admin/about'
-    | '/admin/app-settings'
-    | '/admin/audit'
     | '/admin/badges'
     | '/admin/blog'
     | '/admin/bookings'
@@ -870,7 +816,6 @@ export interface FileRouteTypes {
     | '/careers'
     | '/clients'
     | '/contact'
-    | '/directors'
     | '/faq'
     | '/portfolio'
     | '/pricing'
@@ -893,7 +838,6 @@ export interface FileRouteTypes {
     | '/clients/projects'
     | '/clients/support'
     | '/clients/tasks'
-    | '/directors/$slug'
     | '/services/$slug'
     | '/staff/dashboard'
     | '/staff/documents'
@@ -905,13 +849,10 @@ export interface FileRouteTypes {
     | '/team/$slug'
     | '/blog/'
     | '/clients/'
-    | '/directors/'
     | '/services/'
     | '/staff/'
     | '/team/'
     | '/_authenticated/admin/about'
-    | '/_authenticated/admin/app-settings'
-    | '/_authenticated/admin/audit'
     | '/_authenticated/admin/badges'
     | '/_authenticated/admin/blog'
     | '/_authenticated/admin/bookings'
@@ -949,7 +890,6 @@ export interface RootRouteChildren {
   CareersRoute: typeof CareersRoute
   ClientsRoute: typeof ClientsRouteWithChildren
   ContactRoute: typeof ContactRoute
-  DirectorsRoute: typeof DirectorsRouteWithChildren
   FaqRoute: typeof FaqRoute
   PortfolioRoute: typeof PortfolioRoute
   PricingRoute: typeof PricingRoute
@@ -1035,13 +975,6 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/directors': {
-      id: '/directors'
-      path: '/directors'
-      fullPath: '/directors'
-      preLoaderRoute: typeof DirectorsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -1212,20 +1145,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ClientsTasksRouteImport
       parentRoute: typeof ClientsRoute
     }
-    '/directors/': {
-      id: '/directors/'
-      path: '/'
-      fullPath: '/directors/'
-      preLoaderRoute: typeof DirectorsIndexRouteImport
-      parentRoute: typeof DirectorsRoute
-    }
-    '/directors/$slug': {
-      id: '/directors/$slug'
-      path: '/$slug'
-      fullPath: '/directors/$slug'
-      preLoaderRoute: typeof DirectorsSlugRouteImport
-      parentRoute: typeof DirectorsRoute
-    }
     '/services/': {
       id: '/services/'
       path: '/'
@@ -1322,20 +1241,6 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/admin/about'
       preLoaderRoute: typeof AuthenticatedAdminAboutRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
-    '/_authenticated/admin/app-settings': {
-      id: '/_authenticated/admin/app-settings'
-      path: '/app-settings'
-      fullPath: '/admin/app-settings'
-      preLoaderRoute: typeof AuthenticatedAdminAppSettingsRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
-    '/_authenticated/admin/audit': {
-      id: '/_authenticated/admin/audit'
-      path: '/audit'
-      fullPath: '/admin/audit'
-      preLoaderRoute: typeof AuthenticatedAdminAuditRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/admin/badges': {
@@ -1504,8 +1409,6 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminAboutRoute: typeof AuthenticatedAdminAboutRoute
-  AuthenticatedAdminAppSettingsRoute: typeof AuthenticatedAdminAppSettingsRoute
-  AuthenticatedAdminAuditRoute: typeof AuthenticatedAdminAuditRoute
   AuthenticatedAdminBadgesRoute: typeof AuthenticatedAdminBadgesRoute
   AuthenticatedAdminBlogRoute: typeof AuthenticatedAdminBlogRoute
   AuthenticatedAdminBookingsRoute: typeof AuthenticatedAdminBookingsRoute
@@ -1534,8 +1437,6 @@ interface AuthenticatedAdminRouteChildren {
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminAboutRoute: AuthenticatedAdminAboutRoute,
-  AuthenticatedAdminAppSettingsRoute: AuthenticatedAdminAppSettingsRoute,
-  AuthenticatedAdminAuditRoute: AuthenticatedAdminAuditRoute,
   AuthenticatedAdminBadgesRoute: AuthenticatedAdminBadgesRoute,
   AuthenticatedAdminBlogRoute: AuthenticatedAdminBlogRoute,
   AuthenticatedAdminBookingsRoute: AuthenticatedAdminBookingsRoute,
@@ -1605,20 +1506,6 @@ const ClientsRouteChildren: ClientsRouteChildren = {
 const ClientsRouteWithChildren =
   ClientsRoute._addFileChildren(ClientsRouteChildren)
 
-interface DirectorsRouteChildren {
-  DirectorsSlugRoute: typeof DirectorsSlugRoute
-  DirectorsIndexRoute: typeof DirectorsIndexRoute
-}
-
-const DirectorsRouteChildren: DirectorsRouteChildren = {
-  DirectorsSlugRoute: DirectorsSlugRoute,
-  DirectorsIndexRoute: DirectorsIndexRoute,
-}
-
-const DirectorsRouteWithChildren = DirectorsRoute._addFileChildren(
-  DirectorsRouteChildren,
-)
-
 interface ServicesRouteChildren {
   ServicesSlugRoute: typeof ServicesSlugRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
@@ -1680,7 +1567,6 @@ const rootRouteChildren: RootRouteChildren = {
   CareersRoute: CareersRoute,
   ClientsRoute: ClientsRouteWithChildren,
   ContactRoute: ContactRoute,
-  DirectorsRoute: DirectorsRouteWithChildren,
   FaqRoute: FaqRoute,
   PortfolioRoute: PortfolioRoute,
   PricingRoute: PricingRoute,

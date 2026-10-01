@@ -174,9 +174,10 @@ function AnimLine({
           transition-all
           duration-700
           ease-[cubic-bezier(0.22,1,0.36,1)]
-          ${visible
-            ? "translate-y-0 opacity-100"
-            : "translate-y-full opacity-0"
+          ${
+            visible
+              ? "translate-y-0 opacity-100"
+              : "translate-y-full opacity-0"
           }
         `}
       >
@@ -777,11 +778,9 @@ export function HeroSlider() {
                     sm:text-lg
                   "
                 >
-                  <b>
-                    Need Custom Software for Your Business?
-                    <br />
-                  </b>
-                  We build custom web apps, ERP systems and SaaS products designed around your actual business workflow.
+                  We craft scalable, high-performance software
+                  solutions that drive growth, engage users, and
+                  create real impact.
                 </p>
               </AnimLine>
 
@@ -910,7 +909,7 @@ export function HeroSlider() {
                       label: "Projects Delivered",
                     },
                     {
-                      val: "3+",
+                      val: "5+",
                       label: "Years Experience",
                     },
                     {

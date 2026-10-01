@@ -1,6 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import { Bot, Plus, X } from "lucide-react";
-import { trackContact } from "@/lib/meta-analytics";
 
 const AIChatbot = lazy(() =>
   import("./AIChatbot").then((m) => ({ default: m.AIChatbot }))
@@ -38,7 +37,6 @@ export function FloatingActions() {
           href={`https://wa.me/${PHONE_PK.replace("+", "")}`}
           target="_blank"
           rel="noreferrer"
-          onClick={() => trackContact("whatsapp", "floating_action")}
           aria-label={`Chat on WhatsApp — ${PHONE_PK_DISP}`}
           title={PHONE_PK_DISP}
           tabIndex={expanded ? 0 : -1}
@@ -57,7 +55,6 @@ export function FloatingActions() {
           aria-label="Open AM Enterprises AI assistant"
           tabIndex={expanded ? 0 : -1}
           onClick={() => {
-            trackContact("email", "ai_chat_opened");
             setChatOpen(true);
             setExpanded(false);
           }}

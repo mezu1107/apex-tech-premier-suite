@@ -91,17 +91,7 @@ function ClientLogin() {
           <button onClick={forgot} className="mt-4 w-full text-center text-xs font-semibold text-muted-foreground hover:text-foreground">
             Forgot password?
           </button>
-          
-          <div className="mt-6 border-t border-border pt-6 text-center">
-            <Link
-              to="/clients/dashboard"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-border bg-muted/30 px-4 py-2.5 text-xs font-bold text-foreground hover:bg-muted"
-            >
-              Direct Access to Client Portal
-            </Link>
-          </div>
-
-          <p className="mt-4 text-center text-xs text-muted-foreground">
+          <p className="mt-6 text-center text-xs text-muted-foreground">
             Need an account? Contact us at <a href="tel:+923173712950" className="font-bold text-foreground">+92 317 371 2950</a>
           </p>
         </div>
