@@ -43,6 +43,7 @@ import { Route as ClientsProfileRouteImport } from './routes/clients.profile'
 import { Route as ClientsProjectsRouteImport } from './routes/clients.projects'
 import { Route as ClientsSupportRouteImport } from './routes/clients.support'
 import { Route as ClientsTasksRouteImport } from './routes/clients.tasks'
+import { Route as PortalDeptRouteImport } from './routes/portal.$dept'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as StaffIndexRouteImport } from './routes/staff.index'
@@ -249,6 +250,11 @@ const ClientsTasksRoute = ClientsTasksRouteImport.update({
   id: '/tasks',
   path: '/tasks',
   getParentRoute: () => ClientsRoute,
+} as any)
+const PortalDeptRoute = PortalDeptRouteImport.update({
+  id: '/portal/$dept',
+  path: '/portal/$dept',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesIndexRoute = ServicesIndexRouteImport.update({
   id: '/',
@@ -483,6 +489,7 @@ export interface FileRoutesByFullPath {
   '/clients/projects': typeof ClientsProjectsRoute
   '/clients/support': typeof ClientsSupportRoute
   '/clients/tasks': typeof ClientsTasksRoute
+  '/portal/$dept': typeof PortalDeptRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/staff/dashboard': typeof StaffDashboardRoute
   '/staff/documents': typeof StaffDocumentsRoute
@@ -550,6 +557,7 @@ export interface FileRoutesByTo {
   '/clients/projects': typeof ClientsProjectsRoute
   '/clients/support': typeof ClientsSupportRoute
   '/clients/tasks': typeof ClientsTasksRoute
+  '/portal/$dept': typeof PortalDeptRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/staff/dashboard': typeof StaffDashboardRoute
   '/staff/documents': typeof StaffDocumentsRoute
@@ -624,6 +632,7 @@ export interface FileRoutesById {
   '/clients/projects': typeof ClientsProjectsRoute
   '/clients/support': typeof ClientsSupportRoute
   '/clients/tasks': typeof ClientsTasksRoute
+  '/portal/$dept': typeof PortalDeptRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/staff/dashboard': typeof StaffDashboardRoute
   '/staff/documents': typeof StaffDocumentsRoute
@@ -698,6 +707,7 @@ export interface FileRouteTypes {
     | '/clients/projects'
     | '/clients/support'
     | '/clients/tasks'
+    | '/portal/$dept'
     | '/services/$slug'
     | '/staff/dashboard'
     | '/staff/documents'
@@ -765,6 +775,7 @@ export interface FileRouteTypes {
     | '/clients/projects'
     | '/clients/support'
     | '/clients/tasks'
+    | '/portal/$dept'
     | '/services/$slug'
     | '/staff/dashboard'
     | '/staff/documents'
@@ -838,6 +849,7 @@ export interface FileRouteTypes {
     | '/clients/projects'
     | '/clients/support'
     | '/clients/tasks'
+    | '/portal/$dept'
     | '/services/$slug'
     | '/staff/dashboard'
     | '/staff/documents'
@@ -902,6 +914,7 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   ApiChatRoute: typeof ApiChatRoute
   BlogSlugRoute: typeof BlogSlugRoute
+  PortalDeptRoute: typeof PortalDeptRoute
   BlogIndexRoute: typeof BlogIndexRoute
 }
 
@@ -1144,6 +1157,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/clients/tasks'
       preLoaderRoute: typeof ClientsTasksRouteImport
       parentRoute: typeof ClientsRoute
+    }
+    '/portal/$dept': {
+      id: '/portal/$dept'
+      path: '/portal/$dept'
+      fullPath: '/portal/$dept'
+      preLoaderRoute: typeof PortalDeptRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/services/': {
       id: '/services/'
@@ -1579,6 +1599,7 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   ApiChatRoute: ApiChatRoute,
   BlogSlugRoute: BlogSlugRoute,
+  PortalDeptRoute: PortalDeptRoute,
   BlogIndexRoute: BlogIndexRoute,
 }
 export const routeTree = rootRouteImport
