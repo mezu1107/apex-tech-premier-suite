@@ -135,7 +135,7 @@ function ModulePicker({ value, onChange }: { value: StaffModuleKey[]; onChange: 
 }
 
 function CreateModal({ onClose, onDone, create }: { onClose: () => void; onDone: () => void; create: ReturnType<typeof useServerFn<typeof createStaffAccount>> }) {
-  const [form, setForm] = useState({ name: "", email: "", password: "", job_title: "", department: "", phone: "", role: "developer" });
+  const [form, setForm] = useState({ name: "", email: "", password: "", job_title: "", department: "", department_slug: "", phone: "", role: "developer" });
   const [modules, setModules] = useState<StaffModuleKey[]>(defaultModules("developer"));
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
@@ -166,7 +166,11 @@ function CreateModal({ onClose, onDone, create }: { onClose: () => void; onDone:
             </select>
           </div>
           <div><label className={label}>Job title</label><input value={form.job_title} onChange={(e) => setForm({ ...form, job_title: e.target.value })} className={`mt-1 ${input}`} /></div>
-          <div><label className={label}>Department</label><input value={form.department} onChange={(e) => setForm({ ...form, department: e.target.value })} className={`mt-1 ${input}`} /></div>
+          <div><label className={label}>Department portal</label>
+            <select value={form.department_slug} onChange={(e) => setForm({ ...form, department_slug: e.target.value, department: DEPARTMENTS.find((d) => d.slug === e.target.value)?.name ?? "" })} className={`mt-1 ${input}`}>
+              <option value="">Auto (by role)</option>
+              {DEPARTMENTS.map((d) => <option key={d.slug} value={d.slug}>{d.name}</option>)}
+            </select></div>
           <div><label className={label}>Phone</label><input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className={`mt-1 ${input}`} /></div>
           <div className="sm:col-span-2"><label className={label}>Portal modules</label><div className="mt-2"><ModulePicker value={modules} onChange={setModules} /></div></div>
         </div>

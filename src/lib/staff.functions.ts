@@ -13,6 +13,7 @@ export const createStaffAccount = createServerFn({ method: "POST" })
       job_title?: string;
       role: string;
       department?: string;
+      department_slug?: string;
       phone?: string;
       modules: string[];
     }) => input,
@@ -43,6 +44,7 @@ export const createStaffAccount = createServerFn({ method: "POST" })
         job_title: data.job_title ?? null,
         role: data.role,
         department: data.department ?? null,
+        department_slug: data.department_slug || null,
         phone: data.phone ?? null,
         modules: data.modules,
         active: true,
