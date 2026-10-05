@@ -61,7 +61,7 @@ function ErrorComponent({ error, reset }: { error: unknown; reset: () => void })
 
   // Auto-recover once from transient first-load failures instead of showing an error page.
   useEffect(() => {
-    if (typeof window === "undefined" || !isTransient(error)) return;
+    if (typeof window === "undefined" || !isTransient(error as Error)) return;
     const KEY = "am_auto_recover";
     if (sessionStorage.getItem(KEY)) return;
     sessionStorage.setItem(KEY, "1");
