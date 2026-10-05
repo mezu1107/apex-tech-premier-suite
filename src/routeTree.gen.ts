@@ -19,13 +19,18 @@ import { Route as CalculatorRouteImport } from './routes/calculator'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as ClientsRouteImport } from './routes/clients'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DevAuthRouteImport } from './routes/dev-auth'
 import { Route as FaqRouteImport } from './routes/faq'
+import { Route as GdAuthRouteImport } from './routes/gd-auth'
+import { Route as PmAuthRouteImport } from './routes/pm-auth'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as QuoteRouteImport } from './routes/quote'
+import { Route as SeoAuthRouteImport } from './routes/seo-auth'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SmmAuthRouteImport } from './routes/smm-auth'
 import { Route as StaffRouteImport } from './routes/staff'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as TermsRouteImport } from './routes/terms'
@@ -131,9 +136,24 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DevAuthRoute = DevAuthRouteImport.update({
+  id: '/dev-auth',
+  path: '/dev-auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FaqRoute = FaqRouteImport.update({
   id: '/faq',
   path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GdAuthRoute = GdAuthRouteImport.update({
+  id: '/gd-auth',
+  path: '/gd-auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PmAuthRoute = PmAuthRouteImport.update({
+  id: '/pm-auth',
+  path: '/pm-auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PortfolioRoute = PortfolioRouteImport.update({
@@ -156,6 +176,11 @@ const QuoteRoute = QuoteRouteImport.update({
   path: '/quote',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SeoAuthRoute = SeoAuthRouteImport.update({
+  id: '/seo-auth',
+  path: '/seo-auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
@@ -164,6 +189,11 @@ const ServicesRoute = ServicesRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SmmAuthRoute = SmmAuthRouteImport.update({
+  id: '/smm-auth',
+  path: '/smm-auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StaffRoute = StaffRouteImport.update({
@@ -467,13 +497,18 @@ export interface FileRoutesByFullPath {
   '/careers': typeof CareersRoute
   '/clients': typeof ClientsRouteWithChildren
   '/contact': typeof ContactRoute
+  '/dev-auth': typeof DevAuthRoute
   '/faq': typeof FaqRoute
+  '/gd-auth': typeof GdAuthRoute
+  '/pm-auth': typeof PmAuthRoute
   '/portfolio': typeof PortfolioRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/quote': typeof QuoteRoute
+  '/seo-auth': typeof SeoAuthRoute
   '/services': typeof ServicesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/smm-auth': typeof SmmAuthRoute
   '/staff': typeof StaffRouteWithChildren
   '/team': typeof TeamRouteWithChildren
   '/terms': typeof TermsRoute
@@ -539,12 +574,17 @@ export interface FileRoutesByTo {
   '/calculator': typeof CalculatorRoute
   '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
+  '/dev-auth': typeof DevAuthRoute
   '/faq': typeof FaqRoute
+  '/gd-auth': typeof GdAuthRoute
+  '/pm-auth': typeof PmAuthRoute
   '/portfolio': typeof PortfolioRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/quote': typeof QuoteRoute
+  '/seo-auth': typeof SeoAuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/smm-auth': typeof SmmAuthRoute
   '/terms': typeof TermsRoute
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -610,13 +650,18 @@ export interface FileRoutesById {
   '/careers': typeof CareersRoute
   '/clients': typeof ClientsRouteWithChildren
   '/contact': typeof ContactRoute
+  '/dev-auth': typeof DevAuthRoute
   '/faq': typeof FaqRoute
+  '/gd-auth': typeof GdAuthRoute
+  '/pm-auth': typeof PmAuthRoute
   '/portfolio': typeof PortfolioRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/quote': typeof QuoteRoute
+  '/seo-auth': typeof SeoAuthRoute
   '/services': typeof ServicesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/smm-auth': typeof SmmAuthRoute
   '/staff': typeof StaffRouteWithChildren
   '/team': typeof TeamRouteWithChildren
   '/terms': typeof TermsRoute
@@ -685,13 +730,18 @@ export interface FileRouteTypes {
     | '/careers'
     | '/clients'
     | '/contact'
+    | '/dev-auth'
     | '/faq'
+    | '/gd-auth'
+    | '/pm-auth'
     | '/portfolio'
     | '/pricing'
     | '/privacy'
     | '/quote'
+    | '/seo-auth'
     | '/services'
     | '/sitemap.xml'
+    | '/smm-auth'
     | '/staff'
     | '/team'
     | '/terms'
@@ -757,12 +807,17 @@ export interface FileRouteTypes {
     | '/calculator'
     | '/careers'
     | '/contact'
+    | '/dev-auth'
     | '/faq'
+    | '/gd-auth'
+    | '/pm-auth'
     | '/portfolio'
     | '/pricing'
     | '/privacy'
     | '/quote'
+    | '/seo-auth'
     | '/sitemap.xml'
+    | '/smm-auth'
     | '/terms'
     | '/api/chat'
     | '/blog/$slug'
@@ -827,13 +882,18 @@ export interface FileRouteTypes {
     | '/careers'
     | '/clients'
     | '/contact'
+    | '/dev-auth'
     | '/faq'
+    | '/gd-auth'
+    | '/pm-auth'
     | '/portfolio'
     | '/pricing'
     | '/privacy'
     | '/quote'
+    | '/seo-auth'
     | '/services'
     | '/sitemap.xml'
+    | '/smm-auth'
     | '/staff'
     | '/team'
     | '/terms'
@@ -902,13 +962,18 @@ export interface RootRouteChildren {
   CareersRoute: typeof CareersRoute
   ClientsRoute: typeof ClientsRouteWithChildren
   ContactRoute: typeof ContactRoute
+  DevAuthRoute: typeof DevAuthRoute
   FaqRoute: typeof FaqRoute
+  GdAuthRoute: typeof GdAuthRoute
+  PmAuthRoute: typeof PmAuthRoute
   PortfolioRoute: typeof PortfolioRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
   QuoteRoute: typeof QuoteRoute
+  SeoAuthRoute: typeof SeoAuthRoute
   ServicesRoute: typeof ServicesRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SmmAuthRoute: typeof SmmAuthRoute
   StaffRoute: typeof StaffRouteWithChildren
   TeamRoute: typeof TeamRouteWithChildren
   TermsRoute: typeof TermsRoute
@@ -990,11 +1055,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dev-auth': {
+      id: '/dev-auth'
+      path: '/dev-auth'
+      fullPath: '/dev-auth'
+      preLoaderRoute: typeof DevAuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/faq': {
       id: '/faq'
       path: '/faq'
       fullPath: '/faq'
       preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gd-auth': {
+      id: '/gd-auth'
+      path: '/gd-auth'
+      fullPath: '/gd-auth'
+      preLoaderRoute: typeof GdAuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pm-auth': {
+      id: '/pm-auth'
+      path: '/pm-auth'
+      fullPath: '/pm-auth'
+      preLoaderRoute: typeof PmAuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/portfolio': {
@@ -1025,6 +1111,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuoteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/seo-auth': {
+      id: '/seo-auth'
+      path: '/seo-auth'
+      fullPath: '/seo-auth'
+      preLoaderRoute: typeof SeoAuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/services': {
       id: '/services'
       path: '/services'
@@ -1037,6 +1130,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/smm-auth': {
+      id: '/smm-auth'
+      path: '/smm-auth'
+      fullPath: '/smm-auth'
+      preLoaderRoute: typeof SmmAuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/staff': {
@@ -1587,13 +1687,18 @@ const rootRouteChildren: RootRouteChildren = {
   CareersRoute: CareersRoute,
   ClientsRoute: ClientsRouteWithChildren,
   ContactRoute: ContactRoute,
+  DevAuthRoute: DevAuthRoute,
   FaqRoute: FaqRoute,
+  GdAuthRoute: GdAuthRoute,
+  PmAuthRoute: PmAuthRoute,
   PortfolioRoute: PortfolioRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
   QuoteRoute: QuoteRoute,
+  SeoAuthRoute: SeoAuthRoute,
   ServicesRoute: ServicesRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SmmAuthRoute: SmmAuthRoute,
   StaffRoute: StaffRouteWithChildren,
   TeamRoute: TeamRouteWithChildren,
   TermsRoute: TermsRoute,

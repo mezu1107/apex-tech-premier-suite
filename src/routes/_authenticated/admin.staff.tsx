@@ -4,7 +4,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useServerFn } from "@tanstack/react-start";
 import { createStaffAccount, updateStaffCredentials, deleteStaffAccount } from "@/lib/staff.functions";
 import { STAFF_MODULES, STAFF_ROLES, defaultModules, roleLabel, type StaffModuleKey } from "@/lib/staff-roles";
-import { Loader2, Plus, Trash2, KeyRound, X, Send, Bell, FileText, ListChecks } from "lucide-react";
+import { DEPARTMENTS } from "@/departments/registry";
+import { Loader2, FolderKanban, Plus, Trash2, KeyRound, X, Send, Bell, FileText, ListChecks } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/admin/staff")({
   component: AdminStaff,
@@ -12,7 +13,7 @@ export const Route = createFileRoute("/_authenticated/admin/staff")({
 
 interface Staff {
   id: string; name: string; email: string; job_title: string | null; role: string;
-  department: string | null; phone: string | null; modules: string[]; active: boolean;
+  department: string | null; department_slug?: string | null; am_id?: string | null; phone: string | null; modules: string[]; active: boolean;
   user_id: string | null; created_at: string;
 }
 
@@ -187,6 +188,7 @@ const TABS = [
   { key: "messages", label: "Messages", icon: Send },
   { key: "notifications", label: "Notifications", icon: Bell },
   { key: "documents", label: "Resources", icon: FileText },
+  { key: "projects", label: "Projects", icon: FolderKanban },
 ] as const;
 
 type TabKey = (typeof TABS)[number]["key"];
@@ -199,7 +201,7 @@ function ManageDrawer({ staff, onClose }: { staff: Staff; onClose: () => void })
         <div className="mb-4 flex items-center justify-between">
           <div>
             <h2 className="font-display text-xl font-black text-espresso">{staff.name}</h2>
-            <p className="text-xs text-foreground/60">{staff.email} · {roleLabel(staff.role)}</p>
+            <p className="text-xs text-foreground/60">{staff.am_id ? `${staff.am_id} · ` : ""}{staff.email} · {roleLabel(staff.role)}</p>
           </div>
           <button onClick={onClose} className="rounded-full p-1.5 hover:bg-sand"><X className="h-4 w-4" /></button>
         </div>
@@ -218,6 +220,7 @@ function ManageDrawer({ staff, onClose }: { staff: Staff; onClose: () => void })
         {tab === "messages" && <MessagesTab staffId={staff.id} />}
         {tab === "notifications" && <NotificationsTab staffId={staff.id} />}
         {tab === "documents" && <DocumentsTab staffId={staff.id} />}
+        {tab === "projects" && <ProjectsTab staff={staff} />}
       </div>
     </div>
   );
@@ -228,6 +231,7 @@ function AccessTab({ staff }: { staff: Staff }) {
   const [modules, setModules] = useState<StaffModuleKey[]>((staff.modules ?? []) as StaffModuleKey[]);
   const [jobTitle, setJobTitle] = useState(staff.job_title ?? "");
   const [department, setDepartment] = useState(staff.department ?? "");
+  const [deptSlug, setDeptSlug] = useState(staff.department_slug ?? "");
   const [msg, setMsg] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const updateCreds = useServerFn(updateStaffCredentials);
@@ -237,6 +241,7 @@ function AccessTab({ staff }: { staff: Staff }) {
     setBusy(true); setMsg(null);
     const { error } = await supabase.from("staff_members").update({
       role, modules, job_title: jobTitle || null, department: department || null,
+      department_slug: deptSlug || null,
     }).eq("id", staff.id);
     setMsg(error ? error.message : "Saved.");
     setBusy(false);
@@ -252,7 +257,13 @@ function AccessTab({ staff }: { staff: Staff }) {
           </select>
         </div>
         <div><label className={label}>Job title</label><input value={jobTitle} onChange={(e) => setJobTitle(e.target.value)} className={`mt-1 ${input}`} /></div>
-        <div><label className={label}>Department</label><input value={department} onChange={(e) => setDepartment(e.target.value)} className={`mt-1 ${input}`} /></div>
+        <div><label className={label}>Department label</label><input value={department} onChange={(e) => setDepartment(e.target.value)} className={`mt-1 ${input}`} /></div>
+        <div><label className={label}>Department portal (login access)</label>
+          <select value={deptSlug} onChange={(e) => setDeptSlug(e.target.value)} className={`mt-1 ${input}`}>
+            <option value="">Auto (by role)</option>
+            {DEPARTMENTS.map((d) => <option key={d.slug} value={d.slug}>{d.name} ({d.authPath})</option>)}
+          </select>
+        </div>
         <div className="sm:col-span-2">
           <label className={label}>Portal modules</label>
           <div className="mt-2"><ModulePicker value={modules} onChange={setModules} /></div>
@@ -441,6 +452,38 @@ function DocumentsTab({ staffId }: { staffId: string }) {
           <a href={d.url} target="_blank" rel="noreferrer" className="text-sm font-bold text-espresso underline">{d.name}</a>
           <p className="text-xs text-foreground/60">{d.file_type}</p>
         </Row>
+      ))}
+    </div>
+  );
+}
+
+function ProjectsTab({ staff }: { staff: Staff }) {
+  const [projects, setProjects] = useState<{ id: string; title: string }[]>([]);
+  const [assigned, setAssigned] = useState<Record<string, string>>({});
+  const load = useCallback(async () => {
+    const [{ data: p }, { data: a }] = await Promise.all([
+      supabase.from("projects").select("id, title").order("created_at", { ascending: false }),
+      supabase.from("project_assignments").select("id, project_id").eq("staff_id", staff.id),
+    ]);
+    setProjects(p ?? []);
+    setAssigned(Object.fromEntries((a ?? []).map((r) => [r.project_id, r.id])));
+  }, [staff.id]);
+  useEffect(() => { load(); }, [load]);
+  async function toggle(projectId: string) {
+    const id = assigned[projectId];
+    const { error } = id
+      ? await supabase.from("project_assignments").delete().eq("id", id)
+      : await supabase.from("project_assignments").insert({ project_id: projectId, staff_id: staff.id, department_slug: staff.department_slug ?? null, role_on_project: staff.role });
+    if (error) alert(error.message);
+    load();
+  }
+  if (!projects.length) return <p className="text-sm text-foreground/60">No projects yet — create projects in Client Portal first.</p>;
+  return (
+    <div className="space-y-2">
+      {projects.map((p) => (
+        <label key={p.id} className="flex items-center gap-3 rounded-xl border border-espresso/12 p-3 text-sm font-semibold text-espresso">
+          <input type="checkbox" checked={!!assigned[p.id]} onChange={() => toggle(p.id)} /> {p.title}
+        </label>
       ))}
     </div>
   );
