@@ -187,18 +187,19 @@ function CreateModal({ onClose, onDone, create }: { onClose: () => void; onDone:
 }
 
 const TABS = [
+  { key: "projects", label: "Clients & Projects", icon: FolderKanban },
   { key: "access", label: "Role & access", icon: KeyRound },
   { key: "tasks", label: "Tasks", icon: ListChecks },
   { key: "messages", label: "Messages", icon: Send },
   { key: "notifications", label: "Notifications", icon: Bell },
   { key: "documents", label: "Resources", icon: FileText },
-  { key: "projects", label: "Projects", icon: FolderKanban },
+  
 ] as const;
 
 type TabKey = (typeof TABS)[number]["key"];
 
 function ManageDrawer({ staff, onClose }: { staff: Staff; onClose: () => void }) {
-  const [tab, setTab] = useState<TabKey>("access");
+  const [tab, setTab] = useState<TabKey>("projects");
   return (
     <div className="fixed inset-0 z-50 flex justify-end bg-espresso/50" onClick={onClose}>
       <div className="h-full w-full max-w-3xl overflow-y-auto bg-white p-6 shadow-2xl" onClick={(e) => e.stopPropagation()}>
@@ -462,33 +463,87 @@ function DocumentsTab({ staffId }: { staffId: string }) {
 }
 
 function ProjectsTab({ staff }: { staff: Staff }) {
-  const [projects, setProjects] = useState<{ id: string; title: string }[]>([]);
+  const [clients, setClients] = useState<{ id: string; name: string; company: string | null; am_id: string | null }[]>([]);
+  const [projects, setProjects] = useState<{ id: string; title: string; client_id: string | null; status: string; progress: number }[]>([]);
   const [assigned, setAssigned] = useState<Record<string, string>>({});
+  const [form, setForm] = useState({ client_id: "", title: "", service: "", due_date: "" });
+  const [busy, setBusy] = useState(false);
   const load = useCallback(async () => {
-    const [{ data: p }, { data: a }] = await Promise.all([
-      supabase.from("projects").select("id, title").order("created_at", { ascending: false }),
+    const [{ data: c }, { data: p }, { data: a }] = await Promise.all([
+      supabase.from("portal_clients").select("id, name, company, am_id").order("name"),
+      supabase.from("projects").select("id, title, client_id, status, progress").order("created_at", { ascending: false }),
       supabase.from("project_assignments").select("id, project_id").eq("staff_id", staff.id),
     ]);
-    setProjects(p ?? []);
+    setClients(c ?? []); setProjects(p ?? []);
     setAssigned(Object.fromEntries((a ?? []).map((r) => [r.project_id, r.id])));
   }, [staff.id]);
   useEffect(() => { load(); }, [load]);
+
+  async function assign(projectId: string) {
+    const { error } = await supabase.from("project_assignments").insert({ project_id: projectId, staff_id: staff.id, department_slug: staff.department_slug ?? null, role_on_project: staff.job_title || staff.role });
+    if (error) return alert(error.message);
+    const title = projects.find((p) => p.id === projectId)?.title ?? "a project";
+    await supabase.from("staff_notifications").insert({ staff_id: staff.id, title: `You were assigned to ${title}`, kind: "project" });
+  }
   async function toggle(projectId: string) {
     const id = assigned[projectId];
-    const { error } = id
-      ? await supabase.from("project_assignments").delete().eq("id", id)
-      : await supabase.from("project_assignments").insert({ project_id: projectId, staff_id: staff.id, department_slug: staff.department_slug ?? null, role_on_project: staff.role });
-    if (error) alert(error.message);
+    if (id) { const { error } = await supabase.from("project_assignments").delete().eq("id", id); if (error) alert(error.message); }
+    else await assign(projectId);
     load();
   }
-  if (!projects.length) return <p className="text-sm text-foreground/60">No projects yet — create projects in Client Portal first.</p>;
+  async function createProject(e: React.FormEvent) {
+    e.preventDefault();
+    if (!form.client_id || !form.title.trim()) return alert("Choose a client and enter a project title.");
+    setBusy(true);
+    const { data, error } = await supabase.from("projects").insert({ client_id: form.client_id, title: form.title.trim(), service: form.service || null, due_date: form.due_date || null, status: "planning" }).select("id").single();
+    if (error) { alert(error.message); setBusy(false); return; }
+    await assign(data.id);
+    await supabase.from("client_notifications").insert({ client_id: form.client_id, title: `New project started: ${form.title.trim()}`, body: `${staff.name} has been assigned to your project.`, kind: "project" });
+    setForm({ client_id: "", title: "", service: "", due_date: "" }); setBusy(false); load();
+  }
+
+  const groups = [...clients.map((c) => ({ key: c.id, label: `${c.name}${c.company ? ` · ${c.company}` : ""}${c.am_id ? ` · ${c.am_id}` : ""}`, items: projects.filter((p) => p.client_id === c.id) })),
+    { key: "none", label: "Internal / no client", items: projects.filter((p) => !p.client_id) }].filter((g) => g.items.length);
+  const myCount = Object.keys(assigned).length;
+  const myClients = new Set(projects.filter((p) => assigned[p.id]).map((p) => p.client_id).filter(Boolean)).size;
+
   return (
-    <div className="space-y-2">
-      {projects.map((p) => (
-        <label key={p.id} className="flex items-center gap-3 rounded-xl border border-espresso/12 p-3 text-sm font-semibold text-espresso">
-          <input type="checkbox" checked={!!assigned[p.id]} onChange={() => toggle(p.id)} /> {p.title}
-        </label>
-      ))}
+    <div className="space-y-5">
+      <div className="grid grid-cols-2 gap-3">
+        <div className="rounded-2xl bg-sand/60 p-4"><p className="font-display text-2xl font-black text-espresso">{myCount}</p><p className="text-xs font-semibold text-espresso/60">Assigned projects</p></div>
+        <div className="rounded-2xl bg-sand/60 p-4"><p className="font-display text-2xl font-black text-espresso">{myClients}</p><p className="text-xs font-semibold text-espresso/60">Clients served</p></div>
+      </div>
+
+      <form onSubmit={createProject} className="grid gap-3 rounded-2xl border border-espresso/12 p-4 sm:grid-cols-2">
+        <p className="text-sm font-bold text-espresso sm:col-span-2">Start a new project for a client & assign {staff.name.split(" ")[0]}</p>
+        <div><label className={label}>Client</label>
+          <select value={form.client_id} onChange={(e) => setForm({ ...form, client_id: e.target.value })} className={`mt-1 ${input}`}>
+            <option value="">Select client…</option>
+            {clients.map((c) => <option key={c.id} value={c.id}>{c.name}{c.company ? ` (${c.company})` : ""}</option>)}
+          </select></div>
+        <div><label className={label}>Project title</label><input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} className={`mt-1 ${input}`} /></div>
+        <div><label className={label}>Service</label><input value={form.service} onChange={(e) => setForm({ ...form, service: e.target.value })} className={`mt-1 ${input}`} /></div>
+        <div><label className={label}>Due date</label><input type="date" value={form.due_date} onChange={(e) => setForm({ ...form, due_date: e.target.value })} className={`mt-1 ${input}`} /></div>
+        <div className="sm:col-span-2"><button disabled={busy} className="inline-flex items-center gap-2 rounded-full bg-espresso px-4 py-2 text-xs font-bold text-white disabled:opacity-60">{busy && <Loader2 className="h-3.5 w-3.5 animate-spin" />} Create & assign</button></div>
+        {clients.length === 0 && <p className="text-xs text-espresso/60 sm:col-span-2">No clients yet — add one in Client Portal first.</p>}
+      </form>
+
+      <div>
+        <p className="mb-2 text-sm font-bold text-espresso">Assign existing projects</p>
+        {groups.length === 0 ? <p className="text-sm text-foreground/60">No projects yet — create one above.</p> : groups.map((g) => (
+          <div key={g.key} className="mb-3 rounded-2xl border border-espresso/12 p-3">
+            <p className="mb-2 text-xs font-bold uppercase tracking-widest text-espresso/60">{g.label}</p>
+            <div className="space-y-1.5">
+              {g.items.map((p) => (
+                <label key={p.id} className={`flex cursor-pointer items-center justify-between gap-3 rounded-xl px-3 py-2 text-sm font-semibold ${assigned[p.id] ? "bg-espresso text-white" : "bg-sand/40 text-espresso hover:bg-sand"}`}>
+                  <span className="flex items-center gap-2"><input type="checkbox" checked={!!assigned[p.id]} onChange={() => toggle(p.id)} /> {p.title}</span>
+                  <span className="text-[10px] uppercase opacity-70">{p.status} · {p.progress}%</span>
+                </label>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

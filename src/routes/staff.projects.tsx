@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { StaffShell, StaffHeading, StaffEmpty } from "@/components/portal/StaffShell";
 import { supabase } from "@/integrations/supabase/client";
+import { ProjectConnections } from "@/components/portal/ProjectConnections";
 
 export const Route = createFileRoute("/staff/projects")({
   head: () => ({
@@ -11,25 +12,25 @@ export const Route = createFileRoute("/staff/projects")({
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
-  component: () => <StaffShell module="projects">{() => <Projects />}</StaffShell>,
+  component: () => <StaffShell module="projects">{(staff) => <Projects staffId={staff.id} />}</StaffShell>,
 });
 
 interface Project { id: string; title: string; service: string | null; status: string; progress: number; start_date: string | null; due_date: string | null; summary: string | null }
 
-function Projects() {
+function Projects({ staffId }: { staffId: string }) {
   const [rows, setRows] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
       const { data } = await supabase
-        .from("projects")
-        .select("id, title, service, status, progress, start_date, due_date, summary")
-        .order("created_at", { ascending: false });
-      setRows((data as Project[]) ?? []);
+        .from("project_assignments")
+        .select("projects(id, title, service, status, progress, start_date, due_date, summary)")
+        .eq("staff_id", staffId);
+      setRows(((data ?? []).map((r) => (r as unknown as { projects: Project | null }).projects).filter(Boolean)) as Project[]);
       setLoading(false);
     })();
-  }, []);
+  }, [staffId]);
 
   return (
     <div>
@@ -58,6 +59,7 @@ function Projects() {
                 {p.start_date ? `Started ${new Date(p.start_date).toLocaleDateString()}` : "Not started"}
                 {p.due_date ? ` · Due ${new Date(p.due_date).toLocaleDateString()}` : ""}
               </p>
+              <ProjectConnections projectId={p.id} />
             </div>
           ))}
         </div>

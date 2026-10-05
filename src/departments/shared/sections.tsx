@@ -3,6 +3,7 @@ import { Loader2, Plus, Trash2, ExternalLink } from "lucide-react";
 import type { StaffMember } from "@/lib/use-staff";
 import { useStaffRows } from "@/lib/use-staff";
 import { supabase } from "@/integrations/supabase/client";
+import { ProjectConnections } from "@/components/portal/ProjectConnections";
 import { ChatPanel } from "@/components/chat/ChatPanel";
 import { StaffHeading, StaffEmpty } from "@/components/portal/StaffShell";
 import { useMyProjects, useProjectScopedRows, insertRow, updateRow, deleteRow, type ProjectRow } from "./data";
@@ -41,6 +42,7 @@ function ProjectCard({ p }: { p: ProjectRow }) {
           <a key={l} href={u} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 rounded-full border border-border px-3 py-1 text-xs font-semibold text-foreground hover:bg-muted">{l} <ExternalLink className="h-3 w-3" /></a>
         ))}
       </div>
+      <ProjectConnections projectId={p.id} />
     </div>
   );
 }
