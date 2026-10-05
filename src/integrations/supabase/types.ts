@@ -2476,6 +2476,24 @@ export type Database = {
       is_my_staff: { Args: { _staff_id: string }; Returns: boolean }
       is_staff_on_project: { Args: { _project: string }; Returns: boolean }
       my_staff_id: { Args: never; Returns: string }
+      project_client: {
+        Args: { _project: string }
+        Returns: {
+          am_id: string
+          company: string
+          name: string
+        }[]
+      }
+      project_team: {
+        Args: { _project: string }
+        Returns: {
+          am_id: string
+          department: string
+          job_title: string
+          name: string
+          role_on_project: string
+        }[]
+      }
       search_directory: {
         Args: { _q: string }
         Returns: {
