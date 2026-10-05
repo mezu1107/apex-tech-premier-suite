@@ -1,3 +1,4 @@
+import { ProjectConnections } from "@/components/portal/ProjectConnections";
 import { createFileRoute } from "@tanstack/react-router";
 import { PortalShell, PortalHeading, EmptyState } from "@/components/portal/PortalShell";
 import { usePortalRows } from "@/lib/use-portal";
@@ -65,6 +66,7 @@ function Projects({ clientId }: { clientId: string }) {
                   {p.due_date && <span className="inline-flex items-center gap-1.5"><CalendarDays className="h-3.5 w-3.5" /> Due {new Date(p.due_date).toLocaleDateString()}</span>}
                 </div>
 
+                <ProjectConnections projectId={p.id} showClient={false} />
                 {ms.length > 0 && (
                   <div className="mt-5 border-t border-border pt-4">
                     <p className="mb-3 inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-foreground"><Milestone className="h-3.5 w-3.5" /> Milestones</p>
