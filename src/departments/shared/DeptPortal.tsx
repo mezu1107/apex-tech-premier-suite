@@ -11,12 +11,12 @@ export function DeptPortal({ dept, section }: { dept: DepartmentConfig; section?
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
-  useEffect(() => { if (!loading && !email) navigate({ to: dept.authPath as "/", replace: true }); }, [loading, email, dept.authPath, navigate]);
+  useEffect(() => { if (!loading && !email) navigate({ to: dept.authPath as "/dev-auth", replace: true }); }, [loading, email, dept.authPath, navigate]);
   useEffect(() => { setOpen(false); }, [section]);
 
   async function signOut() {
     await supabase.auth.signOut();
-    navigate({ to: dept.authPath as "/", replace: true });
+    navigate({ to: dept.authPath as "/dev-auth", replace: true });
   }
 
   if (loading || !email) return <div className="grid min-h-[80vh] place-items-center"><Loader2 className="h-6 w-6 animate-spin text-primary" /></div>;
