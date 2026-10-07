@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useServerFn } from "@tanstack/react-start";
 import { createClientAccount, updateClientCredentials, deleteClientAccount } from "@/lib/portal.functions";
-import { Loader2, Plus, Trash2, KeyRound, X, Send, Bell, FileText, ListChecks, LifeBuoy, Users } from "lucide-react";
+import { Loader2, Plus, Trash2, KeyRound, X, Users } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/admin/portal/")({
   component: AdminPortal,
@@ -17,7 +17,6 @@ const label = "text-[10px] font-semibold uppercase tracking-widest text-espresso
 function AdminPortal() {
   const [clients, setClients] = useState<Client[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selected, setSelected] = useState<Client | null>(null);
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
