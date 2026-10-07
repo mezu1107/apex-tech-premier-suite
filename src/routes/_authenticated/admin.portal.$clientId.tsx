@@ -44,7 +44,7 @@ async function uploadImage(file: File, folder: string) {
   return data.signedUrl;
 }
 
-export function Avatar({ url, name, size = 64 }: { url: string | null; name: string; size?: number }) {
+function Avatar({ url, name, size = 64 }: { url: string | null; name: string; size?: number }) {
   return url
     ? <img src={url} alt={name} style={{ width: size, height: size }} className="shrink-0 rounded-2xl object-cover" />
     : <div style={{ width: size, height: size }} className="grid shrink-0 place-items-center rounded-2xl bg-espresso font-display text-xl font-black text-copper">{name.slice(0, 1).toUpperCase()}</div>;

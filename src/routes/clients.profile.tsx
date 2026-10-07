@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PortalShell, PortalHeading } from "@/components/portal/PortalShell";
 import { supabase } from "@/integrations/supabase/client";
-import { useState } from "react";
-import { Loader2, Save } from "lucide-react";
+import { useRef, useState } from "react";
+import { Loader2, Save, Upload } from "lucide-react";
 
 export const Route = createFileRoute("/clients/profile")({
   head: () => ({
@@ -15,7 +15,7 @@ export const Route = createFileRoute("/clients/profile")({
   component: () => <PortalShell>{(client) => <Profile client={client} />}</PortalShell>,
 });
 
-interface C { id: string; name: string; email: string; company: string | null; phone: string | null }
+interface C { id: string; avatar_url?: string | null; name: string; email: string; company: string | null; phone: string | null }
 
 function Profile({ client }: { client: C }) {
   const [name, setName] = useState(client.name);
@@ -25,6 +25,22 @@ function Profile({ client }: { client: C }) {
   const [msg, setMsg] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
 
+  const [avatar, setAvatar] = useState<string | null>(client.avatar_url ?? null);
+  const [upBusy, setUpBusy] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
+  async function onFile(file: File) {
+    if (!file.type.startsWith("image/") || file.size > 5 * 1024 * 1024) { setErr("Choose an image under 5 MB."); return; }
+    setUpBusy(true); setErr(null);
+    const path = `clients/${client.id}/${crypto.randomUUID()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, "_")}`;
+    const { error } = await supabase.storage.from("media").upload(path, file);
+    if (error) { setErr(error.message); setUpBusy(false); return; }
+    const { data } = await supabase.storage.from("media").createSignedUrl(path, 60 * 60 * 24 * 365 * 50);
+    if (data) {
+      const { error: e2 } = await supabase.from("portal_clients").update({ avatar_url: data.signedUrl }).eq("id", client.id);
+      if (e2) setErr(e2.message); else { setAvatar(data.signedUrl); setMsg("Profile picture updated."); }
+    }
+    setUpBusy(false);
+  }
   const [pw, setPw] = useState("");
   const [pwBusy, setPwBusy] = useState(false);
   const [pwMsg, setPwMsg] = useState<string | null>(null);
@@ -57,6 +73,13 @@ function Profile({ client }: { client: C }) {
         <form onSubmit={saveProfile} className="rounded-2xl border border-border bg-card p-6">
           <h2 className="mb-4 font-display text-sm font-black uppercase tracking-widest text-foreground">Contact details</h2>
           <div className="space-y-4">
+            <div className="flex items-center gap-4">
+              {avatar ? <img src={avatar} alt="" className="h-16 w-16 rounded-2xl object-cover" /> : <div className="grid h-16 w-16 place-items-center rounded-2xl bg-primary text-xl font-black text-primary-foreground">{name.slice(0, 1)}</div>}
+              <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) onFile(f); e.target.value = ""; }} />
+              <button type="button" onClick={() => fileRef.current?.click()} disabled={upBusy} className="inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-2 text-xs font-bold text-foreground disabled:opacity-60">
+                {upBusy ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Upload className="h-3.5 w-3.5" />} Upload photo
+              </button>
+            </div>
             <div><label className={label}>Full name</label><input value={name} onChange={(e) => setName(e.target.value)} className={input} /></div>
             <div><label className={label}>Company</label><input value={company} onChange={(e) => setCompany(e.target.value)} className={input} /></div>
             <div><label className={label}>Phone</label><input value={phone} onChange={(e) => setPhone(e.target.value)} className={input} /></div>
