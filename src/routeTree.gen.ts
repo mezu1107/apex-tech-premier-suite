@@ -86,6 +86,8 @@ import { Route as AuthenticatedAdminStaffRouteImport } from './routes/_authentic
 import { Route as AuthenticatedAdminStatsRouteImport } from './routes/_authenticated/admin.stats'
 import { Route as AuthenticatedAdminTeamRouteImport } from './routes/_authenticated/admin.team'
 import { Route as AuthenticatedAdminTestimonialsRouteImport } from './routes/_authenticated/admin.testimonials'
+import { Route as AuthenticatedAdminPortalIndexRouteImport } from './routes/_authenticated/admin.portal.index'
+import { Route as AuthenticatedAdminPortalClientIdRouteImport } from './routes/_authenticated/admin.portal.$clientId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -486,6 +488,18 @@ const AuthenticatedAdminTestimonialsRoute =
     path: '/testimonials',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminPortalIndexRoute =
+  AuthenticatedAdminPortalIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedAdminPortalRoute,
+  } as any)
+const AuthenticatedAdminPortalClientIdRoute =
+  AuthenticatedAdminPortalClientIdRouteImport.update({
+    id: '/$clientId',
+    path: '/$clientId',
+    getParentRoute: () => AuthenticatedAdminPortalRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -551,7 +565,7 @@ export interface FileRoutesByFullPath {
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/admin/newsletter': typeof AuthenticatedAdminNewsletterRoute
   '/admin/pixels': typeof AuthenticatedAdminPixelsRoute
-  '/admin/portal': typeof AuthenticatedAdminPortalRoute
+  '/admin/portal': typeof AuthenticatedAdminPortalRouteWithChildren
   '/admin/portfolio': typeof AuthenticatedAdminPortfolioRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/admin/process': typeof AuthenticatedAdminProcessRoute
@@ -564,6 +578,8 @@ export interface FileRoutesByFullPath {
   '/admin/team': typeof AuthenticatedAdminTeamRoute
   '/admin/testimonials': typeof AuthenticatedAdminTestimonialsRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/admin/portal/$clientId': typeof AuthenticatedAdminPortalClientIdRoute
+  '/admin/portal/': typeof AuthenticatedAdminPortalIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -624,7 +640,6 @@ export interface FileRoutesByTo {
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/admin/newsletter': typeof AuthenticatedAdminNewsletterRoute
   '/admin/pixels': typeof AuthenticatedAdminPixelsRoute
-  '/admin/portal': typeof AuthenticatedAdminPortalRoute
   '/admin/portfolio': typeof AuthenticatedAdminPortfolioRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/admin/process': typeof AuthenticatedAdminProcessRoute
@@ -637,6 +652,8 @@ export interface FileRoutesByTo {
   '/admin/team': typeof AuthenticatedAdminTeamRoute
   '/admin/testimonials': typeof AuthenticatedAdminTestimonialsRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
+  '/admin/portal/$clientId': typeof AuthenticatedAdminPortalClientIdRoute
+  '/admin/portal': typeof AuthenticatedAdminPortalIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -704,7 +721,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/_authenticated/admin/newsletter': typeof AuthenticatedAdminNewsletterRoute
   '/_authenticated/admin/pixels': typeof AuthenticatedAdminPixelsRoute
-  '/_authenticated/admin/portal': typeof AuthenticatedAdminPortalRoute
+  '/_authenticated/admin/portal': typeof AuthenticatedAdminPortalRouteWithChildren
   '/_authenticated/admin/portfolio': typeof AuthenticatedAdminPortfolioRoute
   '/_authenticated/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/_authenticated/admin/process': typeof AuthenticatedAdminProcessRoute
@@ -717,6 +734,8 @@ export interface FileRoutesById {
   '/_authenticated/admin/team': typeof AuthenticatedAdminTeamRoute
   '/_authenticated/admin/testimonials': typeof AuthenticatedAdminTestimonialsRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/admin/portal/$clientId': typeof AuthenticatedAdminPortalClientIdRoute
+  '/_authenticated/admin/portal/': typeof AuthenticatedAdminPortalIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -797,6 +816,8 @@ export interface FileRouteTypes {
     | '/admin/team'
     | '/admin/testimonials'
     | '/admin/'
+    | '/admin/portal/$clientId'
+    | '/admin/portal/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -857,7 +878,6 @@ export interface FileRouteTypes {
     | '/admin/messages'
     | '/admin/newsletter'
     | '/admin/pixels'
-    | '/admin/portal'
     | '/admin/portfolio'
     | '/admin/pricing'
     | '/admin/process'
@@ -870,6 +890,8 @@ export interface FileRouteTypes {
     | '/admin/team'
     | '/admin/testimonials'
     | '/admin'
+    | '/admin/portal/$clientId'
+    | '/admin/portal'
   id:
     | '__root__'
     | '/'
@@ -949,6 +971,8 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/team'
     | '/_authenticated/admin/testimonials'
     | '/_authenticated/admin/'
+    | '/_authenticated/admin/portal/$clientId'
+    | '/_authenticated/admin/portal/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -1524,8 +1548,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminTestimonialsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/portal/': {
+      id: '/_authenticated/admin/portal/'
+      path: '/'
+      fullPath: '/admin/portal/'
+      preLoaderRoute: typeof AuthenticatedAdminPortalIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminPortalRoute
+    }
+    '/_authenticated/admin/portal/$clientId': {
+      id: '/_authenticated/admin/portal/$clientId'
+      path: '/$clientId'
+      fullPath: '/admin/portal/$clientId'
+      preLoaderRoute: typeof AuthenticatedAdminPortalClientIdRouteImport
+      parentRoute: typeof AuthenticatedAdminPortalRoute
+    }
   }
 }
+
+interface AuthenticatedAdminPortalRouteChildren {
+  AuthenticatedAdminPortalClientIdRoute: typeof AuthenticatedAdminPortalClientIdRoute
+  AuthenticatedAdminPortalIndexRoute: typeof AuthenticatedAdminPortalIndexRoute
+}
+
+const AuthenticatedAdminPortalRouteChildren: AuthenticatedAdminPortalRouteChildren =
+  {
+    AuthenticatedAdminPortalClientIdRoute:
+      AuthenticatedAdminPortalClientIdRoute,
+    AuthenticatedAdminPortalIndexRoute: AuthenticatedAdminPortalIndexRoute,
+  }
+
+const AuthenticatedAdminPortalRouteWithChildren =
+  AuthenticatedAdminPortalRoute._addFileChildren(
+    AuthenticatedAdminPortalRouteChildren,
+  )
 
 interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminAboutRoute: typeof AuthenticatedAdminAboutRoute
@@ -1540,7 +1595,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminMessagesRoute: typeof AuthenticatedAdminMessagesRoute
   AuthenticatedAdminNewsletterRoute: typeof AuthenticatedAdminNewsletterRoute
   AuthenticatedAdminPixelsRoute: typeof AuthenticatedAdminPixelsRoute
-  AuthenticatedAdminPortalRoute: typeof AuthenticatedAdminPortalRoute
+  AuthenticatedAdminPortalRoute: typeof AuthenticatedAdminPortalRouteWithChildren
   AuthenticatedAdminPortfolioRoute: typeof AuthenticatedAdminPortfolioRoute
   AuthenticatedAdminPricingRoute: typeof AuthenticatedAdminPricingRoute
   AuthenticatedAdminProcessRoute: typeof AuthenticatedAdminProcessRoute
@@ -1568,7 +1623,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminMessagesRoute: AuthenticatedAdminMessagesRoute,
   AuthenticatedAdminNewsletterRoute: AuthenticatedAdminNewsletterRoute,
   AuthenticatedAdminPixelsRoute: AuthenticatedAdminPixelsRoute,
-  AuthenticatedAdminPortalRoute: AuthenticatedAdminPortalRoute,
+  AuthenticatedAdminPortalRoute: AuthenticatedAdminPortalRouteWithChildren,
   AuthenticatedAdminPortfolioRoute: AuthenticatedAdminPortfolioRoute,
   AuthenticatedAdminPricingRoute: AuthenticatedAdminPricingRoute,
   AuthenticatedAdminProcessRoute: AuthenticatedAdminProcessRoute,

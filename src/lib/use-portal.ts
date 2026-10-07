@@ -9,6 +9,8 @@ export interface PortalClient {
   company: string | null;
   phone: string | null;
   active: boolean;
+  avatar_url?: string | null;
+  am_id?: string | null;
 }
 
 export function usePortalClient() {
@@ -27,7 +29,7 @@ export function usePortalClient() {
     setEmail(auth.user.email ?? null);
     const { data } = await supabase
       .from("portal_clients")
-      .select("id, user_id, name, email, company, phone, active")
+      .select("id, user_id, name, email, company, phone, active, avatar_url, am_id")
       .eq("user_id", auth.user.id)
       .maybeSingle();
     setClient((data as PortalClient) ?? null);
