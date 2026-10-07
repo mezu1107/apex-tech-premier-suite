@@ -1156,7 +1156,10 @@ export type Database = {
       portal_clients: {
         Row: {
           active: boolean
+          address: string | null
+          admin_notes: string | null
           am_id: string | null
+          avatar_url: string | null
           company: string | null
           created_at: string
           email: string
@@ -1165,10 +1168,14 @@ export type Database = {
           phone: string | null
           updated_at: string
           user_id: string | null
+          website: string | null
         }
         Insert: {
           active?: boolean
+          address?: string | null
+          admin_notes?: string | null
           am_id?: string | null
+          avatar_url?: string | null
           company?: string | null
           created_at?: string
           email: string
@@ -1177,10 +1184,14 @@ export type Database = {
           phone?: string | null
           updated_at?: string
           user_id?: string | null
+          website?: string | null
         }
         Update: {
           active?: boolean
+          address?: string | null
+          admin_notes?: string | null
           am_id?: string | null
+          avatar_url?: string | null
           company?: string | null
           created_at?: string
           email?: string
@@ -1189,6 +1200,7 @@ export type Database = {
           phone?: string | null
           updated_at?: string
           user_id?: string | null
+          website?: string | null
         }
         Relationships: []
       }
@@ -2480,6 +2492,7 @@ export type Database = {
         Args: { _project: string }
         Returns: {
           am_id: string
+          avatar_url: string
           company: string
           name: string
         }[]
@@ -2488,6 +2501,7 @@ export type Database = {
         Args: { _project: string }
         Returns: {
           am_id: string
+          avatar_url: string
           department: string
           job_title: string
           name: string
