@@ -1,17 +1,18 @@
 import { createFileRoute, Outlet, Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { LayoutDashboard, Wrench, Briefcase, MessageSquare, Users, Star, LogOut, Loader2, Menu, X, ArrowLeft, HelpCircle, FileText, Tag, Building2, GitBranch, BarChart3, BookOpen, Search, FileSignature, CalendarCheck, Mail, Radar, ShieldCheck } from "lucide-react";
+import { LayoutDashboard, Wrench, Briefcase, MessageSquare, Users, Star, LogOut, Loader2, Menu, X, ArrowLeft, HelpCircle, FileText, Tag, Building2, GitBranch, BarChart3, BookOpen, Search, FileSignature, CalendarCheck, Mail, Radar, ShieldCheck, MessageCircle } from "lucide-react";
 import { useAuth } from "@/lib/use-auth";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminLayout,
 });
 
-const nav: { to: string; label: string; icon: typeof LayoutDashboard; exact?: boolean }[] = [
+const nav: { to: string; label: string; icon: typeof LayoutDashboard; exact?: boolean; badge?: string }[] = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { to: "/admin/portal", label: "Client Portal", icon: Users },
   { to: "/admin/staff", label: "Team Portal", icon: Users },
+  { to: "/admin/chat", label: "Live Chat", icon: MessageCircle, badge: "live" },
   { to: "/admin/crm", label: "CRM Pipeline", icon: GitBranch },
 
   { to: "/admin/proposals", label: "Proposals", icon: FileSignature },
@@ -106,7 +107,13 @@ function AdminLayout() {
               return (
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 <Link key={n.to} to={n.to as any} className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition ${active ? "bg-espresso text-white" : "text-espresso/80 hover:bg-sand"}`}>
-                  <n.icon className="h-4 w-4 shrink-0" /> <span className="truncate">{n.label}</span>
+                  <n.icon className="h-4 w-4 shrink-0" />
+                  <span className="flex-1 truncate">{n.label}</span>
+                  {n.badge === "live" && (
+                    <span className="ml-auto rounded-full bg-green-500 px-1.5 py-0.5 text-[9px] font-black uppercase text-white">
+                      live
+                    </span>
+                  )}
                 </Link>
               );
             })}

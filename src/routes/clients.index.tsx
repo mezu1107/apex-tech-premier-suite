@@ -6,9 +6,9 @@ import { Loader2, LockKeyhole, ArrowLeft } from "lucide-react";
 export const Route = createFileRoute("/clients/")({
   head: () => ({
     meta: [
-      { title: "Client Portal Login â€” AM Enterprises" },
+      { title: "Client Portal Login \u2014 AM Enterprises" },
       { name: "description", content: "Sign in to the AM Enterprises client portal to track projects, tasks, invoices, documents and messages in one place." },
-      { property: "og:title", content: "Client Portal Login â€” AM Enterprises" },
+      { property: "og:title", content: "Client Portal Login \u2014 AM Enterprises" },
       { property: "og:description", content: "Track your projects, invoices and documents in the AM Enterprises client portal." },
       { name: "robots", content: "noindex, follow" },
     ],
@@ -49,7 +49,7 @@ function ClientLogin() {
     });
     setBusy(false);
     if (err) setError(err.message);
-    else setNotice("Password reset link sent â€” check your inbox.");
+    else setNotice("Password reset link sent \u2014 check your inbox.");
   }
 
   return (
@@ -63,7 +63,7 @@ function ClientLogin() {
             <div className="grid h-11 w-11 place-items-center rounded-2xl bg-primary text-primary-foreground"><LockKeyhole className="h-5 w-5" /></div>
             <div>
               <h1 className="font-display text-xl font-black text-foreground">Client Portal</h1>
-              <p className="text-xs text-muted-foreground">Projects, invoices, documents & messages</p>
+              <p className="text-xs text-muted-foreground">Projects, invoices, documents &amp; messages</p>
             </div>
           </div>
 

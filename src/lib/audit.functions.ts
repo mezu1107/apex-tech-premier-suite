@@ -21,7 +21,7 @@ export type AuditResult = {
 
 /** Fetches a public page and runs deterministic on-page checks. */
 export const runSiteAudit = createServerFn({ method: "POST" })
-  .inputValidator((data) => auditInputSchema.parse(data))
+  .validator((data) => auditInputSchema.parse(data))
   .handler(async ({ data }): Promise<AuditResult> => {
     const target = normaliseAuditUrl(data.url);
 
@@ -55,7 +55,7 @@ export const runSiteAudit = createServerFn({ method: "POST" })
       const timer = setTimeout(() => controller.abort(), 12000);
       const res = await safeFetch(parsed, {
         signal: controller.signal,
-        headers: { "user-agent": "AymoxiSiteAudit/1.0 (+https://www.aymoxi.com)" },
+        headers: { "user-agent": "AM EnterpriseSiteAudit/1.0 (+https://www.AM Enterprise.com)" },
       });
       clearTimeout(timer);
       status = res.status;

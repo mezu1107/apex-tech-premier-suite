@@ -2,8 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useServerFn } from "@tanstack/react-start";
-import { createClientAccount, updateClientCredentials, deleteClientAccount } from "@/lib/portal.functions";
-import { Loader2, Plus, Trash2, KeyRound, X, Users } from "lucide-react";
+import { createClientAccount, updateClientCredentials, deleteClientAccount, repairClientLink } from "@/lib/portal.functions";
+import { Loader2, Plus, Trash2, KeyRound, X, Users, AlertTriangle, RefreshCw } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/admin/portal/")({
   component: AdminPortal,
@@ -23,6 +23,7 @@ function AdminPortal() {
   const create = useServerFn(createClientAccount);
   const updateCreds = useServerFn(updateClientCredentials);
   const removeAccount = useServerFn(deleteClientAccount);
+  const repair = useServerFn(repairClientLink);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -65,7 +66,27 @@ function AdminPortal() {
                     <td className="px-4 py-3 font-semibold text-espresso">{c.name}</td>
                     <td className="px-4 py-3 text-espresso/80">{c.email}</td>
                     <td className="px-4 py-3 text-espresso/70">{c.company || "—"}</td>
-                    <td className="px-4 py-3 text-espresso/70">{c.user_id ? "Active login" : "No login"}</td>
+                    <td className="px-4 py-3 text-espresso/70">
+                      {c.user_id ? (
+                        <span className="inline-flex items-center gap-1 text-emerald-700 font-semibold text-xs">
+                          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Active login
+                        </span>
+                      ) : (
+                        <button
+                          title="Auto-fix portal link"
+                          onClick={async () => {
+                            try {
+                              await repair({ data: { clientId: c.id } });
+                              load();
+                              alert("Portal link fixed! Client can now log in.");
+                            } catch (e) { alert((e as Error).message); }
+                          }}
+                          className="inline-flex items-center gap-1 rounded-full border border-amber-300 bg-amber-50 px-2.5 py-1 text-[10px] font-bold text-amber-800 hover:bg-amber-100"
+                        >
+                          <AlertTriangle className="h-3 w-3" /> No login — Fix
+                        </button>
+                      )}
+                    </td>
                     <td className="px-4 py-3">
                       <button
                         onClick={async () => { await supabase.from("portal_clients").update({ active: !c.active }).eq("id", c.id); load(); }}

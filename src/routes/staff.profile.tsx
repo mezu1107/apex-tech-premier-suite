@@ -9,7 +9,7 @@ import { Loader2 } from "lucide-react";
 export const Route = createFileRoute("/staff/profile")({
   head: () => ({
     meta: [
-      { title: "My Profile — AYMOXI Team Portal" },
+      { title: "My Profile — AM Enterprises Team Portal" },
       { name: "description", content: "Update your contact details and change your portal password." },
       { name: "robots", content: "noindex, nofollow" },
     ],

@@ -1,12 +1,17 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { Loader2, Plus, Trash2, ExternalLink } from "lucide-react";
 import type { StaffMember } from "@/lib/use-staff";
 import { useStaffRows } from "@/lib/use-staff";
 import { supabase } from "@/integrations/supabase/client";
 import { ProjectConnections } from "@/components/portal/ProjectConnections";
-import { ChatPanel } from "@/components/chat/ChatPanel";
 import { StaffHeading, StaffEmpty } from "@/components/portal/StaffShell";
 import { useMyProjects, useProjectScopedRows, insertRow, updateRow, deleteRow, type ProjectRow } from "./data";
+
+// Lazy-load ChatPanel — it uses browser-only APIs (MediaRecorder, etc.)
+// so it must never run on the server (SSR).
+const ChatPanel = lazy(() =>
+  import("@/components/chat/ChatPanel").then((m) => ({ default: m.ChatPanel }))
+);
 
 export const inputCls = "w-full rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none focus:border-primary";
 
@@ -79,7 +84,11 @@ export function ChatSection() {
   return (
     <>
       <StaffHeading title="Team chat" subtitle="1-to-1 and group conversations — search by name, email or AM ID." />
-      <ChatPanel />
+      <div className="h-[calc(100vh-12rem)] min-h-[500px] overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+        <Suspense fallback={<div className="grid h-full place-items-center"><Loader2 className="h-6 w-6 animate-spin text-primary" /></div>}>
+          <ChatPanel />
+        </Suspense>
+      </div>
     </>
   );
 }

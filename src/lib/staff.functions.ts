@@ -5,7 +5,7 @@ import { assertAdmin, cleanEmail, cleanPassword } from "./portal-helpers.server"
 /** Create a team member portal account + login (admin only). */
 export const createStaffAccount = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator(
+  .validator(
     (input: {
       name: string;
       email: string;
@@ -70,7 +70,7 @@ export const createStaffAccount = createServerFn({ method: "POST" })
 /** Reset a team member's password or login email (admin only). */
 export const updateStaffCredentials = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { staffId: string; password?: string; email?: string }) => input)
+  .validator((input: { staffId: string; password?: string; email?: string }) => input)
   .handler(async ({ data, context }) => {
     await assertAdmin(context as never);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -117,7 +117,7 @@ export const updateStaffCredentials = createServerFn({ method: "POST" })
 /** Delete a team member portal account, login and related data (admin only). */
 export const deleteStaffAccount = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { staffId: string }) => input)
+  .validator((input: { staffId: string }) => input)
   .handler(async ({ data, context }) => {
     await assertAdmin(context as never);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");

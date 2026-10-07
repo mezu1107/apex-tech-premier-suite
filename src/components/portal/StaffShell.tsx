@@ -5,13 +5,14 @@ import { useStaffMember, type StaffMember } from "@/lib/use-staff";
 import { STAFF_MODULES, roleLabel } from "@/lib/staff-roles";
 import {
   LayoutDashboard, ListChecks, FolderKanban, MessagesSquare, Bell, FileText, UserRound,
-  LogOut, Loader2, Menu, X, ArrowLeft,
+  LogOut, Loader2, Menu, X, ArrowLeft, MessageCircle,
 } from "lucide-react";
 
 const ICONS: Record<string, typeof LayoutDashboard> = {
   dashboard: LayoutDashboard,
   tasks: ListChecks,
   projects: FolderKanban,
+  chat: MessageCircle,
   messages: MessagesSquare,
   notifications: Bell,
   documents: FileText,
@@ -96,10 +97,17 @@ export function StaffShell({
             {allowed.map((m) => {
               const Icon = ICONS[m.key] ?? LayoutDashboard;
               const active = location.pathname === m.path;
+              const isChat = m.key === "chat";
               return (
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 <Link key={m.key} to={m.path as any} className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition ${active ? "bg-primary text-primary-foreground" : "text-foreground/80 hover:bg-muted"}`}>
-                  <Icon className="h-4 w-4 shrink-0" /> <span className="truncate">{m.label}</span>
+                  <Icon className="h-4 w-4 shrink-0" />
+                  <span className="flex-1 truncate">{m.label}</span>
+                  {isChat && (
+                    <span className="ml-auto grid h-5 w-5 place-items-center rounded-full bg-green-500 text-[9px] font-black text-white">
+                      ●
+                    </span>
+                  )}
                 </Link>
               );
             })}

@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { usePortalClient } from "@/lib/use-portal";
 import {
   LayoutDashboard, FolderKanban, ListChecks, ReceiptText, MessagesSquare, Bell,
-  FileText, UserRound, LifeBuoy, LogOut, Loader2, Menu, X, ArrowLeft,
+  FileText, UserRound, LifeBuoy, LogOut, Loader2, Menu, X, ArrowLeft, MessageCircle,
 } from "lucide-react";
 
 const nav = [
@@ -12,7 +12,8 @@ const nav = [
   { to: "/clients/projects", label: "Projects", icon: FolderKanban },
   { to: "/clients/tasks", label: "Tasks", icon: ListChecks },
   { to: "/clients/billing", label: "Billing", icon: ReceiptText },
-  { to: "/clients/messages", label: "Messages", icon: MessagesSquare },
+  { to: "/clients/chat", label: "Live Chat", icon: MessageCircle },
+  { to: "/clients/messages", label: "Inbox", icon: MessagesSquare },
   { to: "/clients/notifications", label: "Notifications", icon: Bell },
   { to: "/clients/documents", label: "Documents", icon: FileText },
   { to: "/clients/support", label: "Support", icon: LifeBuoy },
@@ -63,7 +64,13 @@ export function PortalShell({ children }: { children: (client: NonNullable<Retur
         <button onClick={() => setOpen(!open)} className="grid h-9 w-9 place-items-center rounded-xl border border-border">
           {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
         </button>
-        <span className="font-display font-black text-foreground">Client Portal</span>
+        <div className="flex items-center gap-2">
+          {client.avatar_url
+            ? <img src={client.avatar_url} alt={client.name} className="h-7 w-7 rounded-lg object-cover" />
+            : <div className="grid h-7 w-7 place-items-center rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 text-xs font-black text-white">{client.name.slice(0, 1).toUpperCase()}</div>
+          }
+          <span className="font-display font-black text-foreground">{client.name.split(" ")[0]}</span>
+        </div>
         <button onClick={signOut} className="grid h-9 w-9 place-items-center rounded-xl border border-border"><LogOut className="h-4 w-4" /></button>
       </div>
 
@@ -77,17 +84,30 @@ export function PortalShell({ children }: { children: (client: NonNullable<Retur
             </Link>
             <button onClick={() => setOpen(false)} className="grid h-8 w-8 place-items-center rounded-xl border border-border lg:hidden"><X className="h-4 w-4" /></button>
           </div>
-          <div className="mb-6">
-            <p className="font-display text-lg font-black text-foreground">{client.name}</p>
-            <p className="mt-0.5 truncate text-xs text-muted-foreground">{client.company || client.email}</p>
+          <div className="mb-6 flex items-center gap-3">
+            {client.avatar_url
+              ? <img src={client.avatar_url} alt={client.name} className="h-10 w-10 shrink-0 rounded-xl object-cover ring-2 ring-primary/20" />
+              : <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 text-base font-black text-white">{client.name.slice(0, 1).toUpperCase()}</div>
+            }
+            <div className="min-w-0">
+              <p className="truncate font-display text-sm font-black text-foreground">{client.name}</p>
+              <p className="mt-0.5 truncate text-xs text-muted-foreground">{client.company || client.email}</p>
+            </div>
           </div>
           <nav className="space-y-1">
             {nav.map((n) => {
               const active = location.pathname === n.to;
+              const isChat = n.to === "/clients/chat";
               return (
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 <Link key={n.to} to={n.to as any} className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition ${active ? "bg-primary text-primary-foreground" : "text-foreground/80 hover:bg-muted"}`}>
-                  <n.icon className="h-4 w-4 shrink-0" /> <span className="truncate">{n.label}</span>
+                  <n.icon className="h-4 w-4 shrink-0" />
+                  <span className="flex-1 truncate">{n.label}</span>
+                  {isChat && (
+                    <span className="ml-auto grid h-5 w-5 place-items-center rounded-full bg-green-500 text-[9px] font-black text-white">
+                      ●
+                    </span>
+                  )}
                 </Link>
               );
             })}

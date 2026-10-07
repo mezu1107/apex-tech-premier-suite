@@ -8,7 +8,7 @@ import { useState } from "react";
 export const Route = createFileRoute("/clients/messages")({
   head: () => ({
     meta: [
-      { title: "Messages â€” AM Enterprises Client Portal" },
+      { title: "Messages \u2014 AM Enterprises Client Portal" },
       { name: "description", content: "Read updates and announcements sent to you by the AM Enterprises delivery team." },
       { name: "robots", content: "noindex, nofollow" },
     ],
@@ -35,7 +35,7 @@ function Messages({ clientId }: { clientId: string }) {
   return (
     <div>
       <PortalHeading title="Messages" subtitle={`${unread} unread of ${rows.length}`} />
-      {loading ? <EmptyState label="Loading messagesâ€¦" /> : rows.length === 0 ? <EmptyState label="No messages yet." /> : (
+      {loading ? <EmptyState label="Loading messages\u2026" /> : rows.length === 0 ? <EmptyState label="No messages yet." /> : (
         <div className="space-y-3">
           {rows.map((m) => (
             <button key={m.id} onClick={() => open(m)}

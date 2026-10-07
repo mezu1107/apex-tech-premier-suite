@@ -36,10 +36,12 @@ import { Route as TeamRouteImport } from './routes/team'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as ApiSendEmailRouteImport } from './routes/api/send-email'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ClientsIndexRouteImport } from './routes/clients.index'
 import { Route as ClientsBillingRouteImport } from './routes/clients.billing'
+import { Route as ClientsChatRouteImport } from './routes/clients.chat'
 import { Route as ClientsDashboardRouteImport } from './routes/clients.dashboard'
 import { Route as ClientsDocumentsRouteImport } from './routes/clients.documents'
 import { Route as ClientsMessagesRouteImport } from './routes/clients.messages'
@@ -48,10 +50,12 @@ import { Route as ClientsProfileRouteImport } from './routes/clients.profile'
 import { Route as ClientsProjectsRouteImport } from './routes/clients.projects'
 import { Route as ClientsSupportRouteImport } from './routes/clients.support'
 import { Route as ClientsTasksRouteImport } from './routes/clients.tasks'
+import { Route as PortalIndexRouteImport } from './routes/portal.index'
 import { Route as PortalDeptRouteImport } from './routes/portal.$dept'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as StaffIndexRouteImport } from './routes/staff.index'
+import { Route as StaffChatRouteImport } from './routes/staff.chat'
 import { Route as StaffDashboardRouteImport } from './routes/staff.dashboard'
 import { Route as StaffDocumentsRouteImport } from './routes/staff.documents'
 import { Route as StaffMessagesRouteImport } from './routes/staff.messages'
@@ -67,6 +71,7 @@ import { Route as AuthenticatedAdminBadgesRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAdminBlogRouteImport } from './routes/_authenticated/admin.blog'
 import { Route as AuthenticatedAdminBookingsRouteImport } from './routes/_authenticated/admin.bookings'
 import { Route as AuthenticatedAdminCasesRouteImport } from './routes/_authenticated/admin.cases'
+import { Route as AuthenticatedAdminChatRouteImport } from './routes/_authenticated/admin.chat'
 import { Route as AuthenticatedAdminClientsRouteImport } from './routes/_authenticated/admin.clients'
 import { Route as AuthenticatedAdminCrmRouteImport } from './routes/_authenticated/admin.crm'
 import { Route as AuthenticatedAdminFaqsRouteImport } from './routes/_authenticated/admin.faqs'
@@ -223,6 +228,11 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiSendEmailRoute = ApiSendEmailRouteImport.update({
+  id: '/api/send-email',
+  path: '/api/send-email',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
@@ -241,6 +251,11 @@ const ClientsIndexRoute = ClientsIndexRouteImport.update({
 const ClientsBillingRoute = ClientsBillingRouteImport.update({
   id: '/billing',
   path: '/billing',
+  getParentRoute: () => ClientsRoute,
+} as any)
+const ClientsChatRoute = ClientsChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
   getParentRoute: () => ClientsRoute,
 } as any)
 const ClientsDashboardRoute = ClientsDashboardRouteImport.update({
@@ -283,6 +298,11 @@ const ClientsTasksRoute = ClientsTasksRouteImport.update({
   path: '/tasks',
   getParentRoute: () => ClientsRoute,
 } as any)
+const PortalIndexRoute = PortalIndexRouteImport.update({
+  id: '/portal/',
+  path: '/portal/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PortalDeptRoute = PortalDeptRouteImport.update({
   id: '/portal/$dept',
   path: '/portal/$dept',
@@ -301,6 +321,11 @@ const ServicesSlugRoute = ServicesSlugRouteImport.update({
 const StaffIndexRoute = StaffIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffChatRoute = StaffChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
   getParentRoute: () => StaffRoute,
 } as any)
 const StaffDashboardRoute = StaffDashboardRouteImport.update({
@@ -378,6 +403,11 @@ const AuthenticatedAdminBookingsRoute =
 const AuthenticatedAdminCasesRoute = AuthenticatedAdminCasesRouteImport.update({
   id: '/cases',
   path: '/cases',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminChatRoute = AuthenticatedAdminChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
 const AuthenticatedAdminClientsRoute =
@@ -528,8 +558,10 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/api/chat': typeof ApiChatRoute
+  '/api/send-email': typeof ApiSendEmailRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/clients/billing': typeof ClientsBillingRoute
+  '/clients/chat': typeof ClientsChatRoute
   '/clients/dashboard': typeof ClientsDashboardRoute
   '/clients/documents': typeof ClientsDocumentsRoute
   '/clients/messages': typeof ClientsMessagesRoute
@@ -540,6 +572,7 @@ export interface FileRoutesByFullPath {
   '/clients/tasks': typeof ClientsTasksRoute
   '/portal/$dept': typeof PortalDeptRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/staff/chat': typeof StaffChatRoute
   '/staff/dashboard': typeof StaffDashboardRoute
   '/staff/documents': typeof StaffDocumentsRoute
   '/staff/messages': typeof StaffMessagesRoute
@@ -550,6 +583,7 @@ export interface FileRoutesByFullPath {
   '/team/$slug': typeof TeamSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/clients/': typeof ClientsIndexRoute
+  '/portal/': typeof PortalIndexRoute
   '/services/': typeof ServicesIndexRoute
   '/staff/': typeof StaffIndexRoute
   '/team/': typeof TeamIndexRoute
@@ -558,6 +592,7 @@ export interface FileRoutesByFullPath {
   '/admin/blog': typeof AuthenticatedAdminBlogRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/admin/cases': typeof AuthenticatedAdminCasesRoute
+  '/admin/chat': typeof AuthenticatedAdminChatRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/admin/crm': typeof AuthenticatedAdminCrmRoute
   '/admin/faqs': typeof AuthenticatedAdminFaqsRoute
@@ -603,8 +638,10 @@ export interface FileRoutesByTo {
   '/smm-auth': typeof SmmAuthRoute
   '/terms': typeof TermsRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/send-email': typeof ApiSendEmailRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/clients/billing': typeof ClientsBillingRoute
+  '/clients/chat': typeof ClientsChatRoute
   '/clients/dashboard': typeof ClientsDashboardRoute
   '/clients/documents': typeof ClientsDocumentsRoute
   '/clients/messages': typeof ClientsMessagesRoute
@@ -615,6 +652,7 @@ export interface FileRoutesByTo {
   '/clients/tasks': typeof ClientsTasksRoute
   '/portal/$dept': typeof PortalDeptRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/staff/chat': typeof StaffChatRoute
   '/staff/dashboard': typeof StaffDashboardRoute
   '/staff/documents': typeof StaffDocumentsRoute
   '/staff/messages': typeof StaffMessagesRoute
@@ -625,6 +663,7 @@ export interface FileRoutesByTo {
   '/team/$slug': typeof TeamSlugRoute
   '/blog': typeof BlogIndexRoute
   '/clients': typeof ClientsIndexRoute
+  '/portal': typeof PortalIndexRoute
   '/services': typeof ServicesIndexRoute
   '/staff': typeof StaffIndexRoute
   '/team': typeof TeamIndexRoute
@@ -633,6 +672,7 @@ export interface FileRoutesByTo {
   '/admin/blog': typeof AuthenticatedAdminBlogRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/admin/cases': typeof AuthenticatedAdminCasesRoute
+  '/admin/chat': typeof AuthenticatedAdminChatRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/admin/crm': typeof AuthenticatedAdminCrmRoute
   '/admin/faqs': typeof AuthenticatedAdminFaqsRoute
@@ -684,8 +724,10 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/api/chat': typeof ApiChatRoute
+  '/api/send-email': typeof ApiSendEmailRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/clients/billing': typeof ClientsBillingRoute
+  '/clients/chat': typeof ClientsChatRoute
   '/clients/dashboard': typeof ClientsDashboardRoute
   '/clients/documents': typeof ClientsDocumentsRoute
   '/clients/messages': typeof ClientsMessagesRoute
@@ -696,6 +738,7 @@ export interface FileRoutesById {
   '/clients/tasks': typeof ClientsTasksRoute
   '/portal/$dept': typeof PortalDeptRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/staff/chat': typeof StaffChatRoute
   '/staff/dashboard': typeof StaffDashboardRoute
   '/staff/documents': typeof StaffDocumentsRoute
   '/staff/messages': typeof StaffMessagesRoute
@@ -706,6 +749,7 @@ export interface FileRoutesById {
   '/team/$slug': typeof TeamSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/clients/': typeof ClientsIndexRoute
+  '/portal/': typeof PortalIndexRoute
   '/services/': typeof ServicesIndexRoute
   '/staff/': typeof StaffIndexRoute
   '/team/': typeof TeamIndexRoute
@@ -714,6 +758,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/blog': typeof AuthenticatedAdminBlogRoute
   '/_authenticated/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/_authenticated/admin/cases': typeof AuthenticatedAdminCasesRoute
+  '/_authenticated/admin/chat': typeof AuthenticatedAdminChatRoute
   '/_authenticated/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/_authenticated/admin/crm': typeof AuthenticatedAdminCrmRoute
   '/_authenticated/admin/faqs': typeof AuthenticatedAdminFaqsRoute
@@ -766,8 +811,10 @@ export interface FileRouteTypes {
     | '/terms'
     | '/admin'
     | '/api/chat'
+    | '/api/send-email'
     | '/blog/$slug'
     | '/clients/billing'
+    | '/clients/chat'
     | '/clients/dashboard'
     | '/clients/documents'
     | '/clients/messages'
@@ -778,6 +825,7 @@ export interface FileRouteTypes {
     | '/clients/tasks'
     | '/portal/$dept'
     | '/services/$slug'
+    | '/staff/chat'
     | '/staff/dashboard'
     | '/staff/documents'
     | '/staff/messages'
@@ -788,6 +836,7 @@ export interface FileRouteTypes {
     | '/team/$slug'
     | '/blog/'
     | '/clients/'
+    | '/portal/'
     | '/services/'
     | '/staff/'
     | '/team/'
@@ -796,6 +845,7 @@ export interface FileRouteTypes {
     | '/admin/blog'
     | '/admin/bookings'
     | '/admin/cases'
+    | '/admin/chat'
     | '/admin/clients'
     | '/admin/crm'
     | '/admin/faqs'
@@ -841,8 +891,10 @@ export interface FileRouteTypes {
     | '/smm-auth'
     | '/terms'
     | '/api/chat'
+    | '/api/send-email'
     | '/blog/$slug'
     | '/clients/billing'
+    | '/clients/chat'
     | '/clients/dashboard'
     | '/clients/documents'
     | '/clients/messages'
@@ -853,6 +905,7 @@ export interface FileRouteTypes {
     | '/clients/tasks'
     | '/portal/$dept'
     | '/services/$slug'
+    | '/staff/chat'
     | '/staff/dashboard'
     | '/staff/documents'
     | '/staff/messages'
@@ -863,6 +916,7 @@ export interface FileRouteTypes {
     | '/team/$slug'
     | '/blog'
     | '/clients'
+    | '/portal'
     | '/services'
     | '/staff'
     | '/team'
@@ -871,6 +925,7 @@ export interface FileRouteTypes {
     | '/admin/blog'
     | '/admin/bookings'
     | '/admin/cases'
+    | '/admin/chat'
     | '/admin/clients'
     | '/admin/crm'
     | '/admin/faqs'
@@ -921,8 +976,10 @@ export interface FileRouteTypes {
     | '/terms'
     | '/_authenticated/admin'
     | '/api/chat'
+    | '/api/send-email'
     | '/blog/$slug'
     | '/clients/billing'
+    | '/clients/chat'
     | '/clients/dashboard'
     | '/clients/documents'
     | '/clients/messages'
@@ -933,6 +990,7 @@ export interface FileRouteTypes {
     | '/clients/tasks'
     | '/portal/$dept'
     | '/services/$slug'
+    | '/staff/chat'
     | '/staff/dashboard'
     | '/staff/documents'
     | '/staff/messages'
@@ -943,6 +1001,7 @@ export interface FileRouteTypes {
     | '/team/$slug'
     | '/blog/'
     | '/clients/'
+    | '/portal/'
     | '/services/'
     | '/staff/'
     | '/team/'
@@ -951,6 +1010,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/blog'
     | '/_authenticated/admin/bookings'
     | '/_authenticated/admin/cases'
+    | '/_authenticated/admin/chat'
     | '/_authenticated/admin/clients'
     | '/_authenticated/admin/crm'
     | '/_authenticated/admin/faqs'
@@ -1002,9 +1062,11 @@ export interface RootRouteChildren {
   TeamRoute: typeof TeamRouteWithChildren
   TermsRoute: typeof TermsRoute
   ApiChatRoute: typeof ApiChatRoute
+  ApiSendEmailRoute: typeof ApiSendEmailRoute
   BlogSlugRoute: typeof BlogSlugRoute
   PortalDeptRoute: typeof PortalDeptRoute
   BlogIndexRoute: typeof BlogIndexRoute
+  PortalIndexRoute: typeof PortalIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1198,6 +1260,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/send-email': {
+      id: '/api/send-email'
+      path: '/api/send-email'
+      fullPath: '/api/send-email'
+      preLoaderRoute: typeof ApiSendEmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/': {
       id: '/blog/'
       path: '/blog'
@@ -1224,6 +1293,13 @@ declare module '@tanstack/react-router' {
       path: '/billing'
       fullPath: '/clients/billing'
       preLoaderRoute: typeof ClientsBillingRouteImport
+      parentRoute: typeof ClientsRoute
+    }
+    '/clients/chat': {
+      id: '/clients/chat'
+      path: '/chat'
+      fullPath: '/clients/chat'
+      preLoaderRoute: typeof ClientsChatRouteImport
       parentRoute: typeof ClientsRoute
     }
     '/clients/dashboard': {
@@ -1282,6 +1358,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ClientsTasksRouteImport
       parentRoute: typeof ClientsRoute
     }
+    '/portal/': {
+      id: '/portal/'
+      path: '/portal'
+      fullPath: '/portal/'
+      preLoaderRoute: typeof PortalIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/portal/$dept': {
       id: '/portal/$dept'
       path: '/portal/$dept'
@@ -1308,6 +1391,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/staff/'
       preLoaderRoute: typeof StaffIndexRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/chat': {
+      id: '/staff/chat'
+      path: '/chat'
+      fullPath: '/staff/chat'
+      preLoaderRoute: typeof StaffChatRouteImport
       parentRoute: typeof StaffRoute
     }
     '/staff/dashboard': {
@@ -1413,6 +1503,13 @@ declare module '@tanstack/react-router' {
       path: '/cases'
       fullPath: '/admin/cases'
       preLoaderRoute: typeof AuthenticatedAdminCasesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/chat': {
+      id: '/_authenticated/admin/chat'
+      path: '/chat'
+      fullPath: '/admin/chat'
+      preLoaderRoute: typeof AuthenticatedAdminChatRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/admin/clients': {
@@ -1588,6 +1685,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminBlogRoute: typeof AuthenticatedAdminBlogRoute
   AuthenticatedAdminBookingsRoute: typeof AuthenticatedAdminBookingsRoute
   AuthenticatedAdminCasesRoute: typeof AuthenticatedAdminCasesRoute
+  AuthenticatedAdminChatRoute: typeof AuthenticatedAdminChatRoute
   AuthenticatedAdminClientsRoute: typeof AuthenticatedAdminClientsRoute
   AuthenticatedAdminCrmRoute: typeof AuthenticatedAdminCrmRoute
   AuthenticatedAdminFaqsRoute: typeof AuthenticatedAdminFaqsRoute
@@ -1616,6 +1714,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminBlogRoute: AuthenticatedAdminBlogRoute,
   AuthenticatedAdminBookingsRoute: AuthenticatedAdminBookingsRoute,
   AuthenticatedAdminCasesRoute: AuthenticatedAdminCasesRoute,
+  AuthenticatedAdminChatRoute: AuthenticatedAdminChatRoute,
   AuthenticatedAdminClientsRoute: AuthenticatedAdminClientsRoute,
   AuthenticatedAdminCrmRoute: AuthenticatedAdminCrmRoute,
   AuthenticatedAdminFaqsRoute: AuthenticatedAdminFaqsRoute,
@@ -1654,6 +1753,7 @@ const AuthenticatedRouteRouteWithChildren =
 
 interface ClientsRouteChildren {
   ClientsBillingRoute: typeof ClientsBillingRoute
+  ClientsChatRoute: typeof ClientsChatRoute
   ClientsDashboardRoute: typeof ClientsDashboardRoute
   ClientsDocumentsRoute: typeof ClientsDocumentsRoute
   ClientsMessagesRoute: typeof ClientsMessagesRoute
@@ -1667,6 +1767,7 @@ interface ClientsRouteChildren {
 
 const ClientsRouteChildren: ClientsRouteChildren = {
   ClientsBillingRoute: ClientsBillingRoute,
+  ClientsChatRoute: ClientsChatRoute,
   ClientsDashboardRoute: ClientsDashboardRoute,
   ClientsDocumentsRoute: ClientsDocumentsRoute,
   ClientsMessagesRoute: ClientsMessagesRoute,
@@ -1696,6 +1797,7 @@ const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
 )
 
 interface StaffRouteChildren {
+  StaffChatRoute: typeof StaffChatRoute
   StaffDashboardRoute: typeof StaffDashboardRoute
   StaffDocumentsRoute: typeof StaffDocumentsRoute
   StaffMessagesRoute: typeof StaffMessagesRoute
@@ -1707,6 +1809,7 @@ interface StaffRouteChildren {
 }
 
 const StaffRouteChildren: StaffRouteChildren = {
+  StaffChatRoute: StaffChatRoute,
   StaffDashboardRoute: StaffDashboardRoute,
   StaffDocumentsRoute: StaffDocumentsRoute,
   StaffMessagesRoute: StaffMessagesRoute,
@@ -1758,9 +1861,11 @@ const rootRouteChildren: RootRouteChildren = {
   TeamRoute: TeamRouteWithChildren,
   TermsRoute: TermsRoute,
   ApiChatRoute: ApiChatRoute,
+  ApiSendEmailRoute: ApiSendEmailRoute,
   BlogSlugRoute: BlogSlugRoute,
   PortalDeptRoute: PortalDeptRoute,
   BlogIndexRoute: BlogIndexRoute,
+  PortalIndexRoute: PortalIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

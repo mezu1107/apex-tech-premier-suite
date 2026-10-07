@@ -7,7 +7,7 @@ import { ProjectConnections } from "@/components/portal/ProjectConnections";
 export const Route = createFileRoute("/staff/projects")({
   head: () => ({
     meta: [
-      { title: "Projects — AYMOXI Team Portal" },
+      { title: "Projects — AM Enterprises Team Portal" },
       { name: "description", content: "The projects you are assigned to, with live progress and deadlines." },
       { name: "robots", content: "noindex, nofollow" },
     ],

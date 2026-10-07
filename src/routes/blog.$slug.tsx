@@ -5,18 +5,20 @@ import { supabase } from "@/integrations/supabase/client";
 import { ArrowLeft, Calendar, User, Loader2, ArrowRight, BookOpen } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { PrismaticVisual } from "@/components/site/PrismaticVisual";
+import { MarkdownRenderer } from "@/components/site/MarkdownRenderer";
 
 type Post = {
   id: string; title: string; slug: string; excerpt: string | null; content: string | null;
   cover_url: string | null; author: string | null; tags: string[] | null; published_at: string | null;
   meta_title: string | null; meta_description: string | null; meta_keywords: string | null;
   og_title: string | null; og_description: string | null; og_image: string | null;
+  content_format?: string;
 };
 
 async function fetchPost(slug: string) {
   const { data } = await supabase
     .from("blog_posts")
-    .select("id,title,slug,excerpt,content,cover_url,author,tags,published_at,meta_title,meta_description,meta_keywords,og_title,og_description,og_image")
+    .select("id,title,slug,excerpt,content,cover_url,author,tags,published_at,meta_title,meta_description,meta_keywords,og_title,og_description,og_image,content_format")
     .eq("slug", slug)
     .eq("published", true)
     .maybeSingle();
@@ -111,8 +113,6 @@ function BlogPost() {
     return () => { cancelled = true; };
   }, [post.slug]);
 
-  const paragraphs = (post.content ?? post.excerpt ?? "").split(/\n{2,}/).filter(Boolean);
-
   return (
     <>
       <section className="relative overflow-hidden border-b border-border bg-background pt-32 pb-16 lg:pt-40 lg:pb-20">
@@ -143,9 +143,11 @@ function BlogPost() {
 
       <article className="bg-white py-16">
         <div className="mx-auto max-w-3xl px-5 sm:px-6 lg:px-8">
-          <div className="prose prose-lg max-w-none text-foreground/80">
-            {paragraphs.map((p, i) => <p key={i} className="mb-5 leading-relaxed">{p}</p>)}
-          </div>
+          <MarkdownRenderer
+            content={post.content ?? post.excerpt ?? ""}
+            format={post.content_format ?? "markdown"}
+            className="prose prose-lg max-w-none text-foreground/80"
+          />
         </div>
       </article>
 

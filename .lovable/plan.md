@@ -1,7 +1,7 @@
 # Next Step: Make the Brand Your Own
 
 ## Goal
-Replace the original AYMOXI LLC identity with a clean, customizable brand setup so the site feels like yours immediately after the remix.
+Replace the original AM Enterprise LLC identity with a clean, customizable brand setup so the site feels like yours immediately after the remix.
 
 ## What we'll do
 1. Create a single brand config file (`src/lib/brand.ts`) that holds name, tagline, contact info, social links, and key URLs.
@@ -16,6 +16,6 @@ Replace the original AYMOXI LLC identity with a clean, customizable brand setup 
 - Rewriting every page (we'll update the most visible shared pieces first).
 
 ## Success criteria
-- The homepage no longer says "AYMOXI LLC" in the hero or browser tab.
+- The homepage no longer says "AM Enterprise LLC" in the hero or browser tab.
 - A non-technical user can open `src/lib/brand.ts` and change the company name/tagline in one place.
 - The site still builds and the preview loads without errors.

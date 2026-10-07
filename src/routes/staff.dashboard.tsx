@@ -6,7 +6,7 @@ import { ListChecks, MessagesSquare, Bell, FileText, ArrowRight } from "lucide-r
 export const Route = createFileRoute("/staff/dashboard")({
   head: () => ({
     meta: [
-      { title: "Team Overview — AYMOXI Team Portal" },
+      { title: "Team Overview — AM Enterprises Team Portal" },
       { name: "description", content: "Your assigned tasks, messages and updates at a glance." },
       { name: "robots", content: "noindex, nofollow" },
     ],

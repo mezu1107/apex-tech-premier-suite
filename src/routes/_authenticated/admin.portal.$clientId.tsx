@@ -2,12 +2,12 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
-import { updateClientCredentials, deleteClientAccount } from "@/lib/portal.functions";
+import { updateClientCredentials, deleteClientAccount, repairClientLink } from "@/lib/portal.functions";
 import {
   ArrowLeft, Loader2, Upload, UserRound, ListChecks, Send, Bell, FileText, LifeBuoy, FolderKanban,
-  Users, ReceiptText, History, Save, KeyRound, Trash2, Mail, Phone, Globe,
+  Users, ReceiptText, History, Save, KeyRound, Trash2, Mail, Phone, Globe, AlertTriangle, RefreshCw,
 } from "lucide-react";
-import { input, label, TasksTab, MessagesTab, NotificationsTab, DocumentsTab, SupportTab, ProjectsTab } from "@/components/admin/client-tabs";
+import { input, label, TasksTab, MessagesTab, NotificationsTab, DocumentsTab, SupportTab, ProjectsTab, InvoicesTab, ClientBillingRequestsTab } from "@/components/admin/client-tabs";
 
 export const Route = createFileRoute("/_authenticated/admin/portal/$clientId")({
   component: ClientPage,
@@ -25,6 +25,7 @@ const TABS = [
   { key: "team", label: "Assigned team", icon: Users },
   { key: "tasks", label: "Tasks", icon: ListChecks },
   { key: "invoices", label: "Invoices", icon: ReceiptText },
+  { key: "billing_requests", label: "Billing requests", icon: ReceiptText },
   { key: "messages", label: "Messages", icon: Send },
   { key: "notifications", label: "Notifications", icon: Bell },
   { key: "documents", label: "Documents", icon: FileText },
@@ -119,6 +120,7 @@ function ClientPage() {
         {tab === "team" && <TeamTab clientId={client.id} />}
         {tab === "tasks" && <TasksTab clientId={client.id} />}
         {tab === "invoices" && <InvoicesTab clientId={client.id} />}
+        {tab === "billing_requests" && <ClientBillingRequestsTab clientId={client.id} />}
         {tab === "messages" && <MessagesTab clientId={client.id} />}
         {tab === "notifications" && <NotificationsTab clientId={client.id} />}
         {tab === "documents" && <DocumentsTab clientId={client.id} />}
@@ -141,6 +143,7 @@ function ProfileTab({ client, onSaved }: { client: Client; onSaved: () => void }
   const fileRef = useRef<HTMLInputElement>(null);
   const updateCreds = useServerFn(updateClientCredentials);
   const remove = useServerFn(deleteClientAccount);
+  const repair = useServerFn(repairClientLink);
   const navigate = useNavigate();
 
   async function log(description: string) {
@@ -178,6 +181,20 @@ function ProfileTab({ client, onSaved }: { client: Client; onSaved: () => void }
     setBusy(null);
   }
 
+  async function repairLink() {
+    setBusy("repair"); setMsg(null);
+    try {
+      const result = await repair({ data: { clientId: client.id } });
+      if (result.status === "already_linked") {
+        setMsg("✓ Portal link is already active — this client should be able to log in.");
+      } else if (result.status === "linked_existing") {
+        setMsg("✓ Portal link repaired! The client can now log in with their email and password.");
+      }
+      onSaved();
+    } catch (e) { setMsg((e as Error).message); }
+    setBusy(null);
+  }
+
   return (
     <div className="grid gap-5 lg:grid-cols-2">
       <div className="space-y-3 rounded-2xl border border-espresso/12 p-4">
@@ -210,7 +227,28 @@ function ProfileTab({ client, onSaved }: { client: Client; onSaved: () => void }
       <div className="space-y-4">
         <div className="space-y-3 rounded-2xl border border-espresso/12 p-4">
           <p className="inline-flex items-center gap-1.5 text-sm font-bold text-espresso"><KeyRound className="h-4 w-4" /> Login credentials</p>
-          {!client.user_id && <p className="rounded-xl bg-amber-50 p-2 text-xs text-amber-800">This client has no login yet — enter both email and password, then press either button.</p>}
+          {!client.user_id ? (
+            <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 space-y-2">
+              <p className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-800">
+                <AlertTriangle className="h-3.5 w-3.5 shrink-0" /> No portal login linked
+              </p>
+              <p className="text-xs text-amber-700">
+                This client cannot log in. Either fix the link automatically (if a Supabase account already exists for {client.email}), or set a password below to create a new login.
+              </p>
+              <button
+                onClick={repairLink}
+                disabled={!!busy}
+                className="inline-flex items-center gap-1.5 rounded-full bg-amber-700 px-3.5 py-2 text-xs font-bold text-white disabled:opacity-60"
+              >
+                {busy === "repair" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <RefreshCw className="h-3.5 w-3.5" />}
+                Auto-fix portal link
+              </button>
+            </div>
+          ) : (
+            <p className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-50 px-3 py-2 text-xs font-semibold text-emerald-700">
+              <span className="h-2 w-2 rounded-full bg-emerald-500" /> Login active — client can sign in with their email &amp; password
+            </p>
+          )}
           <div><label className={label}>Login email</label><input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className={`mt-1 ${input}`} /></div>
           <button onClick={() => saveLogin("email")} disabled={!!busy} className="rounded-full border border-espresso/15 px-4 py-2 text-xs font-bold text-espresso hover:bg-sand">{busy === "email" ? "Saving…" : "Update email"}</button>
           <div><label className={label}>New password (min 8)</label><input type="text" value={pw} onChange={(e) => setPw(e.target.value)} className={`mt-1 ${input}`} /></div>
@@ -287,24 +325,6 @@ function TeamTab({ clientId }: { clientId: string }) {
           </div>
         );
       })}
-    </div>
-  );
-}
-
-function InvoicesTab({ clientId }: { clientId: string }) {
-  const [rows, setRows] = useState<{ id: string; number: string; total: number; amount_paid: number; currency: string; status: string; due_date: string | null; share_token: string }[]>([]);
-  useEffect(() => { supabase.from("invoices").select("id, number, total, amount_paid, currency, status, due_date, share_token").eq("client_id", clientId).order("created_at", { ascending: false }).then(({ data }) => setRows(data ?? [])); }, [clientId]);
-  return (
-    <div className="space-y-2">
-      <div className="flex justify-end"><Link to="/admin/invoices" className="rounded-full bg-espresso px-4 py-2 text-xs font-bold text-white">Create / manage invoices</Link></div>
-      {rows.length === 0 ? <p className="text-sm text-espresso/60">No invoices linked to this client.</p> : rows.map((r) => (
-        <div key={r.id} className="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-espresso/10 bg-sand/30 p-4 text-sm">
-          <span className="font-bold text-espresso">{r.number}</span>
-          <span className="text-espresso/70">{r.currency} {Number(r.total).toLocaleString()} · paid {Number(r.amount_paid).toLocaleString()}</span>
-          <span className="rounded-full bg-white px-2.5 py-1 text-[10px] font-bold uppercase">{r.status}</span>
-          <span className="text-xs text-espresso/50">due {r.due_date ?? "—"}</span>
-        </div>
-      ))}
     </div>
   );
 }

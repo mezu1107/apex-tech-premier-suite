@@ -1,5 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { useServerFn } from "@tanstack/react-start";
+import { selfHealPortalLink } from "@/lib/portal.functions";
 
 export interface PortalClient {
   id: string;
@@ -17,6 +19,7 @@ export function usePortalClient() {
   const [client, setClient] = useState<PortalClient | null>(null);
   const [email, setEmail] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const heal = useServerFn(selfHealPortalLink);
 
   const refresh = useCallback(async () => {
     const { data: auth } = await supabase.auth.getUser();
@@ -27,14 +30,21 @@ export function usePortalClient() {
       return;
     }
     setEmail(auth.user.email ?? null);
-    const { data } = await supabase
-      .from("portal_clients")
-      .select("id, user_id, name, email, company, phone, active, avatar_url, am_id")
-      .eq("user_id", auth.user.id)
-      .maybeSingle();
-    setClient((data as PortalClient) ?? null);
+
+    // Call the SECURITY DEFINER function — matches by user_id OR heals by email.
+    // This bypasses RLS entirely so a NULL user_id never blocks access.
+    const { data: rows } = await supabase.rpc("get_my_portal_client");
+    const row = rows?.[0] ?? null;
+
+    setClient((row as PortalClient) ?? null);
     setLoading(false);
-  }, []);
+
+    // If the function healed the link, also run the server-side heal so
+    // activity log is written (best-effort, ignore errors).
+    if (row && !row.user_id) {
+      heal().catch(() => {});
+    }
+  }, [heal]);
 
   useEffect(() => {
     refresh();
