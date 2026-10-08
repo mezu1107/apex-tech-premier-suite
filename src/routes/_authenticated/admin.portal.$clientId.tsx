@@ -119,7 +119,7 @@ function ClientPage() {
         {tab === "projects" && <ProjectsTab clientId={client.id} />}
         {tab === "team" && <TeamTab clientId={client.id} />}
         {tab === "tasks" && <TasksTab clientId={client.id} />}
-        {tab === "invoices" && <InvoicesTab clientId={client.id} />}
+        {tab === "invoices" && <InvoicesTab clientId={client.id} clientName={client.name} />}
         {tab === "billing_requests" && <ClientBillingRequestsTab clientId={client.id} />}
         {tab === "messages" && <MessagesTab clientId={client.id} />}
         {tab === "notifications" && <NotificationsTab clientId={client.id} />}
