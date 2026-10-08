@@ -2475,26 +2475,6 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      get_my_portal_client: {
-        Args: Record<string, never>
-        Returns: Array<{
-          id: string
-          user_id: string | null
-          name: string
-          email: string
-          company: string | null
-          phone: string | null
-          active: boolean
-          avatar_url: string | null
-          am_id: string | null
-          address: string | null
-          admin_notes: string | null
-          website: string | null
-          created_at: string
-          updated_at: string
-          last_seen_at: string | null
-        }>
-      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

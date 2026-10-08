@@ -242,7 +242,7 @@ function invStatusMeta(inv: InvoiceRow) {
   return { label: "Pending", cls: "bg-slate-100 text-slate-600" };
 }
 
-export function InvoicesTab({ clientId }: { clientId: string }) {
+export function InvoicesTab({ clientId, clientName }: { clientId: string; clientName?: string }) {
   const [rows, setRows] = useState<InvoiceRow[]>([]);
   const [payments, setPayments] = useState<PaymentTx[]>([]);
   const [loading, setLoading] = useState(true);
@@ -278,6 +278,7 @@ export function InvoicesTab({ clientId }: { clientId: string }) {
     if (!form.number.trim() || !form.total) return;
     const { error } = await supabase.from("invoices").insert({
       client_id: clientId,
+      client_name: clientName || "Client",
       number: form.number.trim(),
       currency: form.currency,
       total: parseFloat(form.total),
