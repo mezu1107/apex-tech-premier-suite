@@ -278,6 +278,7 @@ export function InvoicesTab({ clientId }: { clientId: string }) {
     if (!form.number.trim() || !form.total) return;
     const { error } = await supabase.from("invoices").insert({
       client_id: clientId,
+      client_name: clientName || "Client",
       number: form.number.trim(),
       currency: form.currency,
       total: parseFloat(form.total),
