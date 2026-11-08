@@ -468,7 +468,7 @@ export function InvoicesTab({ clientId, clientName }: { clientId: string; client
                     setSelectedInvoice({
                       id: inv.id,
                       number: inv.number,
-                      client_name: clientName,
+                      client_name: clientName ?? "",
                       currency: inv.currency,
                       // eslint-disable-next-line @typescript-eslint/no-explicit-any
                       items: Array.isArray((inv as any).items) ? (inv as any).items : undefined,
