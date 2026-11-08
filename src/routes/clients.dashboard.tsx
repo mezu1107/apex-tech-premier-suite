@@ -17,7 +17,7 @@ import { downloadIcsFile } from "@/lib/calendar";
 export const Route = createFileRoute("/clients/dashboard")({
   head: () => ({
     meta: [
-      { title: "Client Command Center — Veloura Apparel Executive Suite" },
+      { title: "Client Command Center — AM Enterprises Executive Suite" },
       { name: "description", content: "Executive workspace for sprint milestones, pixel-perfect invoices, and live delivery team sync." },
       { name: "robots", content: "noindex, nofollow" },
     ],
@@ -257,27 +257,18 @@ function Dashboard({
   const backlogPct = projects.length > 0 ? Math.round((backlogProjects.length / projects.length) * 100) : 15;
 
   // Selected tasks for "Today Task" 3-card carousel/row
-  const displayTasks = useMemo(() => {
-    if (tasks.length >= 3) {
-      return tasks.slice(0, 3);
-    }
-    const placeholders = [
-      { id: "t1", title: "Research User", priority: "High Priority", progress: 50, ratio: "10/20", color: "blue" },
-      { id: "t2", title: "Explore Design", priority: "High Priority", progress: 50, ratio: "10/20", color: "pink" },
-      { id: "t3", title: "Competitor Research", priority: "High Priority", progress: 50, ratio: "10/20", color: "rose" },
-    ];
-    return [
-      ...tasks.map((t, idx) => ({
+  const displayTasks = useMemo(
+    () =>
+      tasks.slice(0, 3).map((t, idx) => ({
         id: t.id,
         title: t.title,
         priority: t.priority === "high" ? "High Priority" : "Active Sprint",
-        progress: t.progress || 50,
-        ratio: `${Math.round((t.progress || 50) / 5)}/20`,
+        progress: t.progress || 0,
+        ratio: `${t.progress || 0}%`,
         color: idx % 2 === 0 ? "blue" : "pink",
       })),
-      ...placeholders.slice(tasks.length),
-    ].slice(0, 3);
-  }, [tasks]);
+    [tasks],
+  );
 
   // Milestone sign-off
   async function handleApproveMilestone(milestoneId: string) {
@@ -308,7 +299,7 @@ function Dashboard({
       <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-white p-5 border border-[#ECEBE8] shadow-xs">
         <div>
           <h1 className="font-heading text-xl sm:text-2xl font-bold tracking-tight text-[#24262B]">
-            Veloura Apparel x {client.company || client.name}
+            AM Enterprises x {client.company || client.name}
           </h1>
           <div className="mt-1 flex items-center gap-2 text-xs text-[#85858D]">
             <span>{client.company ? `${client.company} Bespoke Suite` : "Luxury Apparel & Digital Suite"}</span>
@@ -369,6 +360,9 @@ function Dashboard({
             </Link>
           </div>
 
+          {displayTasks.length === 0 && (
+            <p className="rounded-2xl border border-dashed border-[#ECEBE8] p-6 text-center text-sm text-[#6B6B6B]">No tasks yet — your team will add them here.</p>
+          )}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {displayTasks.map((t, idx) => {
               const isIceBlue = t.color === "blue";
@@ -598,7 +592,7 @@ function Dashboard({
                 <div className="h-5 w-5 rounded-full bg-[#85BBD6] grid place-items-center text-[9px] font-bold text-white">
                   VA
                 </div>
-                <span>Veloura Delivery</span>
+                <span>AM Enterprises Delivery</span>
               </div>
               <div className="flex items-center gap-2.5 rounded-2xl rounded-tl-xs bg-[#E5F3FA] px-3.5 py-2 text-xs">
                 <button
@@ -774,37 +768,17 @@ function Dashboard({
                   onClick={() =>
                     setSelectedInvoice({
                       id: inv.id,
-                      invoiceNumber: inv.number,
-                      date: new Date(inv.created_at).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                      }),
-                      dueDate: inv.due_date
-                        ? new Date(inv.due_date).toLocaleDateString("en-US", {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric",
-                          })
-                        : "Due on Receipt",
-                      status: inv.status as any,
+                      number: inv.number,
+                      client_name: client.name,
+                      client_company: client.company,
+                      client_email: client.email,
                       currency: inv.currency || "USD",
-                      client: {
-                        name: client.name,
-                        company: client.company || undefined,
-                        email: client.email,
-                      },
-                      items: [
-                        {
-                          description: inv.notes || "Professional Software & Digital Services",
-                          rate: Number(inv.total),
-                          qty: 1,
-                          amount: Number(inv.total),
-                        },
-                      ],
+                      items: [{ name: inv.notes || "Professional Software & Digital Services", qty: 1, price: Number(inv.total) }],
                       total: Number(inv.total),
-                      amountPaid: Number(inv.amount_paid || 0),
-                      balanceDue: Math.max(0, Number(inv.total) - Number(inv.amount_paid || 0)),
+                      amount_paid: Number(inv.amount_paid || 0),
+                      status: inv.status,
+                      created_at: inv.created_at,
+                      due_date: inv.due_date,
                     })
                   }
                   className="inline-flex items-center gap-1.5 rounded-xl border border-[#ECEBE8] bg-[#FAFAF8] hover:bg-[#E5F3FA] px-3 py-1.5 text-xs font-medium text-[#24262B] transition-colors"
@@ -823,6 +797,7 @@ function Dashboard({
         <ProjectRequestModal
           clientId={client.id}
           clientName={client.name}
+          isOpen
           onClose={() => setShowProjectModal(false)}
           onCreated={() => {
             setShowProjectModal(false);
@@ -834,7 +809,7 @@ function Dashboard({
 
       {selectedInvoice && (
         <InvoiceModal
-          data={selectedInvoice}
+          invoice={selectedInvoice}
           onClose={() => setSelectedInvoice(null)}
         />
       )}

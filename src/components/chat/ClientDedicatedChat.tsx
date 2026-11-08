@@ -116,7 +116,7 @@ export function ClientDedicatedChat({
       } else {
         const initialWelcome: LiveMessage = {
           id: "welcome-1",
-          sender_name: "Veloura Delivery Desk",
+          sender_name: "AM Enterprises Delivery Desk",
           sender_kind: "staff",
           body: `Hello ${clientName}! 👋 Welcome to your dedicated private executive channel.\n\nOur project managers, engineering leads, and brand specialists monitor this room directly. Feel free to request project status, review sprint milestones, or share deliverable feedback.`,
           created_at: new Date().toISOString(),
@@ -240,7 +240,7 @@ export function ClientDedicatedChat({
               messages: [
                 {
                   role: "user",
-                  content: `Client context: Name is ${clientName}, Client ID is ${clientId}. The client just sent this message to the Veloura Apparel delivery channel: "${text}". Provide a professional, concise, and helpful executive response.`,
+                  content: `Client context: Name is ${clientName}, Client ID is ${clientId}. The client just sent this message to the AM Enterprises delivery channel: "${text}". Provide a professional, concise, and helpful executive response.`,
                 },
               ],
             }),
@@ -255,7 +255,7 @@ export function ClientDedicatedChat({
                 setIsTyping(false);
                 const botMsg: LiveMessage = {
                   id: `bot-${Date.now()}`,
-                  sender_name: "Veloura AI Assistant",
+                  sender_name: "AM Enterprises AI Assistant",
                   sender_kind: "bot",
                   body: replyText,
                   created_at: new Date().toISOString(),
@@ -268,7 +268,7 @@ export function ClientDedicatedChat({
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 await (supabase.from as any)("client_messages").insert({
                   client_id: clientId,
-                  sender: "Veloura AI Assistant",
+                  sender: "AM Enterprises AI Assistant",
                   subject: "Re: Executive Portal Message",
                   body: replyText,
                   important: false,
@@ -378,7 +378,7 @@ export function ClientDedicatedChat({
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <p className="font-heading text-sm font-bold text-[#24262B]">Veloura Delivery Desk</p>
+              <p className="font-heading text-sm font-bold text-[#24262B]">AM Enterprises Delivery Desk</p>
               <span className="rounded-full bg-[#E5F3FA] border border-[#85BBD6]/30 px-2 py-0.5 text-[10px] font-semibold text-[#85BBD6]">
                 Direct Line
               </span>
@@ -548,7 +548,7 @@ export function ClientDedicatedChat({
               <Bot className="h-3.5 w-3.5" />
             </div>
             <div className="flex items-center gap-1 bg-white border border-[#ECEBE8] px-3 py-1.5 rounded-full">
-              <span className="font-medium text-[#24262B]">Veloura Assistant typing</span>
+              <span className="font-medium text-[#24262B]">AM Enterprises Assistant typing</span>
               <span className="flex gap-0.5 ml-1">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#85BBD6] animate-bounce" style={{ animationDelay: "0ms" }} />
                 <span className="h-1.5 w-1.5 rounded-full bg-[#85BBD6] animate-bounce" style={{ animationDelay: "150ms" }} />
@@ -644,7 +644,7 @@ export function ClientDedicatedChat({
                   ? `Recording Voice Note (${recordSec}s)... Tap mic to finish`
                   : copilotActive
                   ? "Message delivery desk (AI assistance active)..."
-                  : "Type a message to your Veloura delivery team..."
+                  : "Type a message to your AM Enterprises delivery team..."
               }
               disabled={recording}
               className="w-full rounded-xl border border-[#ECEBE8] bg-[#FAFAF8] px-4 py-2.5 text-sm text-[#24262B] outline-none focus:border-[#85BBD6] focus:bg-white focus:ring-2 focus:ring-[#85BBD6]/20 transition-all placeholder:text-[#85858D]"

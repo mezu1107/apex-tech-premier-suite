@@ -35,7 +35,7 @@ function Messages({ clientId }: { clientId: string }) {
   return (
     <div>
       <PortalHeading title="Messages" subtitle={`${unread} unread of ${rows.length}`} />
-      {loading ? <EmptyState label="Loading messages\u2026" /> : rows.length === 0 ? <EmptyState label="No messages yet." /> : (
+      {loading ? <EmptyState title="Loading messages\u2026" /> : rows.length === 0 ? <EmptyState title="No messages yet." /> : (
         <div className="space-y-3">
           {rows.map((m) => (
             <button key={m.id} onClick={() => open(m)}

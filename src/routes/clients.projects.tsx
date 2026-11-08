@@ -16,7 +16,7 @@ import { downloadIcsFile } from "@/lib/calendar";
 export const Route = createFileRoute("/clients/projects")({
   head: () => ({
     meta: [
-      { title: "My Projects & Milestones — Veloura Apparel Client Portal" },
+      { title: "My Projects & Milestones — AM Enterprises Client Portal" },
       { name: "description", content: "Track active project progress, approve milestones, view live builds and request new engineering sprints." },
       { name: "robots", content: "noindex, nofollow" },
     ],
