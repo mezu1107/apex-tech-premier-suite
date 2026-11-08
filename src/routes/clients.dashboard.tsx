@@ -360,6 +360,9 @@ function Dashboard({
             </Link>
           </div>
 
+          {displayTasks.length === 0 && (
+            <p className="rounded-2xl border border-dashed border-[#ECEBE8] p-6 text-center text-sm text-[#6B6B6B]">No tasks yet — your team will add them here.</p>
+          )}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {displayTasks.map((t, idx) => {
               const isIceBlue = t.color === "blue";
