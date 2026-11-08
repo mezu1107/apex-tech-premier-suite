@@ -17,7 +17,7 @@ import { downloadIcsFile } from "@/lib/calendar";
 export const Route = createFileRoute("/clients/dashboard")({
   head: () => ({
     meta: [
-      { title: "Client Command Center — Veloura Apparel Executive Suite" },
+      { title: "Client Command Center — AM Enterprises Executive Suite" },
       { name: "description", content: "Executive workspace for sprint milestones, pixel-perfect invoices, and live delivery team sync." },
       { name: "robots", content: "noindex, nofollow" },
     ],
@@ -308,7 +308,7 @@ function Dashboard({
       <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-white p-5 border border-[#ECEBE8] shadow-xs">
         <div>
           <h1 className="font-heading text-xl sm:text-2xl font-bold tracking-tight text-[#24262B]">
-            Veloura Apparel x {client.company || client.name}
+            AM Enterprises x {client.company || client.name}
           </h1>
           <div className="mt-1 flex items-center gap-2 text-xs text-[#85858D]">
             <span>{client.company ? `${client.company} Bespoke Suite` : "Luxury Apparel & Digital Suite"}</span>
@@ -598,7 +598,7 @@ function Dashboard({
                 <div className="h-5 w-5 rounded-full bg-[#85BBD6] grid place-items-center text-[9px] font-bold text-white">
                   VA
                 </div>
-                <span>Veloura Delivery</span>
+                <span>AM Enterprises Delivery</span>
               </div>
               <div className="flex items-center gap-2.5 rounded-2xl rounded-tl-xs bg-[#E5F3FA] px-3.5 py-2 text-xs">
                 <button

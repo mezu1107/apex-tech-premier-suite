@@ -238,7 +238,7 @@ export function PortalShell({ children }: { children: (client: NonNullable<Retur
                 <Users className="h-3.5 w-3.5" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="truncate text-xs font-semibold text-[#24262B]">Veloura Delivery</p>
+                <p className="truncate text-xs font-semibold text-[#24262B]">AM Enterprises Delivery</p>
                 <p className="truncate text-[10px] text-[#85858D]">Engineering &amp; Brand Desk</p>
               </div>
             </div>
