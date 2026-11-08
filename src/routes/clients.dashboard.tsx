@@ -257,27 +257,18 @@ function Dashboard({
   const backlogPct = projects.length > 0 ? Math.round((backlogProjects.length / projects.length) * 100) : 15;
 
   // Selected tasks for "Today Task" 3-card carousel/row
-  const displayTasks = useMemo(() => {
-    if (tasks.length >= 3) {
-      return tasks.slice(0, 3);
-    }
-    const placeholders = [
-      { id: "t1", title: "Research User", priority: "High Priority", progress: 50, ratio: "10/20", color: "blue" },
-      { id: "t2", title: "Explore Design", priority: "High Priority", progress: 50, ratio: "10/20", color: "pink" },
-      { id: "t3", title: "Competitor Research", priority: "High Priority", progress: 50, ratio: "10/20", color: "rose" },
-    ];
-    return [
-      ...tasks.map((t, idx) => ({
+  const displayTasks = useMemo(
+    () =>
+      tasks.slice(0, 3).map((t, idx) => ({
         id: t.id,
         title: t.title,
         priority: t.priority === "high" ? "High Priority" : "Active Sprint",
-        progress: t.progress || 50,
-        ratio: `${Math.round((t.progress || 50) / 5)}/20`,
+        progress: t.progress || 0,
+        ratio: `${t.progress || 0}%`,
         color: idx % 2 === 0 ? "blue" : "pink",
       })),
-      ...placeholders.slice(tasks.length),
-    ].slice(0, 3);
-  }, [tasks]);
+    [tasks],
+  );
 
   // Milestone sign-off
   async function handleApproveMilestone(milestoneId: string) {
@@ -774,37 +765,17 @@ function Dashboard({
                   onClick={() =>
                     setSelectedInvoice({
                       id: inv.id,
-                      invoiceNumber: inv.number,
-                      date: new Date(inv.created_at).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                      }),
-                      dueDate: inv.due_date
-                        ? new Date(inv.due_date).toLocaleDateString("en-US", {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric",
-                          })
-                        : "Due on Receipt",
-                      status: inv.status as any,
+                      number: inv.number,
+                      client_name: client.name,
+                      client_company: client.company,
+                      client_email: client.email,
                       currency: inv.currency || "USD",
-                      client: {
-                        name: client.name,
-                        company: client.company || undefined,
-                        email: client.email,
-                      },
-                      items: [
-                        {
-                          description: inv.notes || "Professional Software & Digital Services",
-                          rate: Number(inv.total),
-                          qty: 1,
-                          amount: Number(inv.total),
-                        },
-                      ],
+                      items: [{ name: inv.notes || "Professional Software & Digital Services", qty: 1, price: Number(inv.total) }],
                       total: Number(inv.total),
-                      amountPaid: Number(inv.amount_paid || 0),
-                      balanceDue: Math.max(0, Number(inv.total) - Number(inv.amount_paid || 0)),
+                      amount_paid: Number(inv.amount_paid || 0),
+                      status: inv.status,
+                      created_at: inv.created_at,
+                      due_date: inv.due_date,
                     })
                   }
                   className="inline-flex items-center gap-1.5 rounded-xl border border-[#ECEBE8] bg-[#FAFAF8] hover:bg-[#E5F3FA] px-3 py-1.5 text-xs font-medium text-[#24262B] transition-colors"
@@ -823,6 +794,7 @@ function Dashboard({
         <ProjectRequestModal
           clientId={client.id}
           clientName={client.name}
+          isOpen
           onClose={() => setShowProjectModal(false)}
           onCreated={() => {
             setShowProjectModal(false);
@@ -834,7 +806,7 @@ function Dashboard({
 
       {selectedInvoice && (
         <InvoiceModal
-          data={selectedInvoice}
+          invoice={selectedInvoice}
           onClose={() => setSelectedInvoice(null)}
         />
       )}
