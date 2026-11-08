@@ -769,7 +769,7 @@ export function HeroSlider() {
                 className="mt-6"
               >
 
-                <p
+                <div
                   className="
                     max-w-[500px]
                     text-base
@@ -778,15 +778,15 @@ export function HeroSlider() {
                     sm:text-lg
                   "
                 >
-                  <h5>
-                    <br /> <b> Need an ERP, Custom Software, or a Mobile App?  </b>     <br />
-                  </h5>
-
-
-                  We craft scalable, high-performance software
-                  solutions that drive growth, engage users, and
-                  create real impact.
-                </p>
+                  <p className="mb-2 font-bold text-[#24262B]">
+                    Need an ERP, Custom Software, or a Mobile App?
+                  </p>
+                  <p>
+                    We craft scalable, high-performance software
+                    solutions that drive growth, engage users, and
+                    create real impact.
+                  </p>
+                </div>
               </AnimLine>
 
               {/* ==============================================================
